@@ -4552,6 +4552,19 @@ class MainWindow(QMainWindow):
                 mic=str(mic_key),
                 suppressed=bool(suppressed),
             )
+            # v20 (ТЗ § 4): хоткей — часть «предсказуемости без администратора».
+            # Вердикт пишется всегда: и «ок», и «не ок» с причиной.
+            try:
+                btrace.selfcheck(
+                    "hotkeys", bool(self._hotkeys_registered),
+                    detail="%s / %s, подавление: %s" % (toggle_key, mic_key,
+                                                        "есть" if suppressed else "нет"),
+                    advice=("" if self._hotkeys_registered else
+                            "опрос клавиш не поднялся: проверить "
+                            "`hotkeys.configured` и занятость клавиш другими "
+                            "программами (без прав администратора)"))
+            except Exception:
+                diag.exception("main.selfcheck_hotkeys")
             return self._hotkeys_registered
         except Exception:
             diag.exception("main.register_hotkeys")
@@ -4709,6 +4722,14 @@ class MainWindow(QMainWindow):
                     # текст идёт в поле ввода. Кнопка сайта/реплика лишь
                     # показывает состояние — веб-конвейер сайта не вызывается.
                     diag.event("mic.dictation_started")
+                    try:
+                        btrace.selfcheck(
+                            "mic", False,
+                            detail="запись идёт диктовкой Windows, не страницей",
+                            advice="резервный путь: у большинства пользователей "
+                                   "Win11 диктовки нет — нужен внешний Chrome")
+                    except Exception:
+                        diag.exception("main.selfcheck_mic")
                     return
                 diag.event("mic.dictation_unavailable")
 
@@ -4775,6 +4796,11 @@ class MainWindow(QMainWindow):
                                  THEME["danger"])
                 return
             diag.event("mic.native_started")
+            try:
+                btrace.selfcheck("mic", True,
+                                 detail="штатная запись страницы (кнопка микрофона)")
+            except Exception:
+                diag.exception("main.selfcheck_mic")
             QTimer.singleShot(700, self._native_mic_verify)
 
         self._page_eval_async(JS_START_RECORDING, timeout=3, callback=on_click)
@@ -5312,7 +5338,24 @@ class MainWindow(QMainWindow):
                 # проверяется по кругу, а шторка снимается только после двух
                 # совпавших замеров подряд.
                 if page is not None:
-                    self._layout_watch(page, "revive-hold", budget_ms=1200)
+                    hold = self._layout_watch(page, "revive-hold", budget_ms=1200)
+                    # v20 (ТЗ § 4): вердикт «раскладка в цели» ставится по
+                    # ЗАМЕРУ (сколько раз чинили и чем кончилось), а не по
+                    # факту вызова. В отчёте это отдельная строка проверки.
+                    try:
+                        ok_layout = bool((hold or {}).get("ok"))
+                        btrace.selfcheck(
+                            "layout", ok_layout,
+                            detail="замер под шторкой: %sx%s dsf=%s, ремонтов %s, %s мс"
+                                   % ((hold or {}).get("innerWidth"),
+                                      "?", (hold or {}).get("dpr"),
+                                      (hold or {}).get("fixed"),
+                                      (hold or {}).get("ms")),
+                            advice=("" if ok_layout else
+                                    "переустановить переопределение в форме окна "
+                                    "(`refresh_emulation`, логические px при dsf=1.0)"))
+                    except Exception:
+                        diag.exception("main.selfcheck_layout")
             except Exception:
                 diag.exception("main.revive_final")
             self._finish_settle(True)
@@ -5386,6 +5429,60 @@ class MainWindow(QMainWindow):
         except Exception:
             diag.exception("main.layout_watch")
             return {"ok": False, "error": True}
+
+    def _final_selfchecks(self):
+        """Вердикты, которые известны только в КОНЦЕ сессии (v20, ТЗ § 4).
+
+        «Окно встало на место» и «файлы прикрепились» — утверждения о замерах
+        и вердиктах, которые целиком видны лишь после остановки шкал. Поэтому
+        последние проверки ставятся здесь, ДО `btrace.finish()`: так они
+        попадают и в машинную сводку, и в `UNDERSTANDING.md`, и в разбор —
+        человеку не нужно читать журнал построчно.
+
+        Ничего не предполагает: любые данные могут отсутствовать.
+        """
+        try:
+            summary = btrace.build_summary() or {}
+        except Exception:
+            diag.exception("main.selfcheck_summary")
+            return
+        worst = None
+        for tag, data in (summary.get("watchers") or {}).items():
+            deviations = int(data.get("deviations") or 0)
+            if deviations and (worst is None or deviations > worst[1]):
+                worst = (tag, deviations, data.get("settle_ms"),
+                         data.get("max_offset_px"), data.get("final_verdict"))
+        if worst:
+            btrace.selfcheck(
+                "window_position", False,
+                detail="шкала «%s»: расхождений %d, макс. уход %s px, устой %s мс"
+                       % (worst[0], worst[1], worst[3], worst[2]),
+                advice="смотреть `win32.call` и шкалу в `browser-trace.txt`: "
+                       "искать причину (dpi_scale/parent_moved), а не снимать сдвиг")
+        else:
+            btrace.selfcheck("window_position", True,
+                             detail="во всех шкалах окно стояло на цели")
+        verdicts = {}
+        for key, value in (summary.get("counters") or {}).items():
+            name = str(key)
+            if name.startswith("export.verdict."):
+                verdicts[name.split(".", 2)[-1]] = int(value or 0)
+        if verdicts:
+            good = ("confirmed_attached", "attached_unnamed")
+            bad = {k: v for k, v in verdicts.items() if k not in good}
+            detail = ", ".join("%s×%s" % kv for kv in sorted(verdicts.items()))
+            btrace.selfcheck(
+                "export", not bad, detail=detail,
+                advice=("" if not bad else
+                        "смотреть раздел «Экспорт файлов» в разборе: какой "
+                        "вердикт и что было в `input[type=file]`/чипах чата"))
+        try:
+            blockers = [name for name, data in (summary.get("selfcheck") or {}).items()
+                        if not data.get("ok") and name != "native_browser"]
+            diag.event("selfcheck.summary", checks=len(summary.get("selfcheck") or {}),
+                       failed=blockers)
+        except Exception:
+            diag.exception("main.selfcheck_summary_event")
 
     def _layout_watchdog(self, page, reason="post-reveal", budget_ms=2000, step_ms=120):
         """Тот же замер, но фоном и уже после снятия шторки (v20).
@@ -5547,6 +5644,34 @@ class MainWindow(QMainWindow):
         self.cdp_port = int(port)
         self.chrome_hwnd = int(self.browser_host.hwnd or 0)
         diag.event("browser.ready", port=self.cdp_port, hwnd=self.chrome_hwnd)
+        # v20 (ТЗ § 3): ПАСПОРТ МАШИНЫ. Пишется один раз на запуск и объясняет
+        # дефекты «у другого пользователя, но не у меня»: масштаб экрана,
+        # число мониторов, RDP, тёмная тема, права, сборка Windows. Сравнение
+        # двух машин идёт по этим числам, а не по догадкам.
+        try:
+            facts = btrace.env_fingerprint(
+                reason="browser_ready",
+                extra={"engine": "external_chrome", "port": self.cdp_port,
+                       "target": [X, Y, W, H],
+                       "insets": [self.side_inset, self.top_inset,
+                                  self.side_inset, self.bottom_inset],
+                       "zoom": PAGE_ZOOM})
+            session = (facts or {}).get("session") or {}
+            admin = session.get("admin")
+            btrace.selfcheck(
+                "engine", True,
+                detail="внешний Chrome, порт %d" % self.cdp_port)
+            # Проверка «браузер настоящий» ставится ВСЕГДА (ок/не ок): иначе по
+            # логу нельзя отличить «всё хорошо» от «сбор просто не пишет».
+            btrace.selfcheck("native_browser", True,
+                             detail="страница в настоящем Chrome")
+            btrace.selfcheck(
+                "admin_free", admin is not True,
+                detail="права администратора: %s" % ("есть" if admin else "нет"),
+                advice=("путь обычного пользователя не проверен: запуск был "
+                        "с правами" if admin else ""))
+        except Exception:
+            diag.exception("main.env_fingerprint")
         # v19: чем именно показывается страница. Это первое, что нужно знать по
         # логу: настоящий Chrome (штатный микрофон страницы) или встроенный
         # движок. Раньше в логе этого не было вообще.
@@ -5641,6 +5766,24 @@ class MainWindow(QMainWindow):
         if self._offer_browser_install(self._browser_candidates()):
             return
         self.native_mode = False
+        # v20 (ТЗ § 3): и в резервном режиме паспорт машины и вердикт движка
+        # обязательны — иначе чужая сессия выглядит одинаково и «всё ок», а
+        # на деле работает QtWebEngine (другая диктовка, другая раскладка).
+        try:
+            btrace.env_fingerprint(
+                reason="fallback_embedded",
+                extra={"engine": "qtwebengine", "target": [X, Y, W, H],
+                       "insets": [self.side_inset, self.top_inset,
+                                  self.side_inset, self.bottom_inset],
+                       "zoom": PAGE_ZOOM})
+            btrace.selfcheck("engine", True, detail="резервный движок QtWebEngine")
+            btrace.selfcheck(
+                "native_browser", False,
+                detail="страница показывается встроенным движком, не Chrome",
+                advice="проверить `browser.no_candidate`/`browser.offer`: "
+                       "предложить пользователю установку Chrome")
+        except Exception:
+            diag.exception("main.env_fingerprint_fallback")
         self.cdp_port = DEBUG_PORT
         self.web_browser = BrowserPane(PROFILE, self.browser_placeholder)
         self.web_browser.setGeometry(self.side_inset, self.top_inset,
@@ -6381,6 +6524,10 @@ class MainWindow(QMainWindow):
         # машинная сводка и сбрасываются на диск все файлы сбора. Без этого
         # последние строки оставались в буфере и пользователь копировал
         # неполную сессию (проверено: `browser-trace.txt` выходил 0 байт).
+        try:
+            self._final_selfchecks()
+        except Exception:
+            diag.exception("main.final_selfchecks")
         try:
             btrace.stop_watchers()
             btrace.finish()

@@ -1,7 +1,7 @@
 {
  "session": "example-session",
  "dir": "/home/user/LegalyzeNew/browser_logs/inbox/example-session",
- "started": "2026-10-04T13:44:52.060317+00:00",
+ "started": "2026-10-04T13:56:14.128808+00:00",
  "versions": {
   "PyQt6": "6.7.1",
   "PyQt6-Qt6": "6.7.2"
@@ -24,7 +24,7 @@
    }
   ],
   "embedded": {
-   "time": "2026-10-04T13:44:53.560317+00:00",
+   "time": "2026-10-04T13:56:15.628808+00:00",
    "pid": 4242,
    "thread": "MainThread",
    "event": "browser.embedded",
@@ -40,7 +40,7 @@
    ]
   },
   "mode": {
-   "time": "2026-10-04T13:44:53.660317+00:00",
+   "time": "2026-10-04T13:56:15.728808+00:00",
    "pid": 4242,
    "thread": "MainThread",
    "event": "browser.mode",
@@ -62,7 +62,7 @@
  },
  "screens": [
   {
-   "time": "2026-10-04T13:44:52.210317+00:00",
+   "time": "2026-10-04T13:56:14.278808+00:00",
    "pid": 4242,
    "thread": "MainThread",
    "event": "qt.screen",
@@ -88,12 +88,12 @@
    "changes": 1,
    "deviations": 0,
    "first_ms": 0,
-   "last_ms": 405,
+   "last_ms": 406,
    "max_offset_px": 0,
    "off_target_until_ms": null,
    "events": [],
    "final_verdict": "on_target",
-   "started_at": "2026-10-04T13:44:52.092412+00:00",
+   "started_at": "2026-10-04T13:56:14.171289+00:00",
    "settled_at": null,
    "settle_ms": 40,
    "ended": true,
@@ -114,13 +114,13 @@
    "changes": 6,
    "deviations": 4,
    "first_ms": 0,
-   "last_ms": 3210,
+   "last_ms": 3209,
    "max_offset_px": 48,
-   "off_target_until_ms": 1325,
+   "off_target_until_ms": 1324,
    "events": [
     {
      "ms": 0,
-     "time": "2026-10-04T13:44:52.499734+00:00",
+     "time": "2026-10-04T13:56:14.579759+00:00",
      "dx": 0,
      "dy": -24,
      "dw": 0,
@@ -166,7 +166,7 @@
     },
     {
      "ms": 61,
-     "time": "2026-10-04T13:44:52.560760+00:00",
+     "time": "2026-10-04T13:56:14.640986+00:00",
      "dx": 0,
      "dy": -48,
      "dw": 0,
@@ -213,7 +213,7 @@
     },
     {
      "ms": 305,
-     "time": "2026-10-04T13:44:52.804766+00:00",
+     "time": "2026-10-04T13:56:14.885449+00:00",
      "dx": 0,
      "dy": -24,
      "dw": 0,
@@ -258,8 +258,8 @@
      "extra": {}
     },
     {
-     "ms": 1325,
-     "time": "2026-10-04T13:44:53.824979+00:00",
+     "ms": 1324,
+     "time": "2026-10-04T13:56:15.903944+00:00",
      "dx": 0,
      "dy": -24,
      "dw": 0,
@@ -305,9 +305,9 @@
     }
    ],
    "final_verdict": "on_target",
-   "started_at": "2026-10-04T13:44:52.499734+00:00",
-   "settled_at": "2026-10-04T13:44:54.417813+00:00",
-   "settle_ms": 2000,
+   "started_at": "2026-10-04T13:56:14.579759+00:00",
+   "settled_at": "2026-10-04T13:56:16.496371+00:00",
+   "settle_ms": 1998,
    "ended": true,
    "off_episodes": 1,
    "layout_states": [
@@ -317,10 +317,10 @@
       658,
       0.667
      ],
-     "until_ms": 1959
+     "until_ms": 1957
     },
     {
-     "ms": 1959,
+     "ms": 1957,
      "state": [
       987,
       0.445
@@ -339,7 +339,7 @@
   }
  },
  "slow_settles": {
-  "show": 2000
+  "show": 1998
  },
  "win_calls": {
   "total": 3,
@@ -347,9 +347,9 @@
   "off_target": 3,
   "examples": [
    {
-    "time": "2026-10-04T13:44:52.497936+00:00",
-    "t": 905.0255,
-    "pid": 2989,
+    "time": "2026-10-04T13:56:14.578024+00:00",
+    "t": 1348.6927,
+    "pid": 3707,
     "thread": "MainThread",
     "kind": "win32.call",
     "name": "sync_now",
@@ -391,9 +391,9 @@
     "sync": true
    },
    {
-    "time": "2026-10-04T13:44:52.497994+00:00",
-    "t": 905.0255,
-    "pid": 2989,
+    "time": "2026-10-04T13:56:14.578081+00:00",
+    "t": 1348.6928,
+    "pid": 3707,
     "thread": "MainThread",
     "kind": "win32.call",
     "name": "show_window",
@@ -434,9 +434,9 @@
     "was_visible": false
    },
    {
-    "time": "2026-10-04T13:44:52.498052+00:00",
-    "t": 905.0256,
-    "pid": 2989,
+    "time": "2026-10-04T13:56:14.578159+00:00",
+    "t": 1348.6929,
+    "pid": 3707,
     "thread": "MainThread",
     "kind": "win32.call",
     "name": "invalidate",
@@ -484,9 +484,9 @@
  },
  "exports": [
   {
-   "time": "2026-10-04T13:44:55.711582+00:00",
-   "t": 908.2391,
-   "pid": 2989,
+   "time": "2026-10-04T13:56:17.792206+00:00",
+   "t": 1351.9069,
+   "pid": 3707,
    "thread": "MainThread",
    "kind": "export.audit",
    "stage": "upload_blocked-gemini",
@@ -495,14 +495,14 @@
      "name": "Промт.pdf",
      "exists": true,
      "bytes": 18008,
-     "mtime": 1791121495.7,
+     "mtime": 1791122177.8,
      "sha256_12": "9644aa3248df"
     },
     {
      "name": "Шаблон.txt",
      "exists": true,
      "bytes": 25,
-     "mtime": 1791121495.7,
+     "mtime": 1791122177.8,
      "sha256_12": "035c3c2de731"
     }
    ],
@@ -521,12 +521,12 @@
    "surface": "ai_mode",
    "verdict_saved": "surface_without_file_input",
    "count": 1,
-   "last_time": "2026-10-04T13:44:55.711582+00:00"
+   "last_time": "2026-10-04T13:56:17.792206+00:00"
   },
   {
-   "time": "2026-10-04T13:44:55.712142+00:00",
-   "t": 908.2397,
-   "pid": 2989,
+   "time": "2026-10-04T13:56:17.792879+00:00",
+   "t": 1351.9076,
+   "pid": 3707,
    "thread": "MainThread",
    "kind": "export.audit",
    "stage": "complete",
@@ -535,14 +535,14 @@
      "name": "Промт.pdf",
      "exists": true,
      "bytes": 18008,
-     "mtime": 1791121495.7,
+     "mtime": 1791122177.8,
      "sha256_12": "9644aa3248df"
     },
     {
      "name": "Шаблон.txt",
      "exists": true,
      "bytes": 25,
-     "mtime": 1791121495.7,
+     "mtime": 1791122177.8,
      "sha256_12": "035c3c2de731"
     }
    ],
@@ -584,13 +584,13 @@
    ],
    "verdict_saved": "confirmed_attached",
    "count": 1,
-   "last_time": "2026-10-04T13:44:55.712142+00:00"
+   "last_time": "2026-10-04T13:56:17.792879+00:00"
   }
  ],
  "exports_repeated": 0,
  "surface": [
   {
-   "time": "2026-10-04T13:44:54.660317+00:00",
+   "time": "2026-10-04T13:56:16.728808+00:00",
    "verdict": "gemini",
    "ready": "complete",
    "composer": 1,
@@ -603,7 +603,7 @@
    "event": "page.surface"
   },
   {
-   "time": "2026-10-04T13:44:55.060317+00:00",
+   "time": "2026-10-04T13:56:17.128808+00:00",
    "verdict": "gemini",
    "ready": "complete",
    "composer": 1,
@@ -641,6 +641,200 @@
   "page-outline-chat-ready.json"
  ],
  "advice": [],
+ "machine": {
+  "reason": "example",
+  "schema": 1,
+  "collected_at": "2026-10-04T13:56:17.795182+00:00",
+  "windows": {
+   "release": "10",
+   "version": "10.0.19045",
+   "build": 19045,
+   "edition": "Windows 10 Pro",
+   "display_version": "22H2",
+   "ubr": 3448
+  },
+  "session": {
+   "kind": "console",
+   "admin": false,
+   "dpi_awareness": 2
+  },
+  "theme": "dark",
+  "screens": [
+   {
+    "index": 0,
+    "name": "\\\\.\\DISPLAY1",
+    "primary": true,
+    "rect": [
+     0,
+     0,
+     2560,
+     1440
+    ],
+    "work": [
+     0,
+     0,
+     2560,
+     1400
+    ],
+    "dpi": 144,
+    "scale": 1.5,
+    "dpr": 1.5
+   },
+   {
+    "index": 1,
+    "name": "\\\\.\\DISPLAY2",
+    "primary": false,
+    "rect": [
+     2560,
+     -100,
+     1920,
+     1200
+    ],
+    "work": [
+     2560,
+     0,
+     1920,
+     1160
+    ],
+    "dpi": 96,
+    "scale": 1.0,
+    "dpr": 1.0
+   }
+  ],
+  "virtual": [
+   0,
+   -100,
+   4480,
+   1540
+  ],
+  "taskbar": {
+   "autohide_proxy": false,
+   "screens_without_reserved_area": 0
+  },
+  "app": {
+   "python": "3.11.2",
+   "python_bits": 64,
+   "frozen": false,
+   "executable": "/usr/bin/python3",
+   "pid": 3707
+  },
+  "env": {
+   "LC_CTYPE": "C.UTF-8"
+  },
+  "platform": {
+   "system": "Windows",
+   "release": "10",
+   "machine": "AMD64",
+   "locale": "ru_RU"
+  },
+  "scale": 1.5
+ },
+ "machine_risks": [
+  {
+   "code": "dpi_150",
+   "level": "warn",
+   "text": "масштаб экрана 150 %",
+   "detail": "1.5 → 150%",
+   "advice": "как при 125 %: пересчёт DIP↔px обязателен, иначе окно браузера уезжает на десятки пикселей"
+  },
+  {
+   "code": "multi_monitor",
+   "level": "warn",
+   "text": "несколько мониторов",
+   "detail": "2 экрана(ов): 2560×1440@1.5, 1920×1200@1.0",
+   "advice": "окно может уехать на другой экран или получить другой масштаб: смотреть `parent_moved` и смену `screen`"
+  },
+  {
+   "code": "mixed_scale",
+   "level": "warn",
+   "text": "у мониторов РАЗНЫЙ масштаб",
+   "detail": "масштабы: 1.0, 1.5",
+   "advice": "при переносе окна меняется DPI: ждать `dpi_scale` и `browser.layout_watch`"
+  },
+  {
+   "code": "dark_theme",
+   "level": "warn",
+   "text": "в Windows включена тёмная тема",
+   "detail": "",
+   "advice": "страница может прийти тёмной: смотреть `page.probe.dark` и `page.theme_probe`"
+  }
+ ],
+ "selfcheck": {
+  "engine": {
+   "ok": true,
+   "detail": "внешний Chrome, порт 60075",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795458+00:00"
+  },
+  "native_browser": {
+   "ok": true,
+   "detail": "страница в настоящем Chrome",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795490+00:00"
+  },
+  "admin_free": {
+   "ok": true,
+   "detail": "права администратора: нет",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795534+00:00"
+  },
+  "window_position": {
+   "ok": true,
+   "detail": "во всех шкалах окно стояло на цели",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795549+00:00"
+  },
+  "layout": {
+   "ok": true,
+   "detail": "замер под шторкой: 658x0.667 dsf=1.0, ремонтов 1, 210 мс",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795558+00:00"
+  },
+  "export": {
+   "ok": true,
+   "detail": "confirmed_attached×2, файлы на диске: 2",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795582+00:00"
+  },
+  "hotkeys": {
+   "ok": true,
+   "detail": "F2 / F3, подавление: есть",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795601+00:00"
+  },
+  "mic": {
+   "ok": true,
+   "detail": "штатная запись страницы (кнопка микрофона)",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795629+00:00"
+  }
+ },
+ "repairs": [
+  {
+   "time": "2026-10-04T13:56:17.790233+00:00",
+   "reason": "revive-hold",
+   "innerWidth": 658,
+   "dpr": 0.667,
+   "restored": true
+  }
+ ],
+ "defects": [
+  {
+   "id": "1",
+   "title": "раскладка «съехала»: множители зума сложились (0.667×0.667)",
+   "evidence": "таблица раскладки по замерам"
+  },
+  {
+   "id": "3",
+   "title": "файлы могли не прикрепиться",
+   "evidence": "вердикты: surface_without_file_input"
+  },
+  {
+   "id": "2",
+   "title": "машина отличается от эталонной (класс «не у меня») ",
+   "evidence": "риски: dpi_150, multi_monitor, mixed_scale, dark_theme"
+  }
+ ],
  "env": {
   "platform": "Windows-10-10.0.26100-SP0",
   "python": "3.11.9 (tags/v3.11.9)",
@@ -650,5 +844,17 @@
   "modes": {
    "LEGALYZE_DISABLE_GPU": null
   }
- }
+ },
+ "layout_watch": [
+  {
+   "time": "2026-10-04T13:56:17.790176+00:00",
+   "reason": "revive-hold",
+   "ok": true,
+   "fixed": 1,
+   "good": 2,
+   "ms": 210,
+   "innerWidth": 658,
+   "dpr": 0.667
+  }
+ ]
 }

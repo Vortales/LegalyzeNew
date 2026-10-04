@@ -1,17 +1,17 @@
-{"time": "2026-10-04T13:44:52.060317+00:00", "pid": 4242, "thread": "MainThread", "event": "session.start", "platform": "Windows-10-10.0.26100-SP0", "python": "3.11.9 (tags/v3.11.9)", "bitness": 64, "executable": "Legalyze.exe", "cwd": "C:\\Legalyze", "frozen": true, "nuitka_compiled": true, "release_revision": "universal-embedded-v19", "packages": {"PyQt6": "6.7.1", "PyQt6-Qt6": "6.7.2"}, "windows_build": "10.0.26100", "modes": {"LEGALYZE_DISABLE_GPU": null}}
-{"time": "2026-10-04T13:44:52.180317+00:00", "pid": 4242, "thread": "MainThread", "event": "qt.start", "qt": "6.7.2", "pyqt": "6.7.1", "platform": "windows", "style": "windowsvista"}
-{"time": "2026-10-04T13:44:52.200317+00:00", "pid": 4242, "thread": "MainThread", "event": "qt.screen_count", "screens": 1, "primary": "\\\\.\\DISPLAY1"}
-{"time": "2026-10-04T13:44:52.210317+00:00", "pid": 4242, "thread": "MainThread", "event": "qt.screen", "geometry": [0, 0, 2560, 1440], "available": [0, 0, 2560, 1392], "dpi": 96, "dpr": 1.5}
-{"time": "2026-10-04T13:44:52.460317+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.discovered", "name": "Chrome", "kind": "chrome", "rank": 0, "path": "C:\\Legalyze\\browser\\chrome.exe"}
-{"time": "2026-10-04T13:44:52.480317+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.try", "name": "Legalyze Chromium", "kind": "chrome", "attempt": 1, "gpu": false}
-{"time": "2026-10-04T13:44:52.960317+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.devtools", "browser": "Chrome/126.0.6478.127", "port": 9222}
-{"time": "2026-10-04T13:44:53.560317+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.embedded", "hwnd": 853124, "parent": 723908, "port": 9222, "kind": "chrome", "inset": [-10, -24, 10, 24]}
-{"time": "2026-10-04T13:44:53.660317+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.mode", "engine": "external_chrome", "exe": "chrome.exe", "port": 9222, "inset": [-10, -24, 10, 24], "dx": -10, "dy": -24, "zoom": 0.667, "light_theme": true, "lang": "ru-RU"}
-{"time": "2026-10-04T13:44:54.660317+00:00", "pid": 4242, "thread": "MainThread", "event": "page.surface", "verdict": "gemini", "ready": "complete", "composer": 1, "files": 1, "chips": 0, "host": "gemini.google.com", "path": "/app"}
-{"time": "2026-10-04T13:44:55.060317+00:00", "pid": 4242, "thread": "MainThread", "event": "page.surface_after_show", "verdict": "gemini", "ready": "complete", "composer": 1, "files": 1, "chips": 0}
-{"time": "2026-10-04T13:44:55.460317+00:00", "pid": 4242, "thread": "MainThread", "event": "warn.browser", "reason": "upload blocked on this surface"}
-{"time": "2026-10-04T13:44:55.560317+00:00", "pid": 4242, "thread": "MainThread", "event": "exception", "where": "main.upload", "type": "RuntimeError", "message": "surface without file input"}
-{"time": "2026-10-04T13:45:01.060317+00:00", "pid": 4242, "thread": "MainThread", "event": "page.surface_changed", "verdict": "gemini", "previous": "ai_mode", "when": "after_show"}
-{"time": "2026-10-04T13:45:01.860317+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.reveal_gate", "ready": true}
-{"time": "2026-10-04T13:45:02.060317+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.revealed", "stable": true, "ms": 840}
-{"time": "2026-10-04T13:45:02.460317+00:00", "pid": 4242, "thread": "MainThread", "event": "session.end", "reason": "user"}
+{"time": "2026-10-04T13:56:14.128808+00:00", "pid": 4242, "thread": "MainThread", "event": "session.start", "platform": "Windows-10-10.0.26100-SP0", "python": "3.11.9 (tags/v3.11.9)", "bitness": 64, "executable": "Legalyze.exe", "cwd": "C:\\Legalyze", "frozen": true, "nuitka_compiled": true, "release_revision": "universal-embedded-v19", "packages": {"PyQt6": "6.7.1", "PyQt6-Qt6": "6.7.2"}, "windows_build": "10.0.26100", "modes": {"LEGALYZE_DISABLE_GPU": null}}
+{"time": "2026-10-04T13:56:14.248808+00:00", "pid": 4242, "thread": "MainThread", "event": "qt.start", "qt": "6.7.2", "pyqt": "6.7.1", "platform": "windows", "style": "windowsvista"}
+{"time": "2026-10-04T13:56:14.268808+00:00", "pid": 4242, "thread": "MainThread", "event": "qt.screen_count", "screens": 1, "primary": "\\\\.\\DISPLAY1"}
+{"time": "2026-10-04T13:56:14.278808+00:00", "pid": 4242, "thread": "MainThread", "event": "qt.screen", "geometry": [0, 0, 2560, 1440], "available": [0, 0, 2560, 1392], "dpi": 96, "dpr": 1.5}
+{"time": "2026-10-04T13:56:14.528808+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.discovered", "name": "Chrome", "kind": "chrome", "rank": 0, "path": "C:\\Legalyze\\browser\\chrome.exe"}
+{"time": "2026-10-04T13:56:14.548808+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.try", "name": "Legalyze Chromium", "kind": "chrome", "attempt": 1, "gpu": false}
+{"time": "2026-10-04T13:56:15.028808+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.devtools", "browser": "Chrome/126.0.6478.127", "port": 9222}
+{"time": "2026-10-04T13:56:15.628808+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.embedded", "hwnd": 853124, "parent": 723908, "port": 9222, "kind": "chrome", "inset": [-10, -24, 10, 24]}
+{"time": "2026-10-04T13:56:15.728808+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.mode", "engine": "external_chrome", "exe": "chrome.exe", "port": 9222, "inset": [-10, -24, 10, 24], "dx": -10, "dy": -24, "zoom": 0.667, "light_theme": true, "lang": "ru-RU"}
+{"time": "2026-10-04T13:56:16.728808+00:00", "pid": 4242, "thread": "MainThread", "event": "page.surface", "verdict": "gemini", "ready": "complete", "composer": 1, "files": 1, "chips": 0, "host": "gemini.google.com", "path": "/app"}
+{"time": "2026-10-04T13:56:17.128808+00:00", "pid": 4242, "thread": "MainThread", "event": "page.surface_after_show", "verdict": "gemini", "ready": "complete", "composer": 1, "files": 1, "chips": 0}
+{"time": "2026-10-04T13:56:17.528808+00:00", "pid": 4242, "thread": "MainThread", "event": "warn.browser", "reason": "upload blocked on this surface"}
+{"time": "2026-10-04T13:56:17.628808+00:00", "pid": 4242, "thread": "MainThread", "event": "exception", "where": "main.upload", "type": "RuntimeError", "message": "surface without file input"}
+{"time": "2026-10-04T13:56:23.128808+00:00", "pid": 4242, "thread": "MainThread", "event": "page.surface_changed", "verdict": "gemini", "previous": "ai_mode", "when": "after_show"}
+{"time": "2026-10-04T13:56:23.928808+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.reveal_gate", "ready": true}
+{"time": "2026-10-04T13:56:24.128808+00:00", "pid": 4242, "thread": "MainThread", "event": "browser.revealed", "stable": true, "ms": 840}
+{"time": "2026-10-04T13:56:24.528808+00:00", "pid": 4242, "thread": "MainThread", "event": "session.end", "reason": "user"}

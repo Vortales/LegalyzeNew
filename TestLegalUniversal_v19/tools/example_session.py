@@ -248,6 +248,13 @@ def build_session(session_dir: Path) -> None:
         show_watch.join(10)
         btrace.mark("revive.reveal", verdict="on_target", dy=0)
 
+        # 2.1. v20: удержание раскладки и её ремонт — то, что видно в отчёте
+        # отдельной строкой («fixed=1, restored=true»), а не только в журнале.
+        btrace.mark("browser.layout_watch", reason="revive-hold", ok=True, fixed=1,
+                    good=2, ms=210, innerWidth=658, dpr=0.667)
+        btrace.mark("browser.layout_repair", reason="revive-hold", innerWidth=658,
+                    dpr=0.667, restored=True)
+
         # 3. Экспорт: сначала поверхность без input[type=file], потом удача.
         tmp = Path(tempfile.mkdtemp(prefix="legalyze-example-"))
         pdf = tmp / "Промт.pdf"
@@ -269,10 +276,57 @@ def build_session(session_dir: Path) -> None:
                             extra={"present": 2, "names": ["Промт.pdf", "Шаблон.txt"]})
         btrace.capture_page(page, "chat-ready", full=True)
         btrace.mark("chat.ready", verdict="gemini", blocked=False)
+
+        # 4. v20 (ТЗ § 3): паспорт машины и самопроверки. Паспорт здесь
+        # СИНТЕТИЧЕСКИЙ (стенд не Windows) — он показывает ровно те поля,
+        # которые приложение собирает у пользователя, включая масштаб 150 %,
+        # второй монитор и тёмную тему: именно на таком сравнении машин
+        # ловятся дефекты «у другого пользователя».
+        btrace.env_fingerprint(
+            reason="example", facts=example_machine(),
+            extra={"engine": "external_chrome", "target": [1426, 200, 453, 735],
+                   "insets": [-10, -24, 10, 24], "zoom": 0.667})
+        btrace.selfcheck("engine", True, detail="внешний Chrome, порт 60075")
+        btrace.selfcheck("native_browser", True, detail="страница в настоящем Chrome")
+        btrace.selfcheck("admin_free", True, detail="права администратора: нет")
+        btrace.selfcheck("window_position", True, detail="во всех шкалах окно стояло на цели")
+        btrace.selfcheck("layout", True,
+                         detail="замер под шторкой: 658x0.667 dsf=1.0, ремонтов 1, 210 мс")
+        btrace.selfcheck("export", True,
+                         detail="confirmed_attached×2, файлы на диске: 2")
+        btrace.selfcheck("hotkeys", True, detail="F2 / F3, подавление: есть")
+        btrace.selfcheck("mic", True, detail="штатная запись страницы (кнопка микрофона)")
         shutil.rmtree(tmp, ignore_errors=True)
     finally:
         btrace.window_probe = real_probe             # noqa: SLF001
         btrace.finish()
+
+
+def example_machine():
+    """Синтетический паспорт машины для примера (Windows 10, 150 %, 2 монитора)."""
+    try:
+        import machine_profile as mp
+    except Exception:
+        return {"schema": 0, "screens": [], "windows": {}, "session": {}, "app": {}}
+    facts = mp.profile(screens=[
+        {"index": 0, "name": "\\\\.\\DISPLAY1", "primary": True,
+         "rect": [0, 0, 2560, 1440], "work": [0, 0, 2560, 1400],
+         "dpi": 144, "scale": 1.5, "dpr": 1.5},
+        {"index": 1, "name": "\\\\.\\DISPLAY2", "primary": False,
+         "rect": [2560, -100, 1920, 1200], "work": [2560, 0, 1920, 1160],
+         "dpi": 96, "scale": 1.0, "dpr": 1.0},
+    ])
+    facts["windows"] = {"release": "10", "version": "10.0.19045", "build": 19045,
+                        "edition": "Windows 10 Pro", "display_version": "22H2",
+                        "ubr": 3448}
+    facts["session"] = {"kind": "console", "admin": False, "dpi_awareness": 2}
+    facts["theme"] = "dark"
+    facts["platform"] = {"system": "Windows", "release": "10",
+                         "machine": "AMD64", "locale": "ru_RU"}
+    facts["scale"] = 1.5
+    facts["virtual"] = [0, -100, 4480, 1540]
+    facts["taskbar"] = {"autohide_proxy": False, "screens_without_reserved_area": 0}
+    return facts
 
 
 def main(argv=None):
