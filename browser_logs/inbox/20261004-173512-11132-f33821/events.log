@@ -1,0 +1,799 @@
+2026-10-04T14:35:12.951317+00:00 [MainThread] thread="MainThread" event="session.start" platform="Windows-10-10.0.19045-SP0" python="3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]" bitness=64 executable="C:\\Users\\79528\\PycharmProjects\\PythonProject1\\.venv\\Scripts\\python.exe" cwd="C:\\Users\\79528\\PycharmProjects\\PythonProject1\\Legalyze\\test2\\TestLegalUniversal_v22" frozen=false nuitka_compiled=false release_revision="universal-embedded-v22" packages={"PyQt6": "6.11.0", "PyQt6-Qt6": "6.11.1", "requests": "2.34.2", "websocket-client": "1.9.0", "cryptography": "50.0.0", … windows_build="sys.getwindowsversion(major=10, minor=0, build=19045, platform=2, service_pack='')" modes={"LEGALYZE_DISABLE_GPU": null, "LEGALYZE_EXTERNAL_BROWSER": null, "LEGALYZE_FRESH_PROFILE": null, "LEGALYZE_LOG_OFF": nu…
+2026-10-04T14:35:12.953318+00:00 [SystemInventory] thread="SystemInventory" event="windows.privilege" elevated=true remote_session=false proxy_variables_present=[]
+2026-10-04T14:35:14.052396+00:00 [SystemInventory] thread="SystemInventory" event="windows.inventory" data="{\r\n    \"GPU\":  [\r\n                {\r\n                    \"Name\":  \"Parsec Virtual Display Adapter\",\r\n    …
+2026-10-04T14:35:14.201392+00:00 [MainThread] thread="MainThread" event="bt.trace.installed" dir="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261004-173512-11132-f33821" version="browser-trace-1" python="3.12.6" platform="win32"
+2026-10-04T14:35:14.262394+00:00 [MainThread] thread="MainThread" event="stage.begin" name="main"
+2026-10-04T14:35:14.275394+00:00 [MainThread] thread="MainThread" event="storage.paths" app_dir="C:\\Users\\79528\\AppData\\Roaming\\Legalyze" data_dir="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\data" profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\qtwebengine-profile" logs="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261004-173512-11132-f33821"
+2026-10-04T14:35:14.275394+00:00 [MainThread] thread="MainThread" event="stage.begin" name="load_config"
+2026-10-04T14:35:14.275394+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:35:14.276393+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:35:14.277396+00:00 [MainThread] thread="MainThread" event="stage.end" name="load_config" seconds=0.0
+2026-10-04T14:35:14.277396+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:35:14.278394+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:35:14.331394+00:00 [MainThread] thread="MainThread" event="qt.start" qt="6.11.0" pyqt="6.11.0" platform="windows" style="windowsvista"
+2026-10-04T14:35:14.331394+00:00 [MainThread] thread="MainThread" event="qt.screen_count" screens=1 primary="HDMI"
+2026-10-04T14:35:14.331394+00:00 [MainThread] thread="MainThread" event="qt.screen" geometry=[0, 0, 2560, 1440] available=[0, 0, 2560, 1400] dpi=96.0 dpr=1.0
+2026-10-04T14:35:14.333395+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoginWindow.__init__"
+2026-10-04T14:35:14.691393+00:00 [MainThread] thread="MainThread" event="stage.begin" name="generate_hwid"
+2026-10-04T14:35:14.691393+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-04T14:35:14.831394+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-04T14:35:14.831394+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-04T14:35:15.230393+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-04T14:35:15.230393+00:00 [MainThread] thread="MainThread" event="stage.end" name="generate_hwid" seconds=0.547
+2026-10-04T14:35:15.391390+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoginWindow.__init__" seconds=1.062
+2026-10-04T14:35:17.055505+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoginWindow._do_login"
+2026-10-04T14:35:17.057506+00:00 [MainThread] thread="MainThread" event="stage.begin" name="AuthWorker.__init__"
+2026-10-04T14:35:17.057506+00:00 [MainThread] thread="MainThread" event="stage.end" name="AuthWorker.__init__" seconds=0.0
+2026-10-04T14:35:17.057506+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoginWindow._do_login" seconds=0.0
+2026-10-04T14:35:17.059505+00:00 [Dummy-7] thread="Dummy-7" event="http.begin" method="post" host="legalyzeai.ru" path="/api/client/auth"
+2026-10-04T14:35:18.373505+00:00 [Dummy-7] thread="Dummy-7" event="http.end" method="post" host="legalyzeai.ru" path="/api/client/auth" status=200 seconds=1.313
+2026-10-04T14:35:18.375505+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoginWindow._on_auth"
+2026-10-04T14:35:18.375505+00:00 [MainThread] thread="MainThread" event="auth.result" success=true
+2026-10-04T14:35:18.375505+00:00 [MainThread] thread="MainThread" event="stage.begin" name="generate_hwid"
+2026-10-04T14:35:18.375505+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-04T14:35:18.505506+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-04T14:35:18.505506+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-04T14:35:18.707506+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-04T14:35:18.707506+00:00 [MainThread] thread="MainThread" event="stage.end" name="generate_hwid" seconds=0.328
+2026-10-04T14:35:18.854506+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:35:18.855506+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:35:18.857506+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:35:18.858506+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:35:18.865505+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoginWindow._on_auth" seconds=0.484
+2026-10-04T14:35:18.866505+00:00 [MainThread] thread="MainThread" event="auth.accepted"
+2026-10-04T14:35:18.866505+00:00 [MainThread] thread="MainThread" event="stage.begin" name="_enforce_latest_version"
+2026-10-04T14:35:18.866505+00:00 [MainThread] thread="MainThread" event="stage.begin" name="check_for_update"
+2026-10-04T14:35:18.866505+00:00 [MainThread] thread="MainThread" event="http.begin" method="get" host="legalyzeai.ru" path="/api/client/update"
+2026-10-04T14:35:19.366506+00:00 [MainThread] thread="MainThread" event="http.end" method="get" host="legalyzeai.ru" path="/api/client/update" status=200 seconds=0.5
+2026-10-04T14:35:19.368504+00:00 [MainThread] thread="MainThread" event="stage.end" name="check_for_update" seconds=0.516
+2026-10-04T14:35:19.368504+00:00 [MainThread] thread="MainThread" event="stage.end" name="_enforce_latest_version" seconds=0.516
+2026-10-04T14:35:19.368504+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow.__init__"
+2026-10-04T14:35:19.370506+00:00 [MainThread] thread="MainThread" event="stage.begin" name="HotkeyChip.__init__"
+2026-10-04T14:35:19.371505+00:00 [MainThread] thread="MainThread" event="stage.end" name="HotkeyChip.__init__" seconds=0.0
+2026-10-04T14:35:19.371505+00:00 [MainThread] thread="MainThread" event="stage.begin" name="HotkeyChip.__init__"
+2026-10-04T14:35:19.372505+00:00 [MainThread] thread="MainThread" event="stage.end" name="HotkeyChip.__init__" seconds=0.0
+2026-10-04T14:35:19.373506+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoadingOverlay.__init__"
+2026-10-04T14:35:19.374505+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoadingOverlay.__init__" seconds=0.0
+2026-10-04T14:35:19.380504+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._register_hotkeys"
+2026-10-04T14:35:19.570504+00:00 [MainThread] thread="MainThread" event="hotkeys.configured" toggle="F2" mic="F3" suppressed=true
+2026-10-04T14:35:19.570504+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._register_hotkeys" seconds=0.203
+2026-10-04T14:35:19.570504+00:00 [MainThread] thread="MainThread" event="stage.begin" name="BalanceWorker.__init__"
+2026-10-04T14:35:19.570504+00:00 [MainThread] thread="MainThread" event="stage.end" name="BalanceWorker.__init__" seconds=0.0
+2026-10-04T14:35:19.571504+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow.__init__" seconds=0.203
+2026-10-04T14:35:19.571504+00:00 [MainThread] thread="MainThread" event="main.geometry" geometry=[2091, 332, 453, 735] available=[0, 0, 2560, 1400] dpr=1.0 visible=false hwnd=1509166 screens=1
+2026-10-04T14:35:20.159506+00:00 [MainThread] thread="MainThread" event="bt.window.show" was_hidden=false args="{'win_visible': True, 'win_min': False, 'win_geo': [2091, 332, 453, 735], 'dpr': 1.0, 'cover': False, 'settling': False…
+2026-10-04T14:35:20.159506+00:00 [MainThread] thread="MainThread" event="bt.watch.skip" tag="show" reason="no-native-window"
+2026-10-04T14:35:20.167505+00:00 [Dummy-12] thread="Dummy-12" event="http.begin" method="get" host="legalyzeai.ru" path="/api/client/queries"
+2026-10-04T14:35:20.169505+00:00 [MainThread] thread="MainThread" event="main.snapshot" visible=true minimized=false geometry=[2091, 332, 453, 735] dpr=1.0 chrome_hwnd=null worker_running=false chromium_exit=null overlay_visible=true page_verdict=null native_mode=false chat_ready=false cover_visible=false settling=false
+2026-10-04T14:35:20.169505+00:00 [MainThread] thread="MainThread" event="main.shown" visible=true geometry=[2091, 332, 453, 735]
+2026-10-04T14:35:20.170506+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._sync_template_from_server"
+2026-10-04T14:35:20.170506+00:00 [MainThread] thread="MainThread" event="stage.begin" name="TemplateSyncWorker.__init__"
+2026-10-04T14:35:20.170506+00:00 [MainThread] thread="MainThread" event="stage.end" name="TemplateSyncWorker.__init__" seconds=0.0
+2026-10-04T14:35:20.171505+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._sync_template_from_server" seconds=0.0
+2026-10-04T14:35:20.172505+00:00 [Dummy-13] thread="Dummy-13" event="http.begin" method="get" host="legalyzeai.ru" path="/api/client/template"
+2026-10-04T14:35:20.709504+00:00 [Dummy-12] thread="Dummy-12" event="http.end" method="get" host="legalyzeai.ru" path="/api/client/queries" status=200 seconds=0.531
+2026-10-04T14:35:20.710506+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._on_balance"
+2026-10-04T14:35:20.710506+00:00 [MainThread] thread="MainThread" event="balance.result" success=true allowed=true
+2026-10-04T14:35:20.710506+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._on_balance" seconds=0.0
+2026-10-04T14:35:20.713506+00:00 [Dummy-13] thread="Dummy-13" event="http.end" method="get" host="legalyzeai.ru" path="/api/client/template" status=200 seconds=0.547
+2026-10-04T14:35:20.767506+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._start_chrome"
+2026-10-04T14:35:20.772506+00:00 [MainThread] thread="MainThread" event="browser.discovered" count=2 candidates=[{"name": "chrome", "kind": "chrome", "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "rank": 2}, …
+2026-10-04T14:35:20.780508+00:00 [MainThread] thread="MainThread" event="browser.discovered" count=2 candidates=[{"name": "chrome", "kind": "chrome", "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "rank": 2}, …
+2026-10-04T14:35:20.780508+00:00 [MainThread] thread="MainThread" event="browser.try" name="chrome" kind="chrome" attempt=1 gpu=true
+2026-10-04T14:35:20.788507+00:00 [MainThread] thread="MainThread" event="browser.zoom_prefs" level=-2.223901 files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile\\Default\\Preferences", "C:\\Users\\79528\\AppData\\Roam…
+2026-10-04T14:35:20.796506+00:00 [MainThread] thread="MainThread" event="browser.permissions" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile\\Default\\Preferences", "C:\\Users\\79528\\AppData\\Roam…
+2026-10-04T14:35:20.803506+00:00 [MainThread] thread="MainThread" event="browser.locale_prefs" lang="ru-RU" accept="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile\\Default\\Preferences", "C:\\Users\\79528\\AppData\\Roam…
+2026-10-04T14:35:20.803506+00:00 [MainThread] thread="MainThread" event="env.contract" release="universal-embedded-v22" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" exe_bytes=4496024 exe_mtime=1790821002.9 kind="chrome" port=60829 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile" url="https://google.com/ai" attempt=0 gpu=true width=453 height=735 lang="ru-RU" light_theme=true zoom=0.666667 zoom_level=-2.223901086 switches=["--remote-debugging-port=60829", "--remote-debugging-address=127.0.0.1", "--user-data-dir=C:\\Users\\79528\\AppData\\Ro… switches_count=24 disabled_features=["SystemTitlebar", "CaptionButtons", "Translate", "OptimizationHints", "MediaRouter", "GlobalMediaControls", "DialMediaR… force_light_features=["WebContentsForceDark", "DarkMode"]
+2026-10-04T14:35:20.804506+00:00 [MainThread] thread="MainThread" event="browser.binary" path="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" bytes=4496024 mtime=1790821002.9
+2026-10-04T14:35:20.805506+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile\\Default\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:35:20.805506+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:35:20.805506+00:00 [MainThread] thread="MainThread" event="browser.launch" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" kind="chrome" port=60829 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile" gpu=true width=453 height=735 attempt=0
+2026-10-04T14:35:20.816506+00:00 [MainThread] thread="MainThread" event="browser.spawned" port=60829
+2026-10-04T14:35:20.817508+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._start_chrome" seconds=0.047
+2026-10-04T14:35:21.069506+00:00 [MainThread] thread="MainThread" event="browser.retry" reason="browser-exited" index=0 attempt=1 gpu=true
+2026-10-04T14:35:21.097505+00:00 [MainThread] thread="MainThread" event="win32.tree_killed" pids=[2316, 11764]
+2026-10-04T14:35:21.097505+00:00 [MainThread] thread="MainThread" event="browser.closed" port=60829
+2026-10-04T14:35:21.097505+00:00 [MainThread] thread="MainThread" event="browser.try" name="chrome" kind="chrome" attempt=2 gpu=true
+2026-10-04T14:35:21.105506+00:00 [MainThread] thread="MainThread" event="browser.zoom_prefs" level=-2.223901 files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:35:21.112505+00:00 [MainThread] thread="MainThread" event="browser.permissions" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:35:21.119509+00:00 [MainThread] thread="MainThread" event="browser.locale_prefs" lang="ru-RU" accept="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:35:21.119509+00:00 [MainThread] thread="MainThread" event="env.contract" release="universal-embedded-v22" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" exe_bytes=4496024 exe_mtime=1790821002.9 kind="chrome" port=60830 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1" url="https://google.com/ai" attempt=1 gpu=true width=453 height=735 lang="ru-RU" light_theme=true zoom=0.666667 zoom_level=-2.223901086 switches=["--remote-debugging-port=60830", "--remote-debugging-address=127.0.0.1", "--user-data-dir=C:\\Users\\79528\\AppData\\Ro… switches_count=24 disabled_features=["SystemTitlebar", "CaptionButtons", "Translate", "OptimizationHints", "MediaRouter", "GlobalMediaControls", "DialMediaR… force_light_features=["WebContentsForceDark", "DarkMode"]
+2026-10-04T14:35:21.120509+00:00 [MainThread] thread="MainThread" event="browser.binary" path="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" bytes=4496024 mtime=1790821002.9
+2026-10-04T14:35:21.121506+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1\\Default\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:35:21.121506+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:35:21.121506+00:00 [MainThread] thread="MainThread" event="browser.launch" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" kind="chrome" port=60830 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1" gpu=true width=453 height=735 attempt=1
+2026-10-04T14:35:21.130507+00:00 [MainThread] thread="MainThread" event="browser.spawned" port=60830
+2026-10-04T14:35:21.383507+00:00 [MainThread] thread="MainThread" event="browser.retry" reason="browser-exited" index=0 attempt=2 gpu=true
+2026-10-04T14:35:21.419505+00:00 [MainThread] thread="MainThread" event="win32.tree_killed" pids=[8760, 12368]
+2026-10-04T14:35:21.419505+00:00 [MainThread] thread="MainThread" event="browser.closed" port=60830
+2026-10-04T14:35:21.419505+00:00 [MainThread] thread="MainThread" event="browser.try" name="chrome" kind="chrome" attempt=3 gpu=false
+2026-10-04T14:35:21.427505+00:00 [MainThread] thread="MainThread" event="browser.zoom_prefs" level=-2.223901 files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:35:21.434507+00:00 [MainThread] thread="MainThread" event="browser.permissions" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:35:21.441506+00:00 [MainThread] thread="MainThread" event="browser.locale_prefs" lang="ru-RU" accept="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:35:21.442505+00:00 [MainThread] thread="MainThread" event="env.contract" release="universal-embedded-v22" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" exe_bytes=4496024 exe_mtime=1790821002.9 kind="chrome" port=60831 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2" url="https://google.com/ai" attempt=2 gpu=false width=453 height=735 lang="ru-RU" light_theme=true zoom=0.666667 zoom_level=-2.223901086 switches=["--remote-debugging-port=60831", "--remote-debugging-address=127.0.0.1", "--user-data-dir=C:\\Users\\79528\\AppData\\Ro… switches_count=27 disabled_features=["SystemTitlebar", "CaptionButtons", "Translate", "OptimizationHints", "MediaRouter", "GlobalMediaControls", "DialMediaR… force_light_features=["WebContentsForceDark", "DarkMode"]
+2026-10-04T14:35:21.442505+00:00 [MainThread] thread="MainThread" event="browser.binary" path="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" bytes=4496024 mtime=1790821002.9
+2026-10-04T14:35:21.443505+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2\\Default\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:35:21.443505+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:35:21.443505+00:00 [MainThread] thread="MainThread" event="browser.launch" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" kind="chrome" port=60831 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2" gpu=false width=453 height=735 attempt=2
+2026-10-04T14:35:21.452506+00:00 [MainThread] thread="MainThread" event="browser.spawned" port=60831
+2026-10-04T14:35:22.400507+00:00 [MainThread] thread="MainThread" event="browser.target_chosen" pages=["https://www.google.com/search?udm=50&aep=11"] chosen="https://www.google.com/search?udm=50&aep=11" wall_only=false
+2026-10-04T14:35:22.400507+00:00 [MainThread] thread="MainThread" event="browser.devtools" browser="Chrome/154.0.8037.97" url="https://www.google.com/search?udm=50&aep=11"
+2026-10-04T14:35:22.640505+00:00 [MainThread] thread="MainThread" event="win32.find_window" wanted=[3352, 4564, 9864, 10356, 11816, 13364, 14264, 17300, 18528, 24080] found=1180574 windows=[{"hwnd": 2294058, "pid": 3352, "visible": false, "rect": [0, 0, 0, 0], "style": 2348810240, "exstyle": 128, "parent": 0…
+2026-10-04T14:35:22.640505+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost._embed" args=2 kwargs=0
+2026-10-04T14:35:22.656505+00:00 [MainThread] thread="MainThread" event="win32.hide_window" hwnd=1180574 was_visible=true visible=false error=0
+2026-10-04T14:35:22.657505+00:00 [MainThread] thread="MainThread" event="embed.before" child={"hwnd": 1180574, "pid": 3352, "visible": false, "rect": [-8192, -8192, -7739, -7457], "style": 114229248, "exstyle": 25… host={"hwnd": 1772088, "pid": 11132, "visible": true, "rect": [2091, 332, 2544, 1067], "style": 1442840576, "exstyle": 0, "pa…
+2026-10-04T14:35:22.661505+00:00 [MainThread] thread="MainThread" event="win32.style" hwnd=1180574 index=-16 previous=114229248 new=1442840576 error=0
+2026-10-04T14:35:22.673504+00:00 [MainThread] thread="MainThread" event="embed.SetParent" error=0 actual=1772088 expected=1772088
+2026-10-04T14:35:22.676507+00:00 [MainThread] thread="MainThread" event="win32.style" hwnd=1180574 index=-20 previous=0 new=128 error=0
+2026-10-04T14:35:22.678506+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:22.679505+00:00 [MainThread] thread="MainThread" event="embed.after" child={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p… cover=2099784
+2026-10-04T14:35:22.683507+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:22.684507+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:35:22.807507+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1180574 style=true delete_tab=false
+2026-10-04T14:35:22.809506+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.125
+2026-10-04T14:35:22.810507+00:00 [MainThread] thread="MainThread" event="browser.embedded" hwnd=1180574 parent=1772088 port=60831 exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" kind="chrome" inset=[-10, -24, 10, 24]
+2026-10-04T14:35:22.810507+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._on_browser_ready"
+2026-10-04T14:35:22.810507+00:00 [MainThread] thread="MainThread" event="trace.begin" name="MainWindow._on_browser_ready" args=2 kwargs=0
+2026-10-04T14:35:22.810507+00:00 [MainThread] thread="MainThread" event="browser.ready" port=60831 hwnd=1180574
+2026-10-04T14:35:22.812507+00:00 [MainThread] thread="MainThread" event="browser.mode" engine="external_chrome" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" kind="chrome" port=60831 hwnd=1180574 zoom=0.667 inset=[-10, -24, 10, 24] dx=-10 dy=-24 light_theme=true lang="ru-RU" placeholder=[453, 735] dpr=1.0 screens=1 url="https://google.com/ai"
+2026-10-04T14:35:22.812507+00:00 [MainThread] thread="MainThread" event="state.set" key="browser.mode" value="external_chrome"
+2026-10-04T14:35:22.818505+00:00 [Dummy-14] thread="Dummy-14" event="trace.begin" name="ChromeWorker.run" args=1 kwargs=0
+2026-10-04T14:35:22.818505+00:00 [Dummy-14] thread="Dummy-14" event="stage.begin" name="attach_chrome"
+2026-10-04T14:35:22.819506+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:22.819506+00:00 [MainThread] thread="MainThread" event="trace.end" name="MainWindow._on_browser_ready" seconds=0.0
+2026-10-04T14:35:22.819506+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._on_browser_ready" seconds=0.0
+2026-10-04T14:35:22.819506+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost._embed" seconds=0.172
+2026-10-04T14:35:22.970507+00:00 [Dummy-14] thread="Dummy-14" event="browser.target_chosen" pages=["https://www.google.com/search?udm=50&aep=11"] chosen="https://www.google.com/search?udm=50&aep=11" wall_only=false
+2026-10-04T14:35:22.970507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.discovered" browser="Chrome/154.0.8037.97" protocol="1.3" pages=1
+2026-10-04T14:35:22.970507+00:00 [Dummy-14] thread="Dummy-14" event="stage.begin" name="CDP.__init__"
+2026-10-04T14:35:22.973507+00:00 [Dummy-14] thread="Dummy-14" event="stage.end" name="CDP.__init__" seconds=0.0
+2026-10-04T14:35:22.973507+00:00 [Dummy-14] thread="Dummy-14" event="stage.begin" name="CDP.__init__"
+2026-10-04T14:35:22.976507+00:00 [Dummy-14] thread="Dummy-14" event="stage.end" name="CDP.__init__" seconds=0.0
+2026-10-04T14:35:22.976507+00:00 [Dummy-14] thread="Dummy-14" event="stage.end" name="attach_chrome" seconds=0.157
+2026-10-04T14:35:22.976507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Page.enable" timeout=5 params=[]
+2026-10-04T14:35:23.039507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Page.enable" seconds=0.078 keys=[]
+2026-10-04T14:35:23.039507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Page.addScriptToEvaluateOnNewDocument" timeout=5 params=["source"]
+2026-10-04T14:35:23.047509+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Page.addScriptToEvaluateOnNewDocument" seconds=0.0 keys=["identifier"]
+2026-10-04T14:35:23.048508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=5 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:23.052513+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:23.052513+00:00 [Dummy-14] thread="Dummy-14" event="browser.consent_installed"
+2026-10-04T14:35:23.052513+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=5 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:23.053507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:23.053507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Target.getBrowserContexts" timeout=5 params=[]
+2026-10-04T14:35:23.054508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Target.getBrowserContexts" seconds=0.0 keys=["browserContextIds", "defaultBrowserContextId"]
+2026-10-04T14:35:23.054508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Browser.grantPermissions" timeout=5 params=["origin", "permissions"]
+2026-10-04T14:35:23.055508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Browser.grantPermissions" seconds=0.015 keys=[]
+2026-10-04T14:35:23.055508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Browser.grantPermissions" timeout=5 params=["origin", "permissions"]
+2026-10-04T14:35:23.055508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Browser.grantPermissions" seconds=0.0 keys=[]
+2026-10-04T14:35:23.055508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Browser.grantPermissions" timeout=5 params=["origin", "permissions"]
+2026-10-04T14:35:23.056507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Browser.grantPermissions" seconds=0.0 keys=[]
+2026-10-04T14:35:23.056507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Browser.grantPermissions" timeout=5 params=["origin", "permissions"]
+2026-10-04T14:35:23.057506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Browser.grantPermissions" seconds=0.0 keys=[]
+2026-10-04T14:35:23.057506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:23.059505+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:23.059505+00:00 [Dummy-14] thread="Dummy-14" event="page.surface" verdict="ai_mode" ready="interactive" composer=4 files=0 chips=0 dark=false bg="rgb(255, 255, 255)" scheme="normal" account=false pending=18 bodyChildren=39 lang="ru-RU" host="www.google.com" path="/search"
+2026-10-04T14:35:23.059505+00:00 [Dummy-14] thread="Dummy-14" event="page.wait" round=1 left=90.0 verdict="ai_mode" ready="interactive" composer=4 stable=0 pending=18
+2026-10-04T14:35:23.109508+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:35:23.218507+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1180574 style=true delete_tab=false
+2026-10-04T14:35:23.220510+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.11
+2026-10-04T14:35:23.324506+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:23.560507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:23.572504+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:23.572504+00:00 [Dummy-14] thread="Dummy-14" event="page.surface" verdict="ai_mode" ready="complete" composer=4 files=0 chips=0 dark=false bg="rgb(255, 255, 255)" scheme="normal" account=false pending=49 bodyChildren=61 lang="ru-RU" host="www.google.com" path="/search"
+2026-10-04T14:35:23.572504+00:00 [Dummy-14] thread="Dummy-14" event="page.theme_probe" bg="rgb(255, 255, 255)" scheme="normal" dark=false verdict="ai_mode"
+2026-10-04T14:35:23.609506+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:35:23.842505+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1180574 style=true delete_tab=false
+2026-10-04T14:35:23.844507+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.235
+2026-10-04T14:35:24.010509+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:35:24.076506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.077507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:24.077507+00:00 [Dummy-14] thread="Dummy-14" event="page.theme_probe" bg="rgb(255, 255, 255)" scheme="normal" dark=false verdict="ai_mode"
+2026-10-04T14:35:24.077507+00:00 [Dummy-14] thread="Dummy-14" event="page.ready" rounds=3 verdict="ai_mode" theme_repairs=0
+2026-10-04T14:35:24.077507+00:00 [Dummy-14] thread="Dummy-14" event="state.set" key="page.verdict" value="ai_mode"
+2026-10-04T14:35:24.077507+00:00 [Dummy-14] thread="Dummy-14" event="state.set" key="page.ready" value=true
+2026-10-04T14:35:24.078506+00:00 [Dummy-14] thread="Dummy-14" event="state.set" key="page.blocked" value=""
+2026-10-04T14:35:24.078506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Page.addScriptToEvaluateOnNewDocument" timeout=5 params=["source"]
+2026-10-04T14:35:24.078506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Page.addScriptToEvaluateOnNewDocument" seconds=0.0 keys=["identifier"]
+2026-10-04T14:35:24.078506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Page.addScriptToEvaluateOnNewDocument" timeout=5 params=["source"]
+2026-10-04T14:35:24.079506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Page.addScriptToEvaluateOnNewDocument" seconds=0.0 keys=["identifier"]
+2026-10-04T14:35:24.079506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Page.addScriptToEvaluateOnNewDocument" timeout=5 params=["source"]
+2026-10-04T14:35:24.080506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Page.addScriptToEvaluateOnNewDocument" seconds=0.0 keys=["identifier"]
+2026-10-04T14:35:24.080506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Page.addScriptToEvaluateOnNewDocument" timeout=5 params=["source"]
+2026-10-04T14:35:24.080506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Page.addScriptToEvaluateOnNewDocument" seconds=0.0 keys=["identifier"]
+2026-10-04T14:35:24.080506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Page.addScriptToEvaluateOnNewDocument" timeout=5 params=["source"]
+2026-10-04T14:35:24.081506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Page.addScriptToEvaluateOnNewDocument" seconds=0.0 keys=["identifier"]
+2026-10-04T14:35:24.081506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Page.enable" timeout=5 params=[]
+2026-10-04T14:35:24.081506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Page.enable" seconds=0.0 keys=[]
+2026-10-04T14:35:24.082507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Emulation.setLocaleOverride" timeout=4 params=["locale"]
+2026-10-04T14:35:24.083506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Emulation.setLocaleOverride" seconds=0.0 keys=[]
+2026-10-04T14:35:24.083506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Emulation.setAutoDarkModeOverride" timeout=4 params=["enabled"]
+2026-10-04T14:35:24.083506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Emulation.setAutoDarkModeOverride" seconds=0.0 keys=[]
+2026-10-04T14:35:24.083506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Emulation.setEmulatedMedia" timeout=4 params=["features"]
+2026-10-04T14:35:24.084504+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Emulation.setEmulatedMedia" seconds=0.0 keys=[]
+2026-10-04T14:35:24.084504+00:00 [Dummy-14] thread="Dummy-14" event="page.language_theme" locale="ru-RU" auto_dark=false color_scheme="light"
+2026-10-04T14:35:24.084504+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=5 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.085505+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:24.085505+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=5 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.096506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:24.096506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=5 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.097507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:24.097507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=5 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.098506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:24.098506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=5 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.113505+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.015 keys=["result"]
+2026-10-04T14:35:24.113505+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.116506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:24.116506+00:00 [Dummy-14] thread="Dummy-14" event="browser.zoom" source="native" ok=true css=[658, 1091] logical=[439, 728] physical=[439, 728] zoom=0.6672 overflow=0 innerWidth=658 innerHeight=1047 dpr=0.6666666865348816 scrollWidth=636
+2026-10-04T14:35:24.116506+00:00 [Dummy-14] thread="Dummy-14" event="webengine.zoom_applied" source="native" logical=[439, 728] physical=[439, 728]
+2026-10-04T14:35:24.116506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=5 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.118508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:24.118508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Target.getBrowserContexts" timeout=5 params=[]
+2026-10-04T14:35:24.119508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Target.getBrowserContexts" seconds=0.0 keys=["browserContextIds", "defaultBrowserContextId"]
+2026-10-04T14:35:24.119508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Browser.grantPermissions" timeout=5 params=["origin", "permissions"]
+2026-10-04T14:35:24.119508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Browser.grantPermissions" seconds=0.0 keys=[]
+2026-10-04T14:35:24.119508+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Browser.grantPermissions" timeout=5 params=["origin", "permissions"]
+2026-10-04T14:35:24.120507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Browser.grantPermissions" seconds=0.0 keys=[]
+2026-10-04T14:35:24.120507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Browser.grantPermissions" timeout=5 params=["origin", "permissions"]
+2026-10-04T14:35:24.120507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Browser.grantPermissions" seconds=0.0 keys=[]
+2026-10-04T14:35:24.120507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Browser.grantPermissions" timeout=5 params=["origin", "permissions"]
+2026-10-04T14:35:24.121506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Browser.grantPermissions" seconds=0.0 keys=[]
+2026-10-04T14:35:24.121506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Browser.setPermission" timeout=5 params=["origin", "permission", "setting"]
+2026-10-04T14:35:24.121506+00:00 [Dummy-14] thread="Dummy-14" event="cdp.protocol_error" method="Browser.setPermission" code=-32602 text="Invalid PermissionDescriptor name: audioCapture" params=["origin", "permission", "setting"]
+2026-10-04T14:35:24.125506+00:00 [Dummy-14] thread="Dummy-14" event="exception" where="CDP.send:Browser.setPermission" occurrence=1 type="RuntimeError" errno=null winerror=null frames=[{"file": "main.py", "line": 661, "function": "send"}]
+2026-10-04T14:35:24.125506+00:00 [Dummy-14] thread="Dummy-14" event="browser.set_permission_unsupported"
+2026-10-04T14:35:24.126507+00:00 [Dummy-14] thread="Dummy-14" event="exception" where="native_browser.set_permission" occurrence=1 type="RuntimeError" errno=null winerror=null frames=[{"file": "native_browser.py", "line": 1198, "function": "grant_microphone"}, {"file": "main.py", "line": 661, "function…
+2026-10-04T14:35:24.126507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.send" method="Runtime.evaluate" timeout=5 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.128507+00:00 [Dummy-14] thread="Dummy-14" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:24.129507+00:00 [Dummy-14] thread="Dummy-14" event="browser.mic_granted" origins=["https://google.com", "https://gemini.google.com", "https://www.google.com", "https://aistudio.google.com"] context=false state="granted" set_permission_used=false
+2026-10-04T14:35:24.129507+00:00 [Dummy-14] thread="Dummy-14" event="webengine.chat_ready" ready=true verdict="ai_mode" blocked="" rounds=3 theme_repairs=0
+2026-10-04T14:35:24.129507+00:00 [Dummy-14] thread="Dummy-14" event="trace.end" name="ChromeWorker.run" seconds=1.313
+2026-10-04T14:35:24.236507+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1180574 style=true delete_tab=false
+2026-10-04T14:35:24.238506+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.219
+2026-10-04T14:35:24.239506+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._on_hwnd"
+2026-10-04T14:35:24.239506+00:00 [MainThread] thread="MainThread" event="trace.begin" name="MainWindow._on_hwnd" args=2 kwargs=0
+2026-10-04T14:35:24.240506+00:00 [MainThread] thread="MainThread" event="cdp.send" method="Runtime.evaluate" timeout=5 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.241505+00:00 [MainThread] thread="MainThread" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:24.241505+00:00 [MainThread] thread="MainThread" event="browser.speech_surface" sr=true gum=true perm=true lang="ru-RU" langs="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+2026-10-04T14:35:24.242506+00:00 [MainThread] thread="MainThread" event="bt.chat.ready" verdict="ai_mode" blocked="" args="{'win_visible': True, 'win_min': False, 'win_geo': [2091, 332, 453, 735], 'dpr': 1.0, 'cover': True, 'settling': False,…
+2026-10-04T14:35:24.244506+00:00 [PageSnapshot] thread="PageSnapshot" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.244506+00:00 [MainThread] thread="MainThread" event="prompt.picker_auto" reason="no-selection"
+2026-10-04T14:35:24.247504+00:00 [MainThread] thread="MainThread" event="trace.end" name="MainWindow._on_hwnd" seconds=0.016
+2026-10-04T14:35:24.247504+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._on_hwnd" seconds=0.016
+2026-10-04T14:35:24.251503+00:00 [MainThread] thread="MainThread" event="http.begin" method="get" host="legalyzeai.ru" path="/api/client/prompts"
+2026-10-04T14:35:24.278507+00:00 [PageSnapshot] thread="PageSnapshot" event="cdp.result" method="Runtime.evaluate" seconds=0.031 keys=["result"]
+2026-10-04T14:35:24.280506+00:00 [PageSnapshot] thread="PageSnapshot" event="cdp.send" method="Runtime.evaluate" timeout=4 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.336508+00:00 [DiagnosticWatchdog] thread="DiagnosticWatchdog" event="gui.heartbeat" age_seconds=1.0
+2026-10-04T14:35:24.384509+00:00 [PageSnapshot] thread="PageSnapshot" event="cdp.result" method="Runtime.evaluate" seconds=0.109 keys=["result"]
+2026-10-04T14:35:24.407506+00:00 [PageSnapshot] thread="PageSnapshot" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.409507+00:00 [PageSnapshot] thread="PageSnapshot" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:24.409507+00:00 [PageSnapshot] thread="PageSnapshot" event="cdp.send" method="Runtime.evaluate" timeout=5 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:24.444505+00:00 [PageSnapshot] thread="PageSnapshot" event="cdp.result" method="Runtime.evaluate" seconds=0.031 keys=["result"]
+2026-10-04T14:35:24.894504+00:00 [MainThread] thread="MainThread" event="http.end" method="get" host="legalyzeai.ru" path="/api/client/prompts" status=200 seconds=0.64
+2026-10-04T14:35:24.895505+00:00 [MainThread] thread="MainThread" event="stage.begin" name="PromptSelectionWindow.__init__"
+2026-10-04T14:35:24.909507+00:00 [MainThread] thread="MainThread" event="stage.end" name="PromptSelectionWindow.__init__" seconds=0.016
+2026-10-04T14:35:24.948506+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:35:25.140505+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1180574 style=true delete_tab=false
+2026-10-04T14:35:25.142504+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.187
+2026-10-04T14:35:25.143505+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:25.340506+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:25.342506+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:25.347505+00:00 [MainThread] thread="MainThread" event="main.snapshot" visible=true minimized=false geometry=[2091, 332, 453, 735] dpr=1.0 chrome_hwnd=1180574 worker_running=false chromium_exit=null overlay_visible=false page_verdict="ai_mode" native_mode=true chat_ready=true cover_visible=true settling=false
+2026-10-04T14:35:25.347505+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:35:25.556504+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1180574 style=true delete_tab=false
+2026-10-04T14:35:25.558505+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.218
+2026-10-04T14:35:26.558504+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:26.559504+00:00 [MainThread] thread="MainThread" event="http.begin" method="post" host="legalyzeai.ru" path="/api/client/prompts"
+2026-10-04T14:35:26.935503+00:00 [MainThread] thread="MainThread" event="http.end" method="post" host="legalyzeai.ru" path="/api/client/prompts" status=200 seconds=0.375
+2026-10-04T14:35:26.935503+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:35:26.936504+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:35:26.941504+00:00 [Thread-15 (task)] thread="Thread-15 (task)" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:26.944505+00:00 [Thread-15 (task)] thread="Thread-15 (task)" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:26.950504+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:35:27.092504+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1180574 style=true delete_tab=false
+2026-10-04T14:35:27.093503+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.141
+2026-10-04T14:35:27.093503+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:35:27.200502+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1180574 style=true delete_tab=false
+2026-10-04T14:35:27.201503+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.109
+2026-10-04T14:35:27.593226+00:00 [MainThread] thread="MainThread" event="stage.begin" name="PromptLoaderWorker.__init__"
+2026-10-04T14:35:27.593226+00:00 [MainThread] thread="MainThread" event="stage.end" name="PromptLoaderWorker.__init__" seconds=0.0
+2026-10-04T14:35:27.595228+00:00 [Dummy-16] thread="Dummy-16" event="http.begin" method="head" host="legalyzeai.ru" path="/api/client/prompts"
+2026-10-04T14:35:27.806325+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:35:27.926325+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1180574 style=true delete_tab=false
+2026-10-04T14:35:27.927326+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.11
+2026-10-04T14:35:27.928328+00:00 [Thread-17 (_zoom_guard_once)] thread="Thread-17 (_zoom_guard_once)" event="cdp.send" method="Emulation.setLocaleOverride" timeout=4 params=["locale"]
+2026-10-04T14:35:27.929326+00:00 [Thread-17 (_zoom_guard_once)] thread="Thread-17 (_zoom_guard_once)" event="cdp.result" method="Emulation.setLocaleOverride" seconds=0.0 keys=[]
+2026-10-04T14:35:27.929326+00:00 [Thread-17 (_zoom_guard_once)] thread="Thread-17 (_zoom_guard_once)" event="cdp.send" method="Emulation.setAutoDarkModeOverride" timeout=4 params=["enabled"]
+2026-10-04T14:35:27.929326+00:00 [Dummy-16] thread="Dummy-16" event="http.end" method="head" host="legalyzeai.ru" path="/api/client/prompts" status=200 seconds=0.328
+2026-10-04T14:35:27.930327+00:00 [Thread-17 (_zoom_guard_once)] thread="Thread-17 (_zoom_guard_once)" event="cdp.result" method="Emulation.setAutoDarkModeOverride" seconds=0.015 keys=[]
+2026-10-04T14:35:27.930327+00:00 [Thread-17 (_zoom_guard_once)] thread="Thread-17 (_zoom_guard_once)" event="cdp.send" method="Emulation.setEmulatedMedia" timeout=4 params=["features"]
+2026-10-04T14:35:27.931327+00:00 [Dummy-16] thread="Dummy-16" event="http.begin" method="get" host="legalyzeai.ru" path="/api/client/prompts"
+2026-10-04T14:35:27.932326+00:00 [Thread-17 (_zoom_guard_once)] thread="Thread-17 (_zoom_guard_once)" event="cdp.result" method="Emulation.setEmulatedMedia" seconds=0.0 keys=[]
+2026-10-04T14:35:27.932326+00:00 [Thread-17 (_zoom_guard_once)] thread="Thread-17 (_zoom_guard_once)" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:27.933327+00:00 [Thread-17 (_zoom_guard_once)] thread="Thread-17 (_zoom_guard_once)" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:28.353693+00:00 [Dummy-16] thread="Dummy-16" event="http.end" method="get" host="legalyzeai.ru" path="/api/client/prompts" status=200 seconds=0.422
+2026-10-04T14:35:28.375693+00:00 [Dummy-16] thread="Dummy-16" event="stage.begin" name="generate_hwid"
+2026-10-04T14:35:28.375693+00:00 [Dummy-16] thread="Dummy-16" event="hwid.command.begin" executable="wmic"
+2026-10-04T14:35:28.455694+00:00 [Dummy-16] thread="Dummy-16" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-04T14:35:28.455694+00:00 [Dummy-16] thread="Dummy-16" event="hwid.command.begin" executable="wmic"
+2026-10-04T14:35:28.591694+00:00 [Dummy-16] thread="Dummy-16" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-04T14:35:28.591694+00:00 [Dummy-16] thread="Dummy-16" event="stage.end" name="generate_hwid" seconds=0.219
+2026-10-04T14:35:28.700694+00:00 [Dummy-16] thread="Dummy-16" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:35:28.702694+00:00 [Dummy-16] thread="Dummy-16" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:35:28.704696+00:00 [MainThread] thread="MainThread" event="prompt.prepared" success=true
+2026-10-04T14:35:28.705695+00:00 [MainThread] thread="MainThread" event="stage.begin" name="UploadThread.__init__"
+2026-10-04T14:35:28.705695+00:00 [MainThread] thread="MainThread" event="stage.end" name="UploadThread.__init__" seconds=0.0
+2026-10-04T14:35:28.710693+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:28.711695+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:28.711695+00:00 [Dummy-22] thread="Dummy-22" event="upload.state" present=0 uploading=false probe_ok=true pdf_exists=true template_exists=true attempts_failed=0
+2026-10-04T14:35:28.711695+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:28.712693+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:28.712693+00:00 [Dummy-22] thread="Dummy-22" event="page.probe" category="google" ready="complete" bodyChildren=64 fileInputs=0 editors=2 frames=0 documentFocused=false activeEditable=true activeReadOnly=false activeDisabled=false
+2026-10-04T14:35:28.901106+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:28.902100+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:28.910100+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=10 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:29.032100+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.125 keys=["result"]
+2026-10-04T14:35:29.033133+00:00 [Dummy-22] thread="Dummy-22" event="upload.attempt" kind="pdf" injected=true bytes=1988510 ms=125 empty_rounds=1 fails=0 name="Memphis.pdf"
+2026-10-04T14:35:29.039100+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:29.076101+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.047 keys=["result"]
+2026-10-04T14:35:29.377504+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:29.378507+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:29.378507+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=10 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:29.392504+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.015 keys=["result"]
+2026-10-04T14:35:29.392504+00:00 [Dummy-22] thread="Dummy-22" event="upload.attempt" kind="template" injected=true bytes=155 ms=15 empty_rounds=1 fails=0 name="Шаблон.txt"
+2026-10-04T14:35:29.393508+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:29.394505+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:29.996658+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:29.997703+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:29.997703+00:00 [MainThread] thread="MainThread" event="upload.attachments_confirmed" complete=true
+2026-10-04T14:35:30.004708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.005707+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:30.156889+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.157886+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:30.163887+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.164886+00:00 [MainThread] thread="MainThread" event="main.snapshot" visible=true minimized=false geometry=[1954, 350, 453, 735] dpr=1.0 chrome_hwnd=1180574 worker_running=false chromium_exit=null overlay_visible=false page_verdict="ai_mode" native_mode=true chat_ready=true cover_visible=false settling=false
+2026-10-04T14:35:30.164886+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:30.316207+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.317202+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:30.322200+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.323202+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:30.474407+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.475409+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:30.480407+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.481406+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:30.584642+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.send" method="Runtime.evaluate" timeout=1 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.585643+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:30.632792+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.633741+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.015 keys=["result"]
+2026-10-04T14:35:30.639740+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.640739+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:30.759842+00:00 [MainThread] thread="MainThread" event="focus.handoff" host=1509166 browser=1180574 target=2754906 target_tid=21852 previous=1509166 error=0 before={"active": 1509166, "focus": 1509166, "caret": 0} after={"active": 1509166, "focus": 2754906, "caret": 0} success=true
+2026-10-04T14:35:30.760842+00:00 [MainThread] thread="MainThread" event="focus.detach" success=true error=0 after={"active": 1509166, "focus": 2754906, "caret": 0}
+2026-10-04T14:35:30.791862+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.792861+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:30.797863+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.798862+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:30.950321+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.951323+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:30.956323+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:30.957322+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.108345+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.108345+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.114345+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.115344+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.266343+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.267343+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.272344+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.273344+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.424646+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.425591+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.431590+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.432592+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.577049+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.send" method="Runtime.evaluate" timeout=1 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.577995+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.584094+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.585036+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.590036+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.591036+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.742179+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.743146+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:31.748144+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.749147+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.899574+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.900688+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:31.905696+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:31.918693+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:32.069759+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.070708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:32.075705+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.076745+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:32.228466+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.229312+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:32.234338+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.235310+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:32.386971+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.387964+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:32.393963+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.394963+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:32.546059+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.546909+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:32.551934+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.552939+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:32.578441+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.send" method="Runtime.evaluate" timeout=1 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.579440+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:32.704205+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.705194+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:32.710193+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.711194+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:32.811763+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:35:32.862643+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.863642+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:32.869653+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.870610+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:32.919610+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1180574 style=true delete_tab=false
+2026-10-04T14:35:32.921646+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.11
+2026-10-04T14:35:32.921646+00:00 [Thread-23 (_zoom_guard_once)] thread="Thread-23 (_zoom_guard_once)" event="cdp.send" method="Emulation.setLocaleOverride" timeout=4 params=["locale"]
+2026-10-04T14:35:32.923609+00:00 [Thread-23 (_zoom_guard_once)] thread="Thread-23 (_zoom_guard_once)" event="cdp.result" method="Emulation.setLocaleOverride" seconds=0.0 keys=[]
+2026-10-04T14:35:32.923609+00:00 [Thread-23 (_zoom_guard_once)] thread="Thread-23 (_zoom_guard_once)" event="cdp.send" method="Emulation.setAutoDarkModeOverride" timeout=4 params=["enabled"]
+2026-10-04T14:35:32.923609+00:00 [Thread-23 (_zoom_guard_once)] thread="Thread-23 (_zoom_guard_once)" event="cdp.result" method="Emulation.setAutoDarkModeOverride" seconds=0.0 keys=[]
+2026-10-04T14:35:32.923609+00:00 [Thread-23 (_zoom_guard_once)] thread="Thread-23 (_zoom_guard_once)" event="cdp.send" method="Emulation.setEmulatedMedia" timeout=4 params=["features"]
+2026-10-04T14:35:32.924610+00:00 [Thread-23 (_zoom_guard_once)] thread="Thread-23 (_zoom_guard_once)" event="cdp.result" method="Emulation.setEmulatedMedia" seconds=0.0 keys=[]
+2026-10-04T14:35:32.924610+00:00 [Thread-23 (_zoom_guard_once)] thread="Thread-23 (_zoom_guard_once)" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:32.924610+00:00 [Thread-23 (_zoom_guard_once)] thread="Thread-23 (_zoom_guard_once)" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.021601+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.022445+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.028473+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.029444+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.179629+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.180620+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.015 keys=["result"]
+2026-10-04T14:35:33.185620+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.186620+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.337740+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.337740+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.343729+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.344730+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.494998+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.495998+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.500998+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.501998+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.573998+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.send" method="Runtime.evaluate" timeout=1 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.574999+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.652999+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.652999+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.659000+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.660000+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.811246+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.811246+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.811246+00:00 [Dummy-22] thread="Dummy-22" event="upload.state" present=4 uploading=false probe_ok=true pdf_exists=true template_exists=true attempts_failed=0
+2026-10-04T14:35:33.811246+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.812236+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.812236+00:00 [Dummy-22] thread="Dummy-22" event="page.probe" category="google" ready="complete" bodyChildren=64 fileInputs=0 editors=2 frames=0 documentFocused=true activeEditable=false activeReadOnly=false activeDisabled=false
+2026-10-04T14:35:33.817236+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.818235+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.969741+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.970690+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:33.975689+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:33.976688+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:34.128116+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.129069+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:34.134094+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.135064+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:34.286362+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.287361+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:34.292360+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.293360+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:34.337219+00:00 [DiagnosticWatchdog] thread="DiagnosticWatchdog" event="gui.heartbeat" age_seconds=1.0
+2026-10-04T14:35:34.362286+00:00 [MainThread] thread="MainThread" event="stage.begin" name="HotkeyDialog.__init__"
+2026-10-04T14:35:34.369285+00:00 [MainThread] thread="MainThread" event="stage.end" name="HotkeyDialog.__init__" seconds=0.016
+2026-10-04T14:35:34.382286+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [1919, 328, 2372, 1063], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:34.444869+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.445725+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:34.456734+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.457734+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:34.573770+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.send" method="Runtime.evaluate" timeout=1 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.574760+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:34.609181+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.610170+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:34.615170+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.616169+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:34.767087+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.768088+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:34.773089+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.774088+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:34.924747+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.925739+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:34.930738+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:34.931739+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.082881+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.083829+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.088827+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.089827+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.166715+00:00 [MainThread] thread="MainThread" event="main.snapshot" visible=true minimized=false geometry=[1929, 352, 453, 735] dpr=1.0 chrome_hwnd=1180574 worker_running=false chromium_exit=null overlay_visible=false page_verdict="ai_mode" native_mode=true chat_ready=true cover_visible=false settling=false
+2026-10-04T14:35:35.240710+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.241708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.248711+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.249709+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.400710+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.401710+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.407709+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.409709+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.560707+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.561708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.566708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.567708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.580708+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.send" method="Runtime.evaluate" timeout=1 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.581708+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.718708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.719708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.724708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.725708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.876707+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.877708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:35.883711+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:35.884710+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.036710+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.037708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.044708+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.045711+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.196741+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.197709+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.202740+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.203741+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.354855+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.355820+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.360820+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.364820+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.364820+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [1919, 328, 2372, 1063], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:36.365820+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:35:36.365820+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:35:36.367821+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._register_hotkeys"
+2026-10-04T14:35:36.367821+00:00 [MainThread] thread="MainThread" event="hotkeys.configured" toggle="F2" mic="Num+" suppressed=true
+2026-10-04T14:35:36.367821+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._register_hotkeys" seconds=0.0
+2026-10-04T14:35:36.515865+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.515865+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.521865+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.522866+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.570936+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.send" method="Runtime.evaluate" timeout=1 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.571909+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.673390+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.674382+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.679380+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.680381+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.015 keys=["result"]
+2026-10-04T14:35:36.796207+00:00 [MainThread] thread="MainThread" event="stage.begin" name="HotkeyDialog.__init__"
+2026-10-04T14:35:36.798207+00:00 [MainThread] thread="MainThread" event="stage.end" name="HotkeyDialog.__init__" seconds=0.0
+2026-10-04T14:35:36.810206+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [1919, 328, 2372, 1063], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:36.832250+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.833251+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.838251+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.839264+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.989862+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.989862+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:36.995853+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:36.995853+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.147399+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.148391+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.153391+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.154393+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.305329+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.306330+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.311330+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.312331+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.463774+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.463774+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.469764+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.469764+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.578008+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.send" method="Runtime.evaluate" timeout=1 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.579010+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.621007+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.622008+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.628008+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.628008+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.779287+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.780277+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.785279+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.786277+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.815705+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:35:37.930553+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1180574 style=true delete_tab=false
+2026-10-04T14:35:37.932554+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.125
+2026-10-04T14:35:37.933554+00:00 [Thread-24 (_zoom_guard_once)] thread="Thread-24 (_zoom_guard_once)" event="cdp.send" method="Emulation.setLocaleOverride" timeout=4 params=["locale"]
+2026-10-04T14:35:37.933554+00:00 [Thread-24 (_zoom_guard_once)] thread="Thread-24 (_zoom_guard_once)" event="cdp.result" method="Emulation.setLocaleOverride" seconds=0.0 keys=[]
+2026-10-04T14:35:37.933554+00:00 [Thread-24 (_zoom_guard_once)] thread="Thread-24 (_zoom_guard_once)" event="cdp.send" method="Emulation.setAutoDarkModeOverride" timeout=4 params=["enabled"]
+2026-10-04T14:35:37.938555+00:00 [Thread-24 (_zoom_guard_once)] thread="Thread-24 (_zoom_guard_once)" event="cdp.result" method="Emulation.setAutoDarkModeOverride" seconds=0.0 keys=[]
+2026-10-04T14:35:37.938555+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.938555+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [1919, 328, 2372, 1063], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:37.939554+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.939554+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:35:37.939554+00:00 [Thread-24 (_zoom_guard_once)] thread="Thread-24 (_zoom_guard_once)" event="cdp.send" method="Emulation.setEmulatedMedia" timeout=4 params=["features"]
+2026-10-04T14:35:37.940554+00:00 [Thread-24 (_zoom_guard_once)] thread="Thread-24 (_zoom_guard_once)" event="cdp.result" method="Emulation.setEmulatedMedia" seconds=0.0 keys=[]
+2026-10-04T14:35:37.940554+00:00 [Thread-24 (_zoom_guard_once)] thread="Thread-24 (_zoom_guard_once)" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.940554+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:35:37.941555+00:00 [Thread-24 (_zoom_guard_once)] thread="Thread-24 (_zoom_guard_once)" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:37.942554+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._register_hotkeys"
+2026-10-04T14:35:37.942554+00:00 [MainThread] thread="MainThread" event="hotkeys.configured" toggle="Num-" mic="Num+" suppressed=true
+2026-10-04T14:35:37.942554+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._register_hotkeys" seconds=0.0
+2026-10-04T14:35:37.946553+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:37.947556+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.098553+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.099554+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.104554+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.105554+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.256676+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.257667+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.262667+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.263666+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.414862+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.415861+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.420857+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.421857+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.572726+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.573725+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.578724+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.579725+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.585735+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.send" method="Runtime.evaluate" timeout=1 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.586725+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:38.731270+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.732264+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.737264+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.738264+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.846172+00:00 [MainThread] thread="MainThread" event="trace.begin" name="MainWindow._on_hotkey" args=2 kwargs=0
+2026-10-04T14:35:38.846172+00:00 [MainThread] thread="MainThread" event="bt.hotkey.pressed" id=1 visible=true args="{'win_visible': True, 'win_min': False, 'win_geo': [1929, 352, 453, 735], 'dpr': 1.0, 'cover': False, 'settling': False…
+2026-10-04T14:35:38.846172+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._toggle_visibility"
+2026-10-04T14:35:38.846172+00:00 [MainThread] thread="MainThread" event="bt.hotkey.toggle.begin" action="hide" args="{'win_visible': True, 'win_min': False, 'win_geo': [1929, 352, 453, 735], 'dpr': 1.0, 'cover': False, 'settling': False…
+2026-10-04T14:35:38.847121+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [1919, 328, 2372, 1063], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:38.851120+00:00 [MainThread] thread="MainThread" event="bt.window.hide" args="{'win_visible': False, 'win_min': False, 'win_geo': [1929, 352, 453, 735], 'dpr': 1.0, 'cover': False, 'settling': Fals…
+2026-10-04T14:35:38.853121+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.853121+00:00 [MainThread] thread="MainThread" event="bt.hotkey.toggle.end" action="hide" args="{'win_visible': False, 'win_min': False, 'win_geo': [1929, 352, 453, 735], 'dpr': 1.0, 'cover': False, 'settling': Fals…
+2026-10-04T14:35:38.853121+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._toggle_visibility" seconds=0.015
+2026-10-04T14:35:38.853121+00:00 [MainThread] thread="MainThread" event="trace.end" name="MainWindow._on_hotkey" seconds=0.015
+2026-10-04T14:35:38.854120+00:00 [Thread-25 (task)] thread="Thread-25 (task)" event="win32.sync_now" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": false, "rect": [1919, 328, 2372, 1063], "style": 1442840576, "exstyle": 128, "…
+2026-10-04T14:35:38.855124+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.889123+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.890130+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.890130+00:00 [Dummy-22] thread="Dummy-22" event="upload.state" present=4 uploading=false probe_ok=true pdf_exists=true template_exists=true attempts_failed=0
+2026-10-04T14:35:38.890130+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.890130+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:38.890130+00:00 [Dummy-22] thread="Dummy-22" event="page.probe" category="google" ready="complete" bodyChildren=64 fileInputs=0 editors=2 frames=0 documentFocused=true activeEditable=false activeReadOnly=false activeDisabled=false
+2026-10-04T14:35:38.896128+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:38.897129+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.030870+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.031811+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.047820+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.048810+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.053810+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.054811+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.185809+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.186801+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.206073+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.207038+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.212037+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.213039+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.309219+00:00 [MainThread] thread="MainThread" event="trace.begin" name="MainWindow._on_hotkey" args=2 kwargs=0
+2026-10-04T14:35:39.309219+00:00 [MainThread] thread="MainThread" event="bt.hotkey.pressed" id=1 visible=false args="{'win_visible': False, 'win_min': False, 'win_geo': [1929, 352, 453, 735], 'dpr': 1.0, 'cover': False, 'settling': Fals…
+2026-10-04T14:35:39.309219+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._toggle_visibility"
+2026-10-04T14:35:39.309219+00:00 [MainThread] thread="MainThread" event="bt.hotkey.toggle.begin" action="show" args="{'win_visible': False, 'win_min': False, 'win_geo': [1929, 352, 453, 735], 'dpr': 1.0, 'cover': False, 'settling': Fals…
+2026-10-04T14:35:39.310113+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": false, "rect": [1919, 328, 2372, 1063], "style": 1442840576, "exstyle": 128, "…
+2026-10-04T14:35:39.310113+00:00 [MainThread] thread="MainThread" event="trace.begin" name="MainWindow._schedule_revive" args=1 kwargs=0
+2026-10-04T14:35:39.310113+00:00 [MainThread] thread="MainThread" event="bt.revive.schedule" step_ms="[0, 150, 350, 600, 900, 1300, 1800, 2400]" min_ms=1600 settle_n=3 args="{'win_visible': False, 'win_min': False, 'win_geo': [1929, 352, 453, 735], 'dpr': 1.0, 'cover': False, 'settling': Fals…
+2026-10-04T14:35:39.312062+00:00 [MainThread] thread="MainThread" event="trace.end" name="MainWindow._schedule_revive" seconds=0.0
+2026-10-04T14:35:39.312062+00:00 [MainThread] thread="MainThread" event="bt.window.show" was_hidden=true args="{'win_visible': False, 'win_min': False, 'win_geo': [1929, 352, 453, 735], 'dpr': 1.0, 'cover': False, 'settling': Fals…
+2026-10-04T14:35:39.320063+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.321063+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:39.321063+00:00 [MainThread] thread="MainThread" event="bt.hotkey.toggle.end" action="show" args="{'win_visible': False, 'win_min': False, 'win_geo': [1929, 352, 453, 735], 'dpr': 1.0, 'cover': False, 'settling': Fals…
+2026-10-04T14:35:39.321063+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._toggle_visibility" seconds=0.016
+2026-10-04T14:35:39.321063+00:00 [MainThread] thread="MainThread" event="trace.end" name="MainWindow._on_hotkey" seconds=0.016
+2026-10-04T14:35:39.323064+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [1919, 328, 2372, 1063], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:35:39.334064+00:00 [Thread-26 (task)] thread="Thread-26 (task)" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.335062+00:00 [Thread-26 (task)] thread="Thread-26 (task)" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.335062+00:00 [Thread-26 (task)] thread="Thread-26 (task)" event="browser.revive" step=0 ms=0 settled=1 inset=[-10, -24, 10, 24] signature=[658, 0.667, 439, 728, [-10, -24, 10, 24]] verdict="on_target" dx=0 dy=0 dw=0 dh=0 client=[439, 728] visible=true explain=[]
+2026-10-04T14:35:39.335062+00:00 [Thread-26 (task)] thread="Thread-26 (task)" event="bt.revive.on_target" step=0 ms=0 rect="[1919, 328, 453, 735]" target="(1919, 328, 453, 735)" client="[439, 728]" scale=1.0
+2026-10-04T14:35:39.340073+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.341063+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.364061+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.364061+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.370062+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.371062+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.462213+00:00 [Thread-27 (task)] thread="Thread-27 (task)" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.463207+00:00 [Thread-27 (task)] thread="Thread-27 (task)" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.463207+00:00 [Thread-27 (task)] thread="Thread-27 (task)" event="browser.revive" step=1 ms=150 settled=2 inset=[-10, -24, 10, 24] signature=[658, 0.667, 439, 728, [-10, -24, 10, 24]] verdict="on_target" dx=0 dy=0 dw=0 dh=0 client=[439, 728] visible=true explain=[]
+2026-10-04T14:35:39.464206+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.464206+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.504432+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.505400+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.522464+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.523454+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.529456+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.530454+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.574838+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.send" method="Runtime.evaluate" timeout=1 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.575831+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.627005+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.627005+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.663006+00:00 [Thread-28 (task)] thread="Thread-28 (task)" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.664006+00:00 [Thread-28 (task)] thread="Thread-28 (task)" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.664006+00:00 [Thread-28 (task)] thread="Thread-28 (task)" event="browser.revive" step=2 ms=350 settled=3 inset=[-10, -24, 10, 24] signature=[658, 0.667, 439, 728, [-10, -24, 10, 24]] verdict="on_target" dx=0 dy=0 dw=0 dh=0 client=[439, 728] visible=true explain=[]
+2026-10-04T14:35:39.668005+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.668005+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.681005+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.682007+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.688005+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.689006+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.792566+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.793560+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.831601+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.832601+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.841601+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.842601+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.847600+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.848601+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.912974+00:00 [Thread-29 (task)] thread="Thread-29 (task)" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.913966+00:00 [Thread-29 (task)] thread="Thread-29 (task)" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.913966+00:00 [Thread-29 (task)] thread="Thread-29 (task)" event="browser.revive" step=3 ms=600 settled=4 inset=[-10, -24, 10, 24] signature=[658, 0.667, 439, 728, [-10, -24, 10, 24]] verdict="on_target" dx=0 dy=0 dw=0 dh=0 client=[439, 728] visible=true explain=[]
+2026-10-04T14:35:39.957210+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.957210+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.994544+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:39.995485+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:39.999493+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.000485+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.005485+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.006485+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.119963+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.120962+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.157274+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.158273+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.158273+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.158273+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.164274+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.165272+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.172280+00:00 [MainThread] thread="MainThread" event="main.snapshot" visible=true minimized=false geometry=[1929, 352, 453, 735] dpr=1.0 chrome_hwnd=1180574 worker_running=false chromium_exit=null overlay_visible=true page_verdict="ai_mode" native_mode=true chat_ready=true cover_visible=true settling=true
+2026-10-04T14:35:40.212344+00:00 [Thread-30 (task)] thread="Thread-30 (task)" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.213338+00:00 [Thread-30 (task)] thread="Thread-30 (task)" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.213338+00:00 [Thread-30 (task)] thread="Thread-30 (task)" event="browser.revive" step=4 ms=900 settled=5 inset=[-10, -24, 10, 24] signature=[658, 0.667, 439, 728, [-10, -24, 10, 24]] verdict="on_target" dx=0 dy=0 dw=0 dh=0 client=[439, 728] visible=true explain=[]
+2026-10-04T14:35:40.282764+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.283763+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.315877+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.316877+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.321877+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.322877+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.322877+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.323877+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.445451+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.446442+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.016 keys=["result"]
+2026-10-04T14:35:40.474546+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.475549+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.481547+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.482547+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.577908+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.send" method="Runtime.evaluate" timeout=1 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.578914+00:00 [ResponsePoll] thread="ResponsePoll" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.587920+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.588913+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.613016+00:00 [Thread-31 (task)] thread="Thread-31 (task)" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.614016+00:00 [Thread-31 (task)] thread="Thread-31 (task)" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.614016+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.614016+00:00 [Thread-31 (task)] thread="Thread-31 (task)" event="browser.revive" step=5 ms=1300 settled=6 inset=[-10, -24, 10, 24] signature=[658, 0.667, 439, 728, [-10, -24, 10, 24]] verdict="on_target" dx=0 dy=0 dw=0 dh=0 client=[439, 728] visible=true explain=[]
+2026-10-04T14:35:40.615016+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.634016+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.635016+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.640016+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.642020+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.754018+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.755017+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.793017+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.794017+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.799018+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.800018+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.866018+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.866018+00:00 [BrowserWatch:hide] thread="BrowserWatch:hide" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.899073+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.900017+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.951245+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.952218+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:40.957183+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:40.958183+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:41.062619+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.send" method="Runtime.evaluate" timeout=0.6 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:41.063612+00:00 [BrowserWatch:show] thread="BrowserWatch:show" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:41.109876+00:00 [Dummy-22] thread="Dummy-22" event="cdp.send" method="Runtime.evaluate" timeout=2 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:41.110867+00:00 [Dummy-22] thread="Dummy-22" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:41.112866+00:00 [Thread-32 (task)] thread="Thread-32 (task)" event="cdp.send" method="Runtime.evaluate" timeout=3 params=["awaitPromise", "expression", "generatePreview", "returnByValue", "userGesture"]
+2026-10-04T14:35:41.113867+00:00 [Thread-32 (task)] thread="Thread-32 (task)" event="cdp.result" method="Runtime.evaluate" seconds=0.0 keys=["result"]
+2026-10-04T14:35:41.113867+00:00 [Thread-32 (task)] thread="Thread-32 (task)" event="browser.revive" step=6 ms=1800 settled=7 inset=[-10, -24, 10, 24] signature=[658, 0.667, 439, 728, [-10, -24, 10, 24]] verdict="on_target" dx=0 dy=0 dw=0 dh=0 client=[439, 728] visible=true explain=[]
+2026-10-04T14:35:41.113867+00:00 [Thread-32 (task)] thread="Thread-32 (task)" event="trace.begin" name="MainWindow._finalize_and_reveal" args=1 kwargs=0
+2026-10-04T14:35:41.114866+00:00 [Thread-32 (task)] thread="Thread-32 (task)" event="trace.end" name="MainWindow._finalize_and_reveal" seconds=0.0
+2026-10-04T14:35:41.114866+00:00 [Thread-33 (task)] thread="Thread-33 (task)" event="win32.sync_now" hwnd=1180574 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1180574, "pid": 3352, "visible": true, "rect": [1919, 328, 2372, 1063], "style": 1442840576, "exstyle": 128, "p…
