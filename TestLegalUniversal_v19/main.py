@@ -3435,7 +3435,7 @@ class UploadThread(QThread):
                         try:
                             btrace.audit_export(
                                 self.page, "after_inject" if injected else "inject_failed",
-                                [path], extra={"kind": kind, "injected": bool(injected),
+                                [path], extra={"attach": kind, "injected": bool(injected),
                                                "bytes": int(size),
                                                "ms": round((time.monotonic() - started_attempt) * 1000)})
                         except Exception:
@@ -4467,6 +4467,28 @@ class MainWindow(QMainWindow):
                 # ширина страницы перестаёт зависеть от размера окна, и
                 # «качка» прекращается. Лестница переборов ниже даёт несколько
                 # видимых перевёрсток подряд — она только на крайний случай.
+                #
+                # v20: форма объявления — «окно» (логические px, dsf=1.0).
+                # Причина: dsf-масштаб СКЛАДЫВАЕТСЯ с зумом профиля
+                # (0.667 x 0.667 = 0.445, innerWidth 658 → 987) — ровно это и
+                # видел пользователь в сессии 20261004-162559-12408-c5e41c.
+                # Там раскладку сломало объявление с dsf=0.6672, а вылечила её
+                # форма dsf=1.0 (`browser.zoom source=emulation-adaptive`).
+                try:
+                    healed = native_browser.refresh_emulation(
+                        page, logical_w, logical_h, physical_w, physical_h,
+                        PAGE_ZOOM)
+                    if healed.get("ok"):
+                        diag.event("browser.zoom_pinned", reason=str(reason),
+                                   via="window-dsf1",
+                                   innerWidth=healed.get("innerWidth"),
+                                   dpr=healed.get("dpr"))
+                        return True
+                except Exception:
+                    diag.exception("main.zoom_pin_window")
+                # Замер сказал, что зум профиля раскладку не держит (например,
+                # его нет вовсе): тогда раскладку задаёт только CDP — силовая
+                # форма с dsf.
                 try:
                     apply_viewport(page, logical_w, logical_h, physical_w,
                                    physical_h, PAGE_ZOOM)
@@ -4476,7 +4498,8 @@ class MainWindow(QMainWindow):
                 ok, metrics = zoom_ok(page, logical_w, logical_h, physical_w,
                                       physical_h, zoom=PAGE_ZOOM)
                 if ok:
-                    diag.event("browser.zoom_pinned", reason=str(reason))
+                    diag.event("browser.zoom_pinned", reason=str(reason),
+                               via="dsf")
                     return True
             result = apply_zoom(page, logical_w, logical_h, physical_w,
                                 physical_h, zoom=PAGE_ZOOM)
@@ -5280,13 +5303,106 @@ class MainWindow(QMainWindow):
                 # — это ровно тот случай, когда страница не дорисована.
                 ready = self._wait_page_complete(page, REVIVE_REVEAL_GATE_MS)
                 diag.event("browser.reveal_gate", ready=ready)
+                # v20: ПОКА ШТОРКА СТОИТ — держим раскладку ЗАМЕРОМ.
+                # Chrome переприменяет зум профиля уже ПОСЛЕ показа окна
+                # (подтверждено логом 20261004-162559-12408-c5e41c: 658/0.667 →
+                # 987/0.445 и восстановление только к тику 5-секундного
+                # сторожа). Одна проверка такую поломку не видит по
+                # определению — её в этот момент ещё нет. Поэтому раскладка
+                # проверяется по кругу, а шторка снимается только после двух
+                # совпавших замеров подряд.
+                if page is not None:
+                    self._layout_watch(page, "revive-hold", budget_ms=1200)
             except Exception:
                 diag.exception("main.revive_final")
             self._finish_settle(True)
             # v19: после разворота страница проверяется, а не предполагается.
             self._probe_surface("restore")
+            # v20: и ещё раз замером, уже после шторки: если Chrome переставит
+            # зум позже, раскладка будет возвращена за ~0.1 с, а не к
+            # следующему тику 5-секундного сторожа.
+            if page is not None:
+                self._layout_watchdog(page, "post-reveal")
 
         threading.Thread(target=task, daemon=True).start()
+
+    def _layout_repair(self, page, reason):
+        """Ремонт раскладки: объявить «форму окна» и проверить ЗАМЕРОМ.
+
+        Первым шагом — `native_browser.refresh_emulation`: логические пиксели
+        окна при `dsf=1.0`. Это ровно та форма, которой закончилось лечение в
+        живом логе (`browser.zoom source=emulation-adaptive`, 23.303): в ней
+        зум профиля не с чем складывать. Если замер говорит, что и она не
+        вернула раскладку, вызывается общий сторож зума (его лестница +
+        подбор по замеру). Возвращает словарь замера; исключения не выходят.
+        """
+        try:
+            logical_w, logical_h, physical_w, physical_h = self._zoom_args()
+            healed = native_browser.refresh_emulation(
+                page, logical_w, logical_h, physical_w, physical_h, PAGE_ZOOM)
+            diag.event("browser.layout_repair", reason=str(reason),
+                       innerWidth=healed.get("innerWidth"), dpr=healed.get("dpr"),
+                       restored=bool(healed.get("ok")))
+            if healed.get("ok"):
+                return healed
+        except Exception:
+            diag.exception("main.layout_repair")
+            healed = {}
+        try:
+            self._zoom_guard_once(page, reason=reason)
+        except Exception:
+            diag.exception("main.layout_guard")
+        return healed
+
+    def _layout_watch(self, page, reason, budget_ms=1200, step_ms=100, need=2):
+        """Держать раскладку в цели замером, пока возмущение не кончилось (v20).
+
+        Поломка доказана замером (сессия 20261004-162559-12408-c5e41c):
+        переопределение CDP с `deviceScaleFactor=0.6672` СКЛАДЫВАЕТСЯ с зумом
+        профиля (0.667 x 0.667 = 0.445, innerWidth 658 → 987); первым его
+        включает «толчок» метрик. Когда именно это произойдёт, заранее
+        неизвестно, поэтому раскладка проверяется по кругу, а «чинит» её
+        `_layout_repair` — по замеру, без догадок о том, какой механизм зума
+        (профиль или эмуляция CDP) сейчас активен.
+
+        Возвращает словарь замера; исключения не выходят наружу.
+        """
+        if page is None or self._closing or not self.native_mode:
+            # В резервном движке (QtWebEngine) эмуляции раскладки нет — там
+            # своя геометрия, и трогать её этим механизмом нельзя.
+            return {"ok": False, "skipped": True}
+        try:
+            logical_w, logical_h, physical_w, physical_h = self._zoom_args()
+        except Exception:
+            diag.exception("main.layout_args")
+            return {"ok": False, "skipped": True}
+        try:
+            return native_browser.settle_layout(
+                page, logical_w, logical_h, physical_w, physical_h, zoom=PAGE_ZOOM,
+                budget_ms=budget_ms, step_ms=step_ms, need=need,
+                repair=lambda: self._layout_repair(page, reason),
+                on_event=lambda data: diag.event("browser.layout_watch",
+                                                 reason=str(reason), **data))
+        except Exception:
+            diag.exception("main.layout_watch")
+            return {"ok": False, "error": True}
+
+    def _layout_watchdog(self, page, reason="post-reveal", budget_ms=2000, step_ms=120):
+        """Тот же замер, но фоном и уже после снятия шторки (v20).
+
+        Нужен на случай, когда Chrome ставит свой зум с задержкой больше
+        удержания под шторкой: тогда раскладка вернётся за ~0.1 с вместо
+        ожидания следующего тика сторожа (5 с).
+        """
+        if page is None or self._closing or not self.native_mode:
+            return None
+        try:
+            threading.Thread(target=self._layout_watch,
+                             args=(page, reason, budget_ms, step_ms),
+                             name="LayoutWatchdog", daemon=True).start()
+        except Exception:
+            diag.exception("main.layout_watchdog")
+        return None
 
     def _probe_surface(self, when="timer"):
         """Проверить, что открыто в браузере, и записать это в лог (v19).
@@ -5383,10 +5499,18 @@ class MainWindow(QMainWindow):
                 diag.exception("main.revive_reveal_fallback")
 
     def _nudge_metrics(self, page):
-        """На 1 px изменить ширину эмуляции и вернуть: Chromium рисует новый кадр.
+        """На 1 px изменить ЛОГИЧЕСКУЮ ширину и вернуть: Chromium рисует новый кадр.
 
-        Делается ТОЛЬКО если метрики и так переопределены ровно в цель зума,
-        — иначе раскладка была бы изменена. Проверка по измерению, не по догадке.
+        Толчок — единственная причина, по которой приложению вообще нужно
+        переопределение: заставить Chromium отрисовать новый кадр. ФОРМА
+        объявления здесь принципиальна и взята из живого лога (сессия
+        20261004-162559-12408-c5e41c): dsf-масштаб (`658 css @ dsf 0.6672`)
+        СКЛАДЫВАЕТСЯ с зумом профиля — 0.667 x 0.667 = 0.445, innerWidth
+        658 → 987. Именно так «съезжали объекты». Поэтому объявляем логические
+        пиксели окна с `dsf=1.0`, а конец толчка — ИЗМЕРЯЕМОЕ восстановление.
+
+        Делается только когда раскладка и так верна по замеру — иначе это была
+        бы не «встряска кадра», а изменение раскладки.
         """
         try:
             metrics = native_browser.page_metrics(page)
@@ -5395,15 +5519,21 @@ class MainWindow(QMainWindow):
             return
         inner = int((metrics or {}).get("innerWidth") or 0)
         logical_w, logical_h, physical_w, physical_h = self._zoom_args()
-        css_w, css_h, dsf = native_browser.target_css(
+        css_w, css_h, _dsf = native_browser.target_css(
             logical_w, logical_h, physical_w, physical_h, PAGE_ZOOM)
         if not inner or abs(inner - css_w) > 2:
             return
         try:
-            native_browser.apply_viewport_raw(page, css_w + 1, css_h, dsf)
+            # «Форма окна»: логическая ширина, dsf=1.0 — складывать нечего.
+            native_browser.apply_viewport_raw(page, int(round(logical_w)) + 1,
+                                              int(round(logical_h)), 1.0)
             time.sleep(0.06)
-            native_browser.apply_viewport_raw(page, css_w, css_h, dsf)
-            diag.event("browser.metrics_nudged", css=(int(css_w), int(css_h)))
+            healed = native_browser.refresh_emulation(
+                page, logical_w, logical_h, physical_w, physical_h, PAGE_ZOOM)
+            diag.event("browser.metrics_nudged", css=(int(css_w), int(css_h)),
+                       window=(int(round(logical_w)), int(round(logical_h))),
+                       innerWidth=healed.get("innerWidth"),
+                       dpr=healed.get("dpr"), restored=bool(healed.get("ok")))
         except Exception:
             diag.exception("main.metrics_nudge")
 

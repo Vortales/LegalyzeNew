@@ -3731,3 +3731,214 @@ class DiagnosticsTests(unittest.TestCase):
         self.assertIn('diag.state("page.verdict"', source)
         self.assertIn('diag.state("browser.mode"', source)
         self.assertIn('diag.state("page.blocked"', source)
+
+class LayoutSettleTests(unittest.TestCase):
+    """Удержание раскладки замером после показа окна (v20, ОШИБКИ.md № 1).
+
+    Живая сессия 20261004-162559-12408-c5e41c: окно стояло идеально (dx=dy=0),
+    а «съезжали» объекты СТРАНИЦЫ — объявление CDP с `deviceScaleFactor=0.6672`
+    СЛОЖИЛОСЬ с зумом профиля (0.667×0.667 = 0.445, 658 → 987 css px), и
+    раскладка возвращалась только к тику 5-секундного сторожа. Здесь
+    проверяется, что цикл удержания замечает это замером и зовёт ремонт, не
+    дожидаясь таймера, а ремонт использует форму «окно» (dsf=1.0).
+    """
+
+    class _Page:
+        """Страница со сценарием: сколько замеров подряд отдавать «сломанной»."""
+
+        def __init__(self, broken_rounds, logical=(439.0, 728.0), physical=(439.0, 728.0)):
+            self.broken_left = int(broken_rounds)
+            self.logical = logical
+            self.physical = physical
+            self.measures = 0
+
+        def eval(self, expression, timeout=None, **kwargs):  # noqa: A003
+            import json as _json
+            css_w, css_h, _dsf = native_browser.target_css(
+                self.logical[0], self.logical[1], self.physical[0], self.physical[1],
+                native_browser.ZOOM)
+            self.measures += 1
+            if self.broken_left > 0:
+                self.broken_left -= 1
+                w, dpr = int(css_w * 1.5), native_browser.ZOOM * native_browser.ZOOM
+            else:
+                w, dpr = css_w, native_browser.ZOOM
+
+            class _Value:
+                def __init__(self, value):
+                    self._value = value
+
+                def get(self, key, default=None):
+                    return self._value if key == "value" else default
+
+            return _Value(_json.dumps({"w": w, "h": css_h, "dpr": dpr, "sw": w}))
+
+    def test_repair_is_called_as_soon_as_the_layout_breaks(self):
+        page = self._Page(broken_rounds=3)
+        repairs = []
+        result = native_browser.settle_layout(
+            page, 439.0, 728.0, 439.0, 728.0, zoom=native_browser.ZOOM,
+            budget_ms=2000, step_ms=10, need=2, repair=lambda: repairs.append(1))
+        self.assertTrue(result["ok"], "после ремонта раскладка обязана считаться верной")
+        self.assertEqual(result["fixed"], 3)
+        self.assertEqual(len(repairs), 3)
+
+    def test_stable_layout_needs_no_repair(self):
+        page = self._Page(broken_rounds=0)
+        repairs = []
+        result = native_browser.settle_layout(
+            page, 439.0, 728.0, 439.0, 728.0, zoom=native_browser.ZOOM,
+            budget_ms=1000, step_ms=10, need=2, repair=lambda: repairs.append(1))
+        self.assertTrue(result["ok"])
+        self.assertEqual(repairs, [])
+        self.assertLessEqual(page.measures, 3)
+
+    def test_budget_is_respected_when_it_never_settles(self):
+        page = self._Page(broken_rounds=10 ** 6)
+        started = time.monotonic()
+        result = native_browser.settle_layout(
+            page, 439.0, 728.0, 439.0, 728.0, zoom=native_browser.ZOOM,
+            budget_ms=200, step_ms=20, need=2, repair=lambda: None)
+        elapsed = time.monotonic() - started
+        self.assertFalse(result["ok"])
+        self.assertLess(elapsed, 1.5, "цикл обязан закончиться по бюджету, а не висеть")
+
+    def test_measurement_errors_never_escape(self):
+        class Exploding:
+            def eval(self, *a, **kw):  # noqa: A003
+                raise RuntimeError("cdp потерян")
+
+        result = native_browser.settle_layout(
+            Exploding(), 439.0, 728.0, 439.0, 728.0, budget_ms=100, step_ms=10,
+            need=1, repair=lambda: None)
+        self.assertFalse(result["ok"])          # не бросает — просто «не устоялось»
+
+    class _ZoomPage:
+        """Модель из живого лога: зум профиля и переопределение СКЛАДЫВАЮТСЯ.
+
+        Проверено по записям сессии 20261004-162559-12408-c5e41c:
+
+        * переопределения нет → `innerWidth = 439/0.667 = 658`, `dpr = 0.667`
+          (запись `browser.zoom source=native`);
+        * переопределение `658 css @ dsf=0.6672` → `658/0.667 = 987`,
+          `0.6672 x 0.667 = 0.445` — то, что видел пользователь;
+        * переопределение `439 css @ dsf=1.0` (форма «окно») → `439/0.667 = 658`,
+          `1.0 x 0.667 = 0.667` — то, чем раскладка вылечилась
+          (`browser.zoom source=emulation-adaptive`).
+        """
+
+        def __init__(self, logical=(439.0, 728.0), physical=(439.0, 728.0),
+                     profile=float(native_browser.ZOOM)):
+            self.logical = logical
+            self.physical = physical
+            self.profile = profile
+            self.override = None      # (css_w, css_h, dsf) или None
+            self.applied = []
+
+        def apply(self, css_w, css_h, dsf):
+            self.applied.append((int(css_w), int(css_h), float(dsf)))
+            self.override = (int(css_w), int(css_h), float(dsf))
+
+        def metrics(self):
+            if self.override is None:
+                css_w = self.logical[0] / self.profile
+                css_h = self.logical[1] / self.profile
+                dpr = self.profile
+            else:
+                css_w = self.override[0] / self.profile
+                css_h = self.override[1] / self.profile
+                dpr = self.override[2] * self.profile
+            return int(round(css_w)), int(round(css_h)), dpr
+
+        def eval(self, expression, timeout=None, **kwargs):  # noqa: A003
+            import json as _json
+            css_w, css_h, dpr = self.metrics()
+
+            class _Value:
+                def __init__(self, value):
+                    self._value = value
+
+                def get(self, key, default=None):
+                    return self._value if key == "value" else default
+
+            return _Value(_json.dumps({"w": css_w, "h": css_h,
+                                       "dpr": round(dpr, 6), "sw": css_w}))
+
+    def _patch_apply(self, page):
+        original = native_browser.apply_viewport_raw
+        native_browser.apply_viewport_raw = (
+            lambda p, css_w, css_h, dsf, fit_window=False: (
+                page.apply(css_w, css_h, dsf) or True))
+        return original
+
+    def test_dsf_scaled_override_multiplies_with_the_profile_zoom(self):
+        """Воспроизведение дефекта: dsf-масштаб x зум профиля = 0.445."""
+        page = self._ZoomPage()
+        ok, metrics = native_browser.zoom_ok(page, 439.0, 728.0, 439.0, 728.0,
+                                            zoom=native_browser.ZOOM)
+        self.assertTrue(ok, "без переопределения раскладка верна (source=native)")
+        original = self._patch_apply(page)
+        try:
+            # так объявлял «толчок» и прибивание в v19: 658 css @ dsf=0.6672
+            page.apply(658, 1091, native_browser.ZOOM)
+        finally:
+            native_browser.apply_viewport_raw = original
+        width, _height, dpr = page.metrics()
+        self.assertEqual(width, 987, "658 / 0.667 = 987 — «объекты съехали»")
+        self.assertAlmostEqual(dpr, float(native_browser.ZOOM) ** 2, places=4)
+        ok, _metrics = native_browser.zoom_ok(page, 439.0, 728.0, 439.0, 728.0,
+                                             zoom=native_browser.ZOOM)
+        self.assertFalse(ok, "такая раскладка обязана считаться поломкой")
+
+    def test_refresh_emulation_lands_on_the_window_shape(self):
+        """Ремонт: логические пиксели окна при dsf=1.0 — и это подтверждено замером."""
+        page = self._ZoomPage()
+        original = self._patch_apply(page)
+        try:
+            page.apply(658, 1091, native_browser.ZOOM)   # сломали, как Chrome
+            result = native_browser.refresh_emulation(
+                page, 439.0, 728.0, 439.0, 728.0, native_browser.ZOOM)
+        finally:
+            native_browser.apply_viewport_raw = original
+        self.assertTrue(result["ok"], "замер обязан подтвердить восстановление")
+        self.assertEqual(result["innerWidth"], 658)
+        self.assertAlmostEqual(result["dpr"], float(native_browser.ZOOM), places=3)
+        self.assertEqual(page.applied[-1], (439, 728, 1.0),
+                         "форма объявления — окно (439x728) при dsf=1.0")
+
+    def test_the_metric_nudge_keeps_the_window_shape_and_measures(self):
+        """Толчок обязан быть в «форме окна» и заканчиваться замером.
+
+        Именно dsf-форма толчка (найдена по логу 20261004) сложилась с зумом
+        профиля и дала 987 x 0.445 — поэтому здесь проверяется и форма, и
+        то, что толчок НЕ заканчивается «просто откатом» тех же чисел.
+        """
+        source = (ROOT / 'main.py').read_text()
+        self.assertIn('restored=bool(healed.get("ok"))', source)
+        nudge = source.index('def _nudge_metrics(self, page):')
+        body = source[nudge:source.index('@pyqtSlot(int)', nudge)]
+        self.assertIn('native_browser.apply_viewport_raw(page, int(round(logical_w)) + 1', body)
+        self.assertIn('int(round(logical_h)), 1.0)', body, "dsf обязан быть 1.0")
+        self.assertIn('native_browser.refresh_emulation(', body)
+        self.assertNotIn('css_w + 1, css_h, dsf', body, "dsf-форма запрещена")
+        # Ветка прибивания тоже начинается с формы «окно».
+        pin = source.index('if pin_first:')
+        self.assertIn('native_browser.refresh_emulation(', source[pin:pin + 2500])
+
+    def test_repair_prefers_reestablishing_the_emulation(self):
+        source = (ROOT / 'main.py').read_text()
+        watch = source.index('native_browser.settle_layout(')
+        self.assertIn('repair=lambda: self._layout_repair(page, reason)', source)
+        repair = source.index('def _layout_repair(self, page, reason):')
+        self.assertLess(repair, watch)
+        self.assertIn('browser.layout_repair', source)
+
+    def test_main_holds_the_curtain_until_the_layout_is_measured(self):
+        source = (ROOT / 'main.py').read_text()
+        # Раскладка проверяется, пока шторка ещё стоит, и ещё раз — после неё.
+        self.assertIn('self._layout_watch(page, "revive-hold"', source)
+        self.assertIn('self._layout_watchdog(page, "post-reveal")', source)
+        self.assertIn('native_browser.settle_layout(', source)
+        # и именно ДО снятия шторки
+        self.assertLess(source.index('self._layout_watch(page, "revive-hold"'),
+                        source.index('self._finish_settle(True)'))

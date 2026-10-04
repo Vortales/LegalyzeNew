@@ -176,6 +176,49 @@ def counter_of(rows, key="event"):
     return Counter(str(row.get(key)) for row in rows if row.get(key))
 
 
+def _rederive_verdict(row):
+    """Вердикт по фактам из записи — та же логика, что в `browser_trace`.
+
+    Нужно, чтобы СТАРЫЕ сессии (до правки) читались правильно: в ранних сборках
+    проверка `input[type=file]` шла раньше чипов, и уже прикреплённый файл
+    объявлялся как «на этой поверхности вложение невозможно» (подтверждено
+    логом 20261004-162559: chips=4, имена файлов заполнены).
+    """
+    page = row.get("page") or {}
+    files = row.get("files") or []
+    if not isinstance(page, dict) or not page:
+        return row.get("verdict") or "page_unavailable"
+    inputs = int(page.get("file_inputs") or 0)
+    with_files = int(page.get("inputs_with_files") or 0)
+    chips = int(page.get("chips") or 0)
+    names = [str(n).strip() for n in (page.get("chip_names") or []) if str(n).strip()]
+    if not names:
+        names = [str(n).strip() for n in (row.get("names") or []) if str(n).strip()]
+    disk_ok = bool(files) and all(f.get("exists") for f in files)
+    if chips > 0 and names:
+        return "confirmed_attached"
+    if chips > 0:
+        return "attached_unnamed"
+    if not disk_ok and files:
+        return "file_missing_on_disk"
+    if with_files > 0:
+        return "injected_not_attached"
+    if inputs == 0:
+        return "surface_without_file_input"
+    return "not_attached"
+
+
+def _same_export(left, right):
+    """Одинаковые ли проверки — чтобы свёрнуть повторы в одну строку отчёта."""
+    def sign(row):
+        page = row.get("page") or {}
+        return (row.get("stage"), row.get("verdict"),
+                tuple((f.get("name"), f.get("sha256_12")) for f in (row.get("files") or [])),
+                int(page.get("chips") or 0), int(page.get("file_inputs") or 0),
+                tuple(str(n) for n in (page.get("chip_names") or [])))
+    return sign(left) == sign(right)
+
+
 def analyze(data):
     diag = data["diagnostic"]
     trace = data["trace"]
@@ -192,6 +235,7 @@ def analyze(data):
         "win_calls": {"total": 0, "failed": 0, "off_target": 0, "examples": []},
         "reasons": Counter(),
         "exports": [],
+        "exports_repeated": 0,
         "surface": [],
         "errors": Counter(),
         "warnings": Counter(),
@@ -241,12 +285,28 @@ def analyze(data):
                 report["win_calls"]["off_target"] += 1
                 if len(report["win_calls"]["examples"]) < 12:
                     report["win_calls"]["examples"].append(row)
-            for code in (row.get("reasons") or []):
-                report["reasons"][str(code)] += 1
+                # Причины считаем только у вызовов, которые НЕ попали в цель:
+                # «hidden» при штатном скрытии окна — не поломка, а факт, и в
+                # списке «причин расхождений» он выглядел как проблема.
+                for code in (row.get("reasons") or []):
+                    report["reasons"][str(code)] += 1
         elif kind == "win32.call.ok":
             report["win_calls"]["total"] += 1
         elif kind == "export.audit":
-            report["exports"].append(row)
+            if row.get("repeated"):
+                report["exports_repeated"] = int(report.get("exports_repeated") or 0) + 1
+                continue
+            row = dict(row)
+            row["verdict_saved"] = row.get("verdict")
+            row["verdict"] = _rederive_verdict(row)
+            if report["exports"] and _same_export(report["exports"][-1], row):
+                report["exports"][-1]["count"] = int(report["exports"][-1].get("count") or 1) + 1
+                report["exports"][-1]["last_time"] = row.get("time")
+                report["exports_repeated"] = int(report.get("exports_repeated") or 0) + 1
+            else:
+                row["count"] = 1
+                row["last_time"] = row.get("time")
+                report["exports"].append(row)
         elif kind.startswith("mark."):
             report["marks"][kind] += 1
         elif kind == "watch.slow_settle":
@@ -273,6 +333,20 @@ def analyze(data):
         item["last_ms"] = max(item["last_ms"], ms)
         if item["started_at"] is None:
             item["started_at"] = row.get("time")
+        # Раскладка СТРАНИЦЫ — отдельно от окна: в живой сессии окно стояло
+        # идеально (dx=dy=0), а «съезжали» объекты внутри, потому что Chrome
+        # переприменял зум профиля поверх эмуляции. Собираем состояния на
+        # каждой строке, а не только на «отклонениях».
+        item.setdefault("layout_states", [])
+        page_row = row.get("page") or {}
+        if page_row.get("iw"):
+            state_key = (int(page_row.get("iw") or 0),
+                         round(float(page_row.get("dpr") or 0.0), 3))
+            if not item["layout_states"] or item["layout_states"][-1]["state"] != state_key:
+                if item["layout_states"]:
+                    item["layout_states"][-1]["until_ms"] = ms
+                item["layout_states"].append({"ms": ms, "state": state_key,
+                                              "until_ms": None})
         kind = row.get("kind")
         if kind == "watch.change":
             item["changes"] += 1
@@ -316,6 +390,76 @@ def analyze(data):
         if item["first_ms"] is None:
             item["first_ms"] = ms
     return report
+
+
+def _multiply_note(report):
+    """«Множители сложились»: dpr уехал в 0.445 при цели 0.667 — это 0.667².
+
+    Так выглядит САМЫЙ частый вид поломки: объявление CDP с
+    `deviceScaleFactor` складывается с зумом профиля. Найдено по сессии
+    20261004-162559-12408-c5e41c, где в одну точку времени попали
+    `browser.metrics_nudged` (толчок с dsf) и `browser.viewport ... dsf=0.6672`,
+    а замер показал `innerWidth=987 dpr=0.445` вместо `658 x 0.667`.
+    """
+    notes = []
+    zoom = None
+    for key, value in (report.get("versions") or {}).items():
+        if "zoom" in str(key).lower():
+            try:
+                zoom = float(value)
+            except (TypeError, ValueError):
+                zoom = None
+    for tag, item in (report.get("watches") or {}).items():
+        states = item.get("layout_states") or []
+        for entry in states:
+            try:
+                width, dpr = entry["state"][0], float(entry["state"][1])
+            except (TypeError, ValueError, IndexError):
+                continue
+            if not width or not dpr:
+                continue
+            target = None
+            for other in states:
+                try:
+                    if abs(float(other["state"][1]) * float(other["state"][1]) - dpr) < 0.01:
+                        target = float(other["state"][1])
+                        break
+                except (TypeError, ValueError, IndexError):
+                    continue
+            if target is None and zoom and abs(dpr - zoom * zoom) < 0.01:
+                target = zoom
+            if target and target > dpr + 0.05:
+                notes.append(
+                    "Шкала «%s»: на %s мс `dpr=%.3f` — это %.3f×%.3f, то есть "
+                    "**множители зума СЛОЖИЛИСЬ** (переопределение CDP с "
+                    "`deviceScaleFactor` поверх зума профиля); ширина раскладки "
+                    "при этом %d css px вместо %d. Лечение — объявлять "
+                    "переопределение в логических пикселях окна при `dsf=1.0` "
+                    "(`browser.layout_repair`), а не ждать таймера."
+                    % (tag, entry.get("ms"), dpr, target, target, width,
+                       int(round(width * dpr / target))))
+                return notes
+    return notes
+
+
+def _layout_note(report):
+    """Одно предложение о главном: окно стоит, а раскладка уезжала."""
+    notes = []
+    for tag, item in (report.get("watches") or {}).items():
+        states = item.get("layout_states") or []
+        if len(states) > 1:
+            first = states[0]["state"]
+            others = [e for e in states if e["state"] != first]
+            if others:
+                wrong = others[0]
+                width = max(1, int(item.get("last_ms") or 1))
+                percents = round(100.0 * float(wrong["state"][0]) / float(first[0] or 1))
+                notes.append(
+                    "Шкала «%s»: раскладка страницы уходила с %d×%s на %d×%s "
+                    "(≈%d %% от исходной ширины) и возвращалась — это и есть "
+                    "видимое «объекты съехали»."
+                    % (tag, first[0], first[1], wrong["state"][0], wrong["state"][1], percents))
+    return notes
 
 
 def render(report):
@@ -387,6 +531,17 @@ def render(report):
             add("- Начало: %s" % item["started_at"])
         if item.get("settle_ms") is not None:
             add("- **Встало на цель через ≈%s мс** (по замерам шкалы)" % item["settle_ms"])
+        states = item.get("layout_states") or []
+        if len(states) > 1:
+            add("")
+            add("Раскладка СТРАНИЦЫ по замерам (innerWidth×dpr — это и видит "
+                "пользователь как «съехали объекты»):")
+            add("")
+            add("| с, мс | по, мс | innerWidth | dpr |")
+            add("|---|---|---|---|")
+            for entry in states[:8]:
+                add("| %s | %s | %s | %s |" % (entry["ms"], entry["until_ms"] or "—",
+                                               entry["state"][0], entry["state"][1]))
         slow_ms = (report.get("slow_settles") or {}).get(tag)
         if slow_ms is not None:
             add("- **Медленный устой** (это и видит пользователь как «съезжало "
@@ -435,6 +590,11 @@ def render(report):
                    str(explain)[:160]))
     add("")
     add("## 3. Экспорт файлов: доказательства")
+    if report.get("exports_repeated"):
+        add("")
+        add("Повторных (одинаковых) проверок того же состояния: **%s** — не "
+            "ошибки, а подтверждение, что вложение не менялось."
+            % report["exports_repeated"])
     add("")
     exports = report.get("exports") or []
     if not exports:
@@ -452,10 +612,17 @@ def render(report):
                 for f in files[:4])
             page = item.get("page") or {}
             chips = item.get("chip_names") or page.get("chip_names") or []
-            add("| %s | %s | **%s** | %s | %s | inputs=%s, с файлами=%s |"
+            chips_text = ("%s" % int(page.get("chips") or 0)) if int(page.get("chips") or 0) else (
+                "; ".join(str(c) for c in chips[:4]) if chips else "—")
+            count = int(item.get("count") or 1)
+            add("| %s | %s | **%s**%s | %s | %s | inputs=%s, с файлами=%s |"
                 % (str(item.get("time"))[11:23], item.get("stage"), item.get("verdict"),
-                   files_text, "; ".join(str(c) for c in chips[:4]),
+                   (" ×%d" % count) if count > 1 else "",
+                   files_text, chips_text,
                    page.get("file_inputs"), page.get("inputs_with_files")))
+            if item.get("verdict_saved") and item["verdict_saved"] != item.get("verdict"):
+                add("| | | *(в записи было `%s` — пересчитано по фактам)* | | | |"
+                    % item["verdict_saved"])
     add("")
     add("## 4. Поверхность страницы и ошибки")
     add("")
@@ -484,6 +651,9 @@ def render(report):
                                                           for k, v in marks.most_common(12)))
     add("")
     add("## 5. Что это значит")
+    for note in _multiply_note(report) + _layout_note(report):
+        add("")
+        add("- %s" % note)
     add("")
     if reasons:
         for code, count in (report["reasons"]).most_common(6):

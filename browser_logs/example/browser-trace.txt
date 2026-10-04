@@ -1,36 +1,37 @@
-03:03:24.572 mark.trace.installed | dir=/home/user/LegalyzeNew/browser_logs/inbox/example-session version=browser-trace-1 python=3.11.2 platform=linux
-03:03:24.600 mark.trace.installed | dir=/home/user/LegalyzeNew/browser_logs/inbox/example-session version=browser-trace-1
-03:03:24.600 mark.hotkey.pressed | id=1 visible=true
-03:03:24.600 mark.window.hide | 
-03:03:24.601 watch.begin | tag=hide hwnd=853124 parent=723908 inset=[-10, -24, 10, 24] duration_s=0.4 fast_ms=20 slow_ms=50 page_provider=true
-03:03:24.641 watch.settled | tag=hide ms=40 samples=3 changes=1 page=null extra={}
-03:03:25.006 watch.end | tag=hide ms=405 samples=14 changes=1 settle_ms=40 deviations=0 off_episodes=0 max_offset_px=0 final_verdict=on_target errors=0
-03:03:25.006 state | key=watch.hide value={"tag": "hide", "duration_ms": 405, "samples": 14, "changes": 1, "settle_ms": 40, "deviations": 0, "off_episod…
-03:03:25.006 mark.window.show | was_hidden=true
-03:03:25.006 mark.revive.schedule | step_ms=[0, 150, 350, 600, 900, 1300, 1800, 2400] min_ms=1600 settle_n=3
-03:03:25.006 win32.call | name=sync_now ok=true error=null ms=0.004 call_index=1 verdict=off_target reasons=["async_pending"] rect=[1400, 176, 439, 728] target=[1400, 200, 439, 728] dx=0 dy=-24 dw=0 dh=0 client=[439, 728] visible=true minimized=false child=true scale=1.0 parent_actual=723908 explain=null stage=finalize sync=true
-03:03:25.006 win32.call | name=show_window ok=true error=null ms=0.001 call_index=2 verdict=off_target reasons=["async_pending"] rect=[1400, 176, 439, 728] target=[1400, 200, 439, 728] dx=0 dy=-24 dw=0 dh=0 client=[439, 728] visible=true minimized=false child=true scale=1.0 parent_actual=0 explain=null was_visible=false
-03:03:25.006 win32.call | name=invalidate ok=true error=null ms=0.001 call_index=3 verdict=off_target reasons=["async_pending"] rect=[1400, 176, 439, 728] target=[1400, 200, 439, 728] dx=0 dy=-24 dw=0 dh=0 client=[439, 728] visible=true minimized=false child=true scale=1.0 parent_actual=0 explain=null
-03:03:25.006 mark.revive.step | step=0 ms=0 verdict=off_target dy=-24
-03:03:25.006 mark.revive.step | step=1 ms=150 verdict=off_target dy=-24
-03:03:25.006 mark.revive.step | step=2 ms=350 verdict=off_target dy=-24
-03:03:25.006 mark.revive.step | step=3 ms=600 verdict=off_target dy=-24
-03:03:25.006 mark.revive.step | step=4 ms=900 verdict=off_target dy=-24
-03:03:25.007 mark.revive.step | step=5 ms=1300 verdict=off_target dy=-24
-03:03:25.007 mark.revive.step | step=6 ms=1800 verdict=off_target dy=-24
-03:03:25.007 mark.revive.step | step=7 ms=2400 verdict=off_target dy=-24
-03:03:25.007 watch.begin | tag=show hwnd=853124 parent=723908 inset=[-10, -24, 10, 24] duration_s=3.0 fast_ms=20 slow_ms=100 page_provider=true
-03:03:26.967 watch.settled | tag=show ms=1959 samples=97 changes=4 page={"iw": 658, "ih": 1091, "dpr": 1.5, "sx": 0, "sy": 0, "vw": 658, "vh": 1091, "vs": 1.0, "ox": 0, "oy": 0, "cw"… extra={}
-03:03:28.015 watch.end | tag=show ms=3007 samples=116 changes=4 settle_ms=1959 deviations=4 off_episodes=1 max_offset_px=48 final_verdict=on_target errors=0
-03:03:28.015 state | key=watch.show value={"tag": "show", "duration_ms": 3007, "samples": 116, "changes": 4, "settle_ms": 1959, "deviations": 4, "off_ep…
-03:03:28.015 watch.slow_settle | tag=show settle_ms=1959 hint=Пользователь видит это как «съехало и вернулось через N секунд».
-03:03:28.015 mark.revive.reveal | verdict=on_target dy=0
-03:03:28.016 export.audit | stage=upload_blocked-gemini files=[{"name": "Промт.pdf", "exists": true, "bytes": 18008, "mtime": 1791083008.0, "sha256_12": "9644aa3248df"}, {"… page={"file_inputs": 0, "inputs_with_files": 0, "picked": [], "chips": 0, "chip_names": [], "progress": 0, "alerts"… chip_names=[] verdict=surface_without_file_input surface=ai_mode
-03:03:28.016 state | key=export.upload_blocked-gemini value=surface_without_file_input
-03:03:28.017 export.audit | stage=complete files=[{"name": "Промт.pdf", "exists": true, "bytes": 18008, "mtime": 1791083008.0, "sha256_12": "9644aa3248df"}, {"… page={"file_inputs": 1, "inputs_with_files": 1, "picked": [{"count": 1, "accept": "", "names": ["Промт.pdf"], "size… chip_names=["Промт.pdf", "Шаблон.txt"] verdict=confirmed_attached present=2 names=["Промт.pdf", "Шаблон.txt"]
-03:03:28.017 page.meta | reason=chat-ready host=gemini.google.com path=/app nodes=12 scripts_total=4 frames_total=0 csp=1
-03:03:28.018 page.outline | reason=chat-ready nodes=0 file_inputs=1 chips=2 composer={"tag": "textarea", "box": [23, 980, 612, 44]}
-03:03:28.018 artifact.written | file=page-code-chat-ready-030328.html bytes=373 reason=chat-ready
-03:03:28.018 page.code | reason=chat-ready nodes=4 truncated=false file=page-code-chat-ready-030328.html
-03:03:28.018 mark.chat.ready | verdict=gemini blocked=false
-03:03:28.069 mark.trace.finish | events=120 unknown={"state.set": 3, "reason.async_pending": 6, "win32.call.interesting": 3, "win32.call": 3, "reason.dpi_scale": …
+13:44:52.061 mark.trace.installed | dir=/home/user/LegalyzeNew/browser_logs/inbox/example-session version=browser-trace-1 python=3.11.2 platform=linux
+13:44:52.092 mark.trace.installed | dir=/home/user/LegalyzeNew/browser_logs/inbox/example-session version=browser-trace-1
+13:44:52.092 mark.hotkey.pressed | id=1 visible=true
+13:44:52.092 mark.window.hide | 
+13:44:52.092 watch.begin | tag=hide hwnd=853124 parent=723908 inset=[-10, -24, 10, 24] duration_s=0.4 fast_ms=20 slow_ms=50 page_provider=true
+13:44:52.133 watch.settled | tag=hide ms=40 samples=3 changes=1 page=null extra={}
+13:44:52.497 watch.end | tag=hide ms=405 samples=14 changes=1 settle_ms=40 deviations=0 off_episodes=0 max_offset_px=0 final_verdict=on_target errors=0
+13:44:52.497 state | key=watch.hide value={"tag": "hide", "duration_ms": 405, "samples": 14, "changes": 1, "settle_ms": 40, "deviations": 0, "off_episod…
+13:44:52.497 mark.window.show | was_hidden=true
+13:44:52.497 mark.revive.schedule | step_ms=[0, 150, 350, 600, 900, 1300, 1800, 2400] min_ms=1600 settle_n=3
+13:44:52.497 win32.call | name=sync_now ok=true error=null ms=0.004 call_index=1 verdict=off_target reasons=["async_pending"] rect=[1400, 176, 439, 728] target=[1400, 200, 439, 728] dx=0 dy=-24 dw=0 dh=0 client=[439, 728] visible=true minimized=false child=true scale=1.0 parent_actual=723908 explain=null stage=finalize sync=true
+13:44:52.497 win32.call | name=show_window ok=true error=null ms=0.001 call_index=2 verdict=off_target reasons=["async_pending"] rect=[1400, 176, 439, 728] target=[1400, 200, 439, 728] dx=0 dy=-24 dw=0 dh=0 client=[439, 728] visible=true minimized=false child=true scale=1.0 parent_actual=0 explain=null was_visible=false
+13:44:52.498 win32.call | name=invalidate ok=true error=null ms=0.001 call_index=3 verdict=off_target reasons=["async_pending"] rect=[1400, 176, 439, 728] target=[1400, 200, 439, 728] dx=0 dy=-24 dw=0 dh=0 client=[439, 728] visible=true minimized=false child=true scale=1.0 parent_actual=0 explain=null
+13:44:52.498 mark.revive.step | step=0 ms=0 verdict=off_target dy=-24
+13:44:52.498 mark.revive.step | step=1 ms=150 verdict=off_target dy=-24
+13:44:52.498 mark.revive.step | step=2 ms=350 verdict=off_target dy=-24
+13:44:52.498 mark.revive.step | step=3 ms=600 verdict=off_target dy=-24
+13:44:52.498 mark.revive.step | step=4 ms=900 verdict=off_target dy=-24
+13:44:52.498 mark.revive.step | step=5 ms=1300 verdict=off_target dy=-24
+13:44:52.498 mark.revive.step | step=6 ms=1800 verdict=off_target dy=-24
+13:44:52.498 mark.revive.step | step=7 ms=2400 verdict=off_target dy=-24
+13:44:52.499 watch.begin | tag=show hwnd=853124 parent=723908 inset=[-10, -24, 10, 24] duration_s=3.2 fast_ms=20 slow_ms=100 page_provider=true
+13:44:54.500 watch.settled | tag=show ms=2000 samples=99 changes=5 page=null extra={}
+13:44:55.418 mark.layout.restored | reason=zoom-guard
+13:44:55.709 watch.end | tag=show ms=3210 samples=126 changes=6 settle_ms=2000 deviations=4 off_episodes=1 max_offset_px=48 final_verdict=on_target errors=0
+13:44:55.709 state | key=watch.show value={"tag": "show", "duration_ms": 3210, "samples": 126, "changes": 6, "settle_ms": 2000, "deviations": 4, "off_ep…
+13:44:55.709 watch.slow_settle | tag=show settle_ms=2000 hint=Пользователь видит это как «съехало и вернулось через N секунд».
+13:44:55.710 mark.revive.reveal | verdict=on_target dy=0
+13:44:55.711 export.audit | stage=upload_blocked-gemini files=[{"name": "Промт.pdf", "exists": true, "bytes": 18008, "mtime": 1791121495.7, "sha256_12": "9644aa3248df"}, {"… page={"file_inputs": 0, "inputs_with_files": 0, "picked": [], "chips": 0, "chip_names": [], "progress": 0, "alerts"… chip_names=[] verdict=surface_without_file_input surface=ai_mode
+13:44:55.711 state | key=export.upload_blocked-gemini value=surface_without_file_input
+13:44:55.712 export.audit | stage=complete files=[{"name": "Промт.pdf", "exists": true, "bytes": 18008, "mtime": 1791121495.7, "sha256_12": "9644aa3248df"}, {"… page={"file_inputs": 1, "inputs_with_files": 1, "picked": [{"count": 1, "accept": "", "names": ["Промт.pdf"], "size… chip_names=["Промт.pdf", "Шаблон.txt"] verdict=confirmed_attached present=2 names=["Промт.pdf", "Шаблон.txt"]
+13:44:55.712 page.meta | reason=chat-ready host=gemini.google.com path=/app nodes=12 scripts_total=4 frames_total=0 csp=1
+13:44:55.712 page.outline | reason=chat-ready nodes=0 file_inputs=1 chips=2 composer={"tag": "textarea", "box": [23, 980, 612, 44]}
+13:44:55.713 artifact.written | file=page-code-chat-ready-134455.html bytes=373 reason=chat-ready
+13:44:55.713 page.code | reason=chat-ready nodes=4 truncated=false file=page-code-chat-ready-134455.html
+13:44:55.713 mark.chat.ready | verdict=gemini blocked=false
+13:44:55.764 mark.trace.finish | events=120 unknown={"state.set": 3, "reason.async_pending": 6, "win32.call.interesting": 3, "win32.call": 3, "reason.dpi_scale": …

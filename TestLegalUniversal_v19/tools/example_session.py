@@ -28,6 +28,7 @@ import json
 import shutil
 import sys
 import tempfile
+import threading
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -87,6 +88,12 @@ class ScriptedProbe:
 class FakePage:
     """Страница, у которой есть только то, что спрашивает `browser_trace`."""
 
+    #: Метрики раскладки можно менять по ходу сценария: так пример показывает
+    #: «двойной зум» (658×0.667 → 987×0.445) — сложение объявления CDP с
+    #: `deviceScaleFactor` и зума профиля, то есть ровно то, что видно
+    #: пользователю как «объекты съехали».
+    layout = {"iw": 658, "ih": 1091, "dpr": 0.667}
+
     class _Value:
         def __init__(self, value):
             self._value = value
@@ -97,9 +104,10 @@ class FakePage:
     def eval(self, expression, timeout=None, **kwargs):  # noqa: A003
         text = str(expression)
         if "visualViewport" in text:
-            value = {"iw": 658, "ih": 1091, "dpr": 1.5, "sx": 0, "sy": 0,
-                     "vw": 658, "vh": 1091, "vs": 1.0, "ox": 0, "oy": 0,
-                     "cw": 612, "ch": 44, "cx": 23, "cy": 980,
+            value = {"iw": self.layout["iw"], "ih": self.layout["ih"],
+                     "dpr": self.layout["dpr"], "sx": 0, "sy": 0,
+                     "vw": self.layout["iw"], "vh": self.layout["ih"], "vs": 1.0,
+                     "ox": 0, "oy": 0, "cw": 612, "ch": 44, "cx": 23, "cy": 980,
                      "ready": "complete", "active": "textarea"}
         elif "chip_names" in text:
             value = {"file_inputs": 1, "inputs_with_files": 1,
@@ -222,9 +230,20 @@ def build_session(session_dir: Path) -> None:
             btrace.mark("revive.step", step=step, ms=delay,
                         verdict=measure.get("verdict"), dy=measure.get("dy"))
         probe.clock = 0.0
+        def break_layout(after_ms):
+            """Вернуть раскладку в «двойной зум» после N мс шкалы (как Chrome)."""
+            deadline = time.monotonic() + after_ms / 1000.0
+            while time.monotonic() < deadline:
+                time.sleep(0.02)
+            page.layout = {"iw": 987, "ih": 1636, "dpr": 0.445}
+            time.sleep(1.0)
+            page.layout = {"iw": 658, "ih": 1091, "dpr": 0.667}
+            btrace.mark("layout.restored", reason="zoom-guard")
+
+        threading.Thread(target=break_layout, args=(1900,), daemon=True).start()
         show_watch = btrace.watch("show", 853124, 723908, (-10, -24, 10, 24),
-                                  page_provider=lambda: page, duration=3.0,
-                                  fast_ms=20, slow_ms=100, fast_until=2.2,
+                                  page_provider=lambda: page, duration=3.2,
+                                  fast_ms=20, slow_ms=100, fast_until=2.4,
                                   stable_needed=2, min_ms=0)
         show_watch.join(10)
         btrace.mark("revive.reveal", verdict="on_target", dy=0)
@@ -265,6 +284,15 @@ def main(argv=None):
     out = Path(args.out) if args.out else REPO / "browser_logs" / "inbox" / tag
     shutil.rmtree(out, ignore_errors=True)
     build_session(out)
+    # Имена артефактов «кода страницы» содержат время — для примера (он лежит
+    # в репозитории) время убирается, иначе каждый пересбор менял бы имена.
+    if out.name.startswith("example-session"):
+        for path in sorted(out.glob("page-*-chat-ready-*.*")):
+            stem, suffix = path.name.split("-chat-ready-", 1)
+            fixed = out / ("%s-chat-ready.%s" % (stem, suffix.rsplit(".", 1)[-1]))
+            if fixed.exists():
+                fixed.unlink()
+            path.rename(fixed)
     print("сессия: %s" % out)
     print("разбор : cd %s && python3 tools/analyze_browser_logs.py" % ROOT.name)
     for name in sorted(p.name for p in out.iterdir()):

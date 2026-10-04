@@ -233,7 +233,15 @@ class ExportAuditTests(TraceSessionMixin):
         payload.write_bytes(b"%PDF-1.4 test payload")
         page = FakePage(chips=2, chip_names=["Тест.pdf", "Шаблон.txt"], file_inputs=1,
                         inputs_with_files=0)
+        # Файл прикреплён (чипы есть) — вердикт положительный, даже если одного
+        # из файлов нет на диске: доказательство вложения важнее.
         record = btrace.audit_export(page, "complete", [payload, self.dir / "missing.txt"])
+        self.assertEqual(record["verdict"], "confirmed_attached")
+        # А вот когда в чате НИЧЕГО не прикрепилось и файла нет на диске —
+        # это отдельный вердикт «экспортировать было нечего».
+        record = btrace.audit_export(
+            FakePage(chips=0, chip_names=[], file_inputs=1), "inject_failed",
+            [self.dir / "missing.txt"])
         self.assertEqual(record["verdict"], "file_missing_on_disk")
         record = btrace.audit_export(page, "final", [payload])
         self.assertEqual(record["verdict"], "confirmed_attached")
@@ -245,7 +253,7 @@ class ExportAuditTests(TraceSessionMixin):
         btrace.finish()
         summary = json.loads((self.dir / "browser-trace-summary.json").read_text())
         counters = summary["counters"]
-        self.assertEqual(counters.get("export.verdict.confirmed_attached"), 1)
+        self.assertEqual(counters.get("export.verdict.confirmed_attached"), 2)
         self.assertEqual(counters.get("export.verdict.file_missing_on_disk"), 1)
 
 
@@ -275,6 +283,43 @@ class FieldCollisionTests(TraceSessionMixin):
         rows = [r for r in self.rows("browser-trace.jsonl") if r.get("kind") == "win32.call"]
         self.assertTrue(rows)
         self.assertEqual(rows[-1].get("stage"), "finalize")
+
+
+class ExportVerdictTests(TraceSessionMixin):
+    """Вердикт обязан говорить правду и когда файл прикреплён, и когда нет."""
+
+    def test_chips_prove_attachment_even_without_file_input(self):
+        # Gemini убирает input[type=file] после загрузки: чипы — единственный
+        # признак, и он главнее. До правки вердикт был «вложение невозможно»
+        # (171 раз подряд при реально прикреплённых файлах).
+        payload = self.dir / "Memphis.pdf"
+        payload.write_bytes(b"%PDF-1.4 payload")
+        page = FakePage(chips=2, chip_names=["Memphis.pdf", "Шаблон.txt"],
+                        file_inputs=0, inputs_with_files=0)
+        record = btrace.audit_export(page, "complete", [payload])
+        self.assertEqual(record["verdict"], "confirmed_attached")
+
+    def test_extra_field_named_kind_cannot_break_the_record(self):
+        # На живой сессии `extra={"kind": "pdf"}` роняла запись целиком:
+        # TypeError в _record(). Теперь ключ сохраняется как arg_kind.
+        page = FakePage(chips=0, chip_names=[], file_inputs=1)
+        btrace.audit_export(page, "after_inject", None,
+                            extra={"attach": "pdf", "kind": "pdf", "bytes": 10})
+        btrace.finish()
+        rows = [r for r in self.rows("browser-trace.jsonl") if r.get("kind") == "export.audit"]
+        self.assertTrue(rows, "запись обязана состояться даже при конфликте имён")
+        self.assertEqual(rows[-1].get("attach"), "pdf")
+        self.assertEqual(rows[-1].get("arg_kind"), "pdf")
+
+    def test_identical_audits_are_collapsed(self):
+        page = FakePage(chips=0, chip_names=[], file_inputs=0)
+        for _ in range(6):
+            btrace.audit_export(page, "complete", None)
+        btrace.finish()
+        rows = [r for r in self.rows("browser-trace.jsonl") if r.get("kind") == "export.audit"]
+        self.assertEqual(len(rows), 1, "одинаковые проверки не должны забивать журнал")
+        summary = json.loads((self.dir / "browser-trace-summary.json").read_text())
+        self.assertGreaterEqual(summary["counters"].get("export.audit_repeat", 0), 5)
 
 
 class SafetyTests(unittest.TestCase):

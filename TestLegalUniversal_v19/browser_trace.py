@@ -140,6 +140,8 @@ _failures = 0
 _watchers = set()
 _marks = []
 _last_win_call = {}
+#: Последний аудит экспорта: (подпись, время) — чтобы не писать одно и то же.
+_last_audit = {}
 _win_calls = 0
 _session = {"installed_at": None, "dir": None, "os": sys.platform}
 _counters = {}
@@ -255,11 +257,24 @@ def _put(record, timeline=False):
             _failures += 1
 
 
-def _record(kind, **fields):
+def _record(kind, /, **fields):
+    """Собрать запись журнала. Никогда не бросает — даже при конфликте имён.
+
+    Служебные ключи (`time`, `t`, `pid`, `thread`, `kind`) заняты самой
+    записью. Раньше совпавшее с ними имя поля роняло сбор целиком:
+    `_record() got multiple values for keyword argument 'kind'` — именно это
+    случилось на живой сессии, когда вложение передало `extra={"kind": "pdf"}`.
+    Теперь `kind` — ТОЛЬКО позиционный параметр (слэш в сигнатуре), а
+    совпавшее с занятым именем поле сохраняется как `arg_<ключ>`: данные не
+    теряются, и запись остаётся читаемой.
+    """
     payload = {"time": _now(), "t": round(time.monotonic(), 4), "pid": os.getpid(),
                "thread": threading.current_thread().name, "kind": str(kind)}
     for key, value in fields.items():
-        payload[str(key)] = _clean(value)
+        name = str(key)
+        if name in payload:
+            name = "arg_" + name
+        payload[name] = _clean(value)
     return payload
 
 
@@ -1314,16 +1329,24 @@ def audit_export(page, stage, paths=None, extra=None):
                 names.append(chip.strip()[:80])
         record["chip_names"] = names
         disk_ok = bool(files) and all(f.get("exists") for f in files)
-        if not disk_ok and files:
-            verdict = "file_missing_on_disk"
-        elif inputs == 0:
-            verdict = "surface_without_file_input"
-        elif chips > 0 and names:
+        # Порядок проверок — от ДОКАЗАННОГО к предполагаемому:
+        # * чипы с именами в чате доказывают вложение даже тогда, когда поля
+        #   `input[type=file]` на странице уже нет (Gemini убирает его после
+        #   загрузки). Раньше проверка `inputs == 0` шла первой и вердикт
+        #   объявлял «на этой поверхности вложение невозможно» 171 раз подряд
+        #   при реально прикреплённых файлах — проверено логом
+        #   20261004-162559-12408-c5e41c (chips=4, names заполнены);
+        # * «файла нет на диске» — только если в чате ничего не прикрепилось.
+        if chips > 0 and names:
             verdict = "confirmed_attached"
         elif chips > 0:
             verdict = "attached_unnamed"
+        elif not disk_ok and files:
+            verdict = "file_missing_on_disk"
         elif with_files > 0:
             verdict = "injected_not_attached"
+        elif inputs == 0:
+            verdict = "surface_without_file_input"
         else:
             verdict = "not_attached"
         record["verdict"] = verdict
@@ -1332,6 +1355,22 @@ def audit_export(page, stage, paths=None, extra=None):
         record["verdict"] = "page_unavailable"
     if extra:
         record.update(extra)
+    # Одинаковые аудиты подряд (поток выгрузки проверяет состояние несколько
+    # раз в секунду) не пишем в журнал каждый раз: от 171 одинаковых строк
+    # «доказательство» превращалось в шум, а разбор показывал 171 «ошибку».
+    # Первая строка вердикта, смена вердикта и редкий (раз в 5 с) повтор —
+    # попадают всегда, остальные считаются счётчиком export.audit_repeat.
+    global _last_audit
+    signature = (str(stage), record.get("verdict"), tuple(names),
+                 int(inputs), int(with_files))
+    now = time.monotonic()
+    repeated = (_last_audit.get("signature") == signature
+                and (now - float(_last_audit.get("at") or 0.0)) < 5.0)
+    if repeated:
+        _bump("export.audit_repeat")
+        record["repeated"] = True
+        return record
+    _last_audit = {"signature": signature, "at": now, "verdict": record.get("verdict")}
     _put(_record("export.audit", **record))
     if record.get("verdict") not in (None, "confirmed_attached"):
         state("export.%s" % stage, record.get("verdict"))

@@ -1,7 +1,7 @@
 {
  "session": "example-session",
  "dir": "/home/user/LegalyzeNew/browser_logs/inbox/example-session",
- "started": "2026-10-04T03:03:24.571451+00:00",
+ "started": "2026-10-04T13:44:52.060317+00:00",
  "versions": {
   "PyQt6": "6.7.1",
   "PyQt6-Qt6": "6.7.2"
@@ -24,7 +24,7 @@
    }
   ],
   "embedded": {
-   "time": "2026-10-04T03:03:26.071451+00:00",
+   "time": "2026-10-04T13:44:53.560317+00:00",
    "pid": 4242,
    "thread": "MainThread",
    "event": "browser.embedded",
@@ -40,7 +40,7 @@
    ]
   },
   "mode": {
-   "time": "2026-10-04T03:03:26.171451+00:00",
+   "time": "2026-10-04T13:44:53.660317+00:00",
    "pid": 4242,
    "thread": "MainThread",
    "event": "browser.mode",
@@ -62,7 +62,7 @@
  },
  "screens": [
   {
-   "time": "2026-10-04T03:03:24.721451+00:00",
+   "time": "2026-10-04T13:44:52.210317+00:00",
    "pid": 4242,
    "thread": "MainThread",
    "event": "qt.screen",
@@ -93,24 +93,34 @@
    "off_target_until_ms": null,
    "events": [],
    "final_verdict": "on_target",
-   "started_at": "2026-10-04T03:03:24.601229+00:00",
+   "started_at": "2026-10-04T13:44:52.092412+00:00",
    "settled_at": null,
    "settle_ms": 40,
    "ended": true,
-   "off_episodes": 0
+   "off_episodes": 0,
+   "layout_states": [
+    {
+     "ms": 0,
+     "state": [
+      658,
+      0.667
+     ],
+     "until_ms": null
+    }
+   ]
   },
   "show": {
-   "samples": 6,
-   "changes": 4,
+   "samples": 9,
+   "changes": 6,
    "deviations": 4,
    "first_ms": 0,
-   "last_ms": 3007,
+   "last_ms": 3210,
    "max_offset_px": 48,
-   "off_target_until_ms": 1307,
+   "off_target_until_ms": 1325,
    "events": [
     {
      "ms": 0,
-     "time": "2026-10-04T03:03:25.007532+00:00",
+     "time": "2026-10-04T13:44:52.499734+00:00",
      "dx": 0,
      "dy": -24,
      "dw": 0,
@@ -137,7 +147,7 @@
      "page": {
       "iw": 658,
       "ih": 1091,
-      "dpr": 1.5,
+      "dpr": 0.667,
       "sx": 0,
       "sy": 0,
       "vw": 658,
@@ -156,7 +166,7 @@
     },
     {
      "ms": 61,
-     "time": "2026-10-04T03:03:25.068553+00:00",
+     "time": "2026-10-04T13:44:52.560760+00:00",
      "dx": 0,
      "dy": -48,
      "dw": 0,
@@ -184,7 +194,7 @@
      "page": {
       "iw": 658,
       "ih": 1091,
-      "dpr": 1.5,
+      "dpr": 0.667,
       "sx": 0,
       "sy": 0,
       "vw": 658,
@@ -203,7 +213,7 @@
     },
     {
      "ms": 305,
-     "time": "2026-10-04T03:03:25.312924+00:00",
+     "time": "2026-10-04T13:44:52.804766+00:00",
      "dx": 0,
      "dy": -24,
      "dw": 0,
@@ -230,7 +240,7 @@
      "page": {
       "iw": 658,
       "ih": 1091,
-      "dpr": 1.5,
+      "dpr": 0.667,
       "sx": 0,
       "sy": 0,
       "vw": 658,
@@ -248,8 +258,8 @@
      "extra": {}
     },
     {
-     "ms": 1307,
-     "time": "2026-10-04T03:03:26.314551+00:00",
+     "ms": 1325,
+     "time": "2026-10-04T13:44:53.824979+00:00",
      "dx": 0,
      "dy": -24,
      "dw": 0,
@@ -276,7 +286,7 @@
      "page": {
       "iw": 658,
       "ih": 1091,
-      "dpr": 1.5,
+      "dpr": 0.667,
       "sx": 0,
       "sy": 0,
       "vw": 658,
@@ -295,15 +305,41 @@
     }
    ],
    "final_verdict": "on_target",
-   "started_at": "2026-10-04T03:03:25.007532+00:00",
-   "settled_at": "2026-10-04T03:03:26.926725+00:00",
-   "settle_ms": 1959,
+   "started_at": "2026-10-04T13:44:52.499734+00:00",
+   "settled_at": "2026-10-04T13:44:54.417813+00:00",
+   "settle_ms": 2000,
    "ended": true,
-   "off_episodes": 1
+   "off_episodes": 1,
+   "layout_states": [
+    {
+     "ms": 0,
+     "state": [
+      658,
+      0.667
+     ],
+     "until_ms": 1959
+    },
+    {
+     "ms": 1959,
+     "state": [
+      987,
+      0.445
+     ],
+     "until_ms": 3109
+    },
+    {
+     "ms": 3109,
+     "state": [
+      658,
+      0.667
+     ],
+     "until_ms": null
+    }
+   ]
   }
  },
  "slow_settles": {
-  "show": 1959
+  "show": 2000
  },
  "win_calls": {
   "total": 3,
@@ -311,9 +347,9 @@
   "off_target": 3,
   "examples": [
    {
-    "time": "2026-10-04T03:03:25.006800+00:00",
-    "t": 1208.5265,
-    "pid": 3646,
+    "time": "2026-10-04T13:44:52.497936+00:00",
+    "t": 905.0255,
+    "pid": 2989,
     "thread": "MainThread",
     "kind": "win32.call",
     "name": "sync_now",
@@ -355,9 +391,9 @@
     "sync": true
    },
    {
-    "time": "2026-10-04T03:03:25.006844+00:00",
-    "t": 1208.5266,
-    "pid": 3646,
+    "time": "2026-10-04T13:44:52.497994+00:00",
+    "t": 905.0255,
+    "pid": 2989,
     "thread": "MainThread",
     "kind": "win32.call",
     "name": "show_window",
@@ -398,9 +434,9 @@
     "was_visible": false
    },
    {
-    "time": "2026-10-04T03:03:25.006878+00:00",
-    "t": 1208.5266,
-    "pid": 3646,
+    "time": "2026-10-04T13:44:52.498052+00:00",
+    "t": 905.0256,
+    "pid": 2989,
     "thread": "MainThread",
     "kind": "win32.call",
     "name": "invalidate",
@@ -448,9 +484,9 @@
  },
  "exports": [
   {
-   "time": "2026-10-04T03:03:28.016916+00:00",
-   "t": 1211.5367,
-   "pid": 3646,
+   "time": "2026-10-04T13:44:55.711582+00:00",
+   "t": 908.2391,
+   "pid": 2989,
    "thread": "MainThread",
    "kind": "export.audit",
    "stage": "upload_blocked-gemini",
@@ -459,14 +495,14 @@
      "name": "Промт.pdf",
      "exists": true,
      "bytes": 18008,
-     "mtime": 1791083008.0,
+     "mtime": 1791121495.7,
      "sha256_12": "9644aa3248df"
     },
     {
      "name": "Шаблон.txt",
      "exists": true,
      "bytes": 25,
-     "mtime": 1791083008.0,
+     "mtime": 1791121495.7,
      "sha256_12": "035c3c2de731"
     }
    ],
@@ -482,12 +518,15 @@
    },
    "chip_names": [],
    "verdict": "surface_without_file_input",
-   "surface": "ai_mode"
+   "surface": "ai_mode",
+   "verdict_saved": "surface_without_file_input",
+   "count": 1,
+   "last_time": "2026-10-04T13:44:55.711582+00:00"
   },
   {
-   "time": "2026-10-04T03:03:28.017476+00:00",
-   "t": 1211.5372,
-   "pid": 3646,
+   "time": "2026-10-04T13:44:55.712142+00:00",
+   "t": 908.2397,
+   "pid": 2989,
    "thread": "MainThread",
    "kind": "export.audit",
    "stage": "complete",
@@ -496,14 +535,14 @@
      "name": "Промт.pdf",
      "exists": true,
      "bytes": 18008,
-     "mtime": 1791083008.0,
+     "mtime": 1791121495.7,
      "sha256_12": "9644aa3248df"
     },
     {
      "name": "Шаблон.txt",
      "exists": true,
      "bytes": 25,
-     "mtime": 1791083008.0,
+     "mtime": 1791121495.7,
      "sha256_12": "035c3c2de731"
     }
    ],
@@ -542,12 +581,16 @@
    "names": [
     "Промт.pdf",
     "Шаблон.txt"
-   ]
+   ],
+   "verdict_saved": "confirmed_attached",
+   "count": 1,
+   "last_time": "2026-10-04T13:44:55.712142+00:00"
   }
  ],
+ "exports_repeated": 0,
  "surface": [
   {
-   "time": "2026-10-04T03:03:27.171451+00:00",
+   "time": "2026-10-04T13:44:54.660317+00:00",
    "verdict": "gemini",
    "ready": "complete",
    "composer": 1,
@@ -560,7 +603,7 @@
    "event": "page.surface"
   },
   {
-   "time": "2026-10-04T03:03:27.571451+00:00",
+   "time": "2026-10-04T13:44:55.060317+00:00",
    "verdict": "gemini",
    "ready": "complete",
    "composer": 1,
@@ -586,15 +629,16 @@
   "mark.window.show": 1,
   "mark.revive.schedule": 1,
   "mark.revive.step": 8,
+  "mark.layout.restored": 1,
   "mark.revive.reveal": 1,
   "mark.chat.ready": 1,
   "mark.trace.finish": 1
  },
  "artifacts": [
   "browser-trace-summary.json",
-  "page-code-chat-ready-030328.html",
-  "page-meta-chat-ready-030328.json",
-  "page-outline-chat-ready-030328.json"
+  "page-code-chat-ready.html",
+  "page-meta-chat-ready.json",
+  "page-outline-chat-ready.json"
  ],
  "advice": [],
  "env": {
