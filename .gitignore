@@ -1,0 +1,24 @@
+# Служебные файлы Python (компилируются заново, в репозитории не нужны)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.spec
+
+# Сборки
+build/
+dist/
+*.exe
+browser/
+
+# Логи и присланные пользователями данные: в репозиторий не попадают
+TestLegalUniversal_v19/logs/
+browser_logs/inbox/*
+!browser_logs/inbox/README.txt
+browser_logs/analyzed/*
+!browser_logs/analyzed/README.txt
+
+# Временные файлы ОС
+Thumbs.db
+desktop.ini
+.DS_Store

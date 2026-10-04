@@ -1,0 +1,57 @@
+{
+ "trace_version": "browser-trace-1",
+ "session_dir": "/home/user/LegalyzeNew/browser_logs/inbox/example-session",
+ "installed_at": "2026-10-04T03:03:24.572551+00:00",
+ "finished_at": "2026-10-04T03:03:28.069250+00:00",
+ "pid": 3646,
+ "platform": "linux",
+ "counters": {
+  "state.set": 3,
+  "reason.async_pending": 6,
+  "win32.call.interesting": 3,
+  "win32.call": 3,
+  "reason.dpi_scale": 12,
+  "reason.off_target": 91,
+  "export.verdict.surface_without_file_input": 1,
+  "export.verdict.confirmed_attached": 1
+ },
+ "win_calls_total": 3,
+ "watchers": {
+  "hide": {
+   "samples": 2,
+   "changes": 1,
+   "deviations": 0,
+   "first_ms": 0,
+   "last_ms": 405,
+   "max_offset_px": 0,
+   "off_target_until_ms": null,
+   "settle_ms": 40,
+   "final_verdict": "on_target",
+   "ended": true,
+   "off_episodes": 0
+  },
+  "show": {
+   "samples": 6,
+   "changes": 4,
+   "deviations": 4,
+   "first_ms": 0,
+   "last_ms": 3007,
+   "max_offset_px": 48,
+   "off_target_until_ms": 1307,
+   "settle_ms": 1959,
+   "final_verdict": "on_target",
+   "ended": true,
+   "off_episodes": 1
+  }
+ },
+ "problems": [
+  "watch:show",
+  "reason.dpi_scale",
+  "reason.async_pending"
+ ],
+ "hints": [
+  "Шкала «show»: уходов 1, строк «не на цели» 4, максимальный уход 48 px, последний кадр не на цели на 1307 мс. Встало на цель через 1959 мс после возмущения.",
+  "Экспорт «confirmed_attached» ×1 — Файлы действительно прикрепились к чату.",
+  "Экспорт «surface_without_file_input» ×1 — На этой поверхности нет input[type=file] — вложение невозможно."
+ ]
+}

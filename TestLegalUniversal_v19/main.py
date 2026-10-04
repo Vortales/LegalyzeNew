@@ -7,6 +7,12 @@ diag.setup()
 from diagnostics import stage
 from qt_browser import BrowserPane, DEBUG_PORT, READY_SCRIPT
 import storage_paths
+# v20: приборная панель браузера. Импорт — сразу после `diagnostics.setup()`:
+# ниже, рядом с `diag.install_http()`, модуль уже включается в работу. Собирает
+# то, чего не было в логе: «куда просили поставить окно, где оно оказалось и
+# почему разошлось», хронологию «съехало — вернулось» в миллисекундах и
+# доказательства экспорта файлов.
+import browser_trace as btrace
 
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -71,6 +77,9 @@ except Exception:
 
 
 diag.install_http()
+# Сбор поведения браузера: та же папка сессии, что у диагностики. Отказ сбора
+# (нет прав на запись) не мешает приложению работать — он просто выключится.
+BROWSER_TRACE_ON = bool(btrace.install())
 
 URL = "https://google.com/ai"
 PROFILE = APP_DIR / "qtwebengine-profile"
@@ -516,6 +525,7 @@ import native_browser
 import win32_embed
 import browser_focus
 import browser_fetch
+
 
 # v16: события, которыми Qt/Windows сообщают о смене DPI или монитора под
 # окном. `DevicePixelRatioChange` есть не во всех сборках Qt6 — берём те,
@@ -3226,6 +3236,16 @@ class UploadThread(QThread):
                   account=surface.get("account"), pending=surface.get("pending"),
                   probe_ok=bool(state.get("probe_ok")),
                   uploading=bool(state.get("uploading")), fails=self.fails)
+        # v20: один раз на поток — снимок «кода» страницы, на которой вложение
+        # не работает. Именно этот файл показывает, ЧТО за поверхность отдал
+        # сервис (например, режим ИИ в поиске без input[type=file]).
+        if not getattr(self, "_trace_code_done", False):
+            self._trace_code_done = True
+            try:
+                btrace.capture_page(self.page, reason="upload_blocked-%s" % verdict,
+                                    full=True)
+            except Exception:
+                diag.exception("main.upload_blocked_capture")
         try:
             self.blocked.emit(verdict)
         except Exception:
@@ -3342,6 +3362,17 @@ class UploadThread(QThread):
                         self.attached.emit(True)
                     self.files_loaded = True
                     self.fails = 0
+                    # v20: «оба файла на месте» подтверждается замером ещё раз —
+                    # теперь уже по финальному состоянию чата (имена, чипы),
+                    # а не по счётчику.
+                    try:
+                        btrace.audit_export(
+                            self.page, "complete",
+                            [self.pdf_path, self.template_path],
+                            extra={"present": int(present),
+                                   "names": [str(n)[:80] for n in (names or [])][:8]})
+                    except Exception:
+                        diag.exception("main.audit_complete")
                     time.sleep(0.15)
                     continue
 
@@ -3398,6 +3429,17 @@ class UploadThread(QThread):
                                    empty_rounds=int(self.empty_rounds),
                                    fails=int(self.fails),
                                    name=Path(path).name if path else "")
+                        # v20: доказательство экспорта по каждому вложению —
+                        # файл на диске (размер/sha), результат впрыска, что
+                        # оказалось в input[type=file] и в чипах чата.
+                        try:
+                            btrace.audit_export(
+                                self.page, "after_inject" if injected else "inject_failed",
+                                [path], extra={"kind": kind, "injected": bool(injected),
+                                               "bytes": int(size),
+                                               "ms": round((time.monotonic() - started_attempt) * 1000)})
+                        except Exception:
+                            diag.exception("main.audit_inject")
                         if not injected:
                             ok = False
                             break
@@ -3835,6 +3877,122 @@ class MainWindow(QMainWindow):
             diag.exception("main.prompt_selected")
             return True
 
+    # ------------------------------------------------------- v20: приборная панель
+    def _trace_qt_probe(self):
+        """Состояние Qt читается ТОЛЬКО в потоке GUI (v20).
+
+        Виджеты Qt нельзя опрашивать из чужого потока — это как раз тот случай,
+        когда «сбор логов» сам стал бы причиной нестабильности. Поэтому GUI
+        раз в 100 мс обновляет простой словарь, а фоновой шкале достаётся уже
+        готовый снимок (обычные числа и флаги, без обращений к Qt).
+        """
+        data = {}
+        try:
+            data["win_visible"] = bool(self.isVisible())
+            data["win_min"] = bool(self.isMinimized())
+            data["win_geo"] = list(self.geometry().getRect())
+            data["dpr"] = round(float(self.devicePixelRatioF()), 3)
+            data["cover"] = bool(self.browser_cover.isVisible())
+            data["settling"] = bool(getattr(self, "_settling", False))
+            data["overlay"] = bool(self.overlay.isVisible())
+            data["chat_ready"] = bool(getattr(self, "_chat_ready", False))
+            data["native"] = bool(getattr(self, "native_mode", False))
+        except Exception:
+            diag.exception("main.trace_qt_probe")
+        return data
+
+    def _trace_qt_tick(self):
+        """Тик GUI-таймера: обновить снимок состояния для временной шкалы."""
+        try:
+            self._trace_qt_cache = self._trace_qt_probe()
+            self._trace_qt_cache_at = time.monotonic()
+            # Шкал больше нет — таймер не нужен: сбор не должен работать вхолостую.
+            if btrace.active_watchers() == 0 and getattr(self, "_trace_qt_timer", None):
+                self._trace_qt_timer.stop()
+        except Exception:
+            diag.exception("main.trace_qt_tick")
+
+    def _trace_extra(self):
+        """Снимок состояния Qt для записи (никогда не трогает виджеты извне)."""
+        cache = getattr(self, "_trace_qt_cache", None)
+        stamp = float(getattr(self, "_trace_qt_cache_at", 0.0) or 0.0)
+        if cache and (time.monotonic() - stamp) < 2.0:
+            return dict(cache)
+        # Кэша ещё нет (первый вызов) — читаем сами. Сюда попадаем только из
+        # потока GUI: таймер запускается ДО первой шкалы.
+        return self._trace_qt_probe()
+
+    def _trace_qt_keepalive(self):
+        """Держать GUI-снимок свежим, пока есть хоть одна шкала (v20)."""
+        if not getattr(self, "_trace_qt_timer", None):
+            self._trace_qt_timer = QTimer(self)
+            self._trace_qt_timer.setInterval(100)
+            self._trace_qt_timer.timeout.connect(self._trace_qt_tick)
+        if not self._trace_qt_timer.isActive():
+            self._trace_qt_tick()
+            self._trace_qt_timer.start()
+
+    def _trace_args(self):
+        """(user32, hwnd, parent, inset) для приборной панели. None — нет окна."""
+        host = getattr(self, "browser_host", None)
+        if host is None or getattr(host, "user32", None) is None or not getattr(host, "hwnd", 0):
+            return None
+        try:
+            inset = tuple(self._browser_inset())
+        except Exception:
+            diag.exception("main.trace_inset")
+            inset = tuple(getattr(host, "inset", (0, 0, 0, 0)) or (0, 0, 0, 0))
+        try:
+            parent = int(self.browser_placeholder.winId())
+        except Exception:
+            diag.exception("main.trace_parent")
+            parent = 0
+        return int(host.hwnd), parent, inset
+
+    def _trace_watch(self, tag, duration=8.0, fast_until=3.0, min_ms=1200,
+                     fast_ms=20, slow_ms=250, stable_needed=3):
+        """Запустить временную шкалу окна вокруг возмущения (v20).
+
+        Ничего в приложении не меняет: только измеряет. Если окна ещё нет
+        (резервный движок, страница не поднялась) — просто ничего не делает.
+        """
+        if not BROWSER_TRACE_ON:
+            return None
+        args = self._trace_args()
+        if args is None:
+            btrace.mark("watch.skip", tag=str(tag), reason="no-native-window")
+            return None
+        hwnd, parent, inset = args
+        # Снимок Qt обязана обновлять GUI-сторона — фоновая шкала только читает.
+        self._trace_qt_keepalive()
+        try:
+            return btrace.watch(tag, hwnd, parent, inset,
+                                page_provider=self._current_page,
+                                extra_provider=self._trace_extra,
+                                duration=duration, fast_until=fast_until,
+                                min_ms=min_ms, fast_ms=fast_ms, slow_ms=slow_ms,
+                                stable_needed=stable_needed)
+        except Exception:
+            diag.exception("main.trace_watch")
+            return None
+
+    def _trace_page(self, reason, full=False):
+        """Снимок страницы в фоне: структура, метрики, при full — «код» (v20)."""
+        if not BROWSER_TRACE_ON:
+            return
+
+        def task():
+            page = self._current_page()
+            if page is None:
+                btrace.mark("page.snapshot_skipped", reason=str(reason))
+                return
+            try:
+                btrace.capture_page(page, reason=reason, full=bool(full))
+            except Exception:
+                diag.exception("main.trace_page")
+
+        threading.Thread(target=task, name="PageSnapshot", daemon=True).start()
+
     def _cover_to_top(self):
         """Шторка поверх окна браузера: и по z-порядку Qt, и по Win32 (v17).
 
@@ -3937,14 +4095,23 @@ class MainWindow(QMainWindow):
     def showEvent(self, event):
         super().showEvent(event)
         self._sync_chrome_geometry()
+        was_hidden = bool(getattr(self, "_was_hidden", False))
         # v18: окно вернулось после скрытия (F2) — браузер нужно перерисовать.
-        if self._was_hidden:
+        if was_hidden:
             self._was_hidden = False
             self._schedule_revive()
+        # v20: приборная панель. Показ окна — главное возмущение из всех: именно
+        # после него пользователь видит «съехало и встало на место». Шкала
+        # измеряет и окно, и страницу, и состояние Qt — по миллисекундам.
+        btrace.mark("window.show", was_hidden=was_hidden, args=self._trace_extra())
+        self._trace_watch("show", duration=10.0, fast_until=4.0, min_ms=1200)
 
     def hideEvent(self, event):
         super().hideEvent(event)
         self._was_hidden = True
+        # v20: скрытие — начало возмущения; фиксируем позицию на момент ухода.
+        btrace.mark("window.hide", args=self._trace_extra())
+        self._trace_watch("hide", duration=4.0, fast_until=1.5, min_ms=300)
         if not REVIVE_AFTER_SHOW:
             return
         # v18.2: шторка встаёт СЕЙЧАС, пока окно не видно. Когда окно
@@ -3969,6 +4136,11 @@ class MainWindow(QMainWindow):
             if event.type() == QEvent.Type.WindowStateChange:
                 if self.isMinimized():
                     self._was_minimized = True
+                    # v20: сворот — тоже возмущение: окно теряет кадр, а при
+                    # развороте Chromium пересобирает раскладку.
+                    btrace.mark("window.minimize", args=self._trace_extra())
+                    self._trace_watch("minimize", duration=6.0, fast_until=2.0,
+                                      min_ms=300)
                     # v18.2: свёрнутое окно всё равно не видно — поднимаем
                     # шторку заранее, чтобы при развороте не мелькнула
                     # съехавшая страница.
@@ -3976,6 +4148,7 @@ class MainWindow(QMainWindow):
                         self._cover_to_top()
                 elif self._was_minimized:
                     self._was_minimized = False
+                    btrace.mark("window.restore", args=self._trace_extra())
                     self._schedule_revive()
         except Exception:
             diag.exception("main.revive_state")
@@ -4379,6 +4552,11 @@ class MainWindow(QMainWindow):
     def _on_hotkey(self, key_id):
         if self._closing:
             return
+        # v20: в лог попадает и сам факт нажатия, и его время: без этого
+        # невозможно отличить «хоткей не сработал» от «сработал поздно».
+        btrace.mark("hotkey.pressed", id=int(key_id),
+                    visible=bool(self.isVisible()),
+                    args=self._trace_extra())
         if key_id == HOTKEY_TOGGLE_ID:
             self._toggle_visibility()
         elif key_id == HOTKEY_MIC_ID:
@@ -4416,7 +4594,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot()  # Explicit zero-argument Qt slot: clicked(bool) must not reach @stage.
     @stage
     def _toggle_visibility(self):
-        if self.isVisible():
+        # v20: хоткей «Окно» — точная точка отсчёта для временной шкалы. По ней
+        # видно, через сколько миллисекунд после показа браузер встал на место
+        # (жалоба «объекты съезжают и возвращаются через 2–3 секунды»).
+        action = "hide" if self.isVisible() else "show"
+        btrace.mark("hotkey.toggle.begin", action=action, args=self._trace_extra())
+        if action == "hide":
             self.hide()
             if self.overlay.isVisible():
                 self.overlay.hide()
@@ -4428,6 +4611,7 @@ class MainWindow(QMainWindow):
                 self.overlay.show()
                 self.overlay.sync_geometry()
                 force_topmost(int(self.overlay.winId()))
+        btrace.mark("hotkey.toggle.end", action=action, args=self._trace_extra())
 
     def _page_eval_async(self, expression, timeout=3, callback=None):
         page = getattr(self.worker, "page", None) if self.worker else None
@@ -4896,6 +5080,12 @@ class MainWindow(QMainWindow):
         self._revive_last = None
         self._revive_step = 0
         self._settling = True
+        # v20: до первого шага «оживления» фиксируем исходное состояние — иначе
+        # в логе не будет видно, ОТКУДА браузер возвращался на место.
+        btrace.mark("revive.schedule", step_ms=list(REVIVE_STEPS),
+                    min_ms=int(REVIVE_MIN_MS), settle_n=int(REVIVE_SETTLE_N),
+                    args=self._trace_extra())
+        self._trace_landed_ms = None      # «когда встало на цель» — заново
         # v18.3: ровно тот же GUI прогрузки, что на этапе «Ожидание страницы»,
         # и тем же наивысшим приоритетом: индикатор — отдельное окно поверх
         # всех (WindowStaysOnTop + force_topmost), под ним — шторка.
@@ -5004,9 +5194,29 @@ class MainWindow(QMainWindow):
                     settled = 1
                 self._revive_settled = settled
                 self._revive_last = signature
+                # v20: вместе с подписью — измерение ОКНА: где оно на самом
+                # деле относительно цели и почему. Без этого «не встал на
+                # позицию» остаётся словами.
+                probe = btrace.window_probe(hwnd, parent, inset)
                 diag.event("browser.revive", step=int(step), ms=int(delay),
                            settled=int(settled), inset=list(inset),
-                           signature=list(signature or ()))
+                           signature=list(signature or ()),
+                           verdict=probe.get("verdict"), dx=probe.get("dx"),
+                           dy=probe.get("dy"), dw=probe.get("dw"), dh=probe.get("dh"),
+                           client=probe.get("client"), visible=probe.get("visible"),
+                           explain=probe.get("explain"))
+                if probe.get("verdict") not in (None, "on_target"):
+                    btrace.mark("revive.off_target", step=int(step), ms=int(delay),
+                                dx=probe.get("dx"), dy=probe.get("dy"),
+                                reasons=probe.get("reasons"), client=probe.get("client"),
+                                target=probe.get("target"), rect=probe.get("rect"))
+                elif getattr(self, "_trace_landed_ms", None) is None:
+                    # Первый замер, когда окно УЖЕ на цели: это и есть ответ на
+                    # жалобу «съехало и вернулось через 2–3 секунды».
+                    self._trace_landed_ms = int(delay)
+                    btrace.mark("revive.on_target", step=int(step), ms=int(delay),
+                                rect=probe.get("rect"), target=probe.get("target"),
+                                client=probe.get("client"), scale=probe.get("scale"))
             except Exception:
                 diag.exception("main.revive_measure")
             enough = (delay >= int(REVIVE_MIN_MS)
@@ -5037,6 +5247,16 @@ class MainWindow(QMainWindow):
                     win32_embed.sync_now(user32, hwnd, parent, inset)
                     win32_embed.show_window(user32, hwnd)
                     win32_embed.invalidate(user32, hwnd)
+                    # v20: сразу после переноса — измерение «встало ли на цель».
+                    # Именно этот замер и отвечает на вопрос пользователя.
+                    probe = btrace.record_win_call("revive.reveal", True, hwnd=hwnd,
+                                                   parent=parent, inset=inset,
+                                                   extra={"stage": "finalize"})
+                    btrace.mark("revive.reveal", verdict=(probe or {}).get("verdict"),
+                                dx=(probe or {}).get("dx"), dy=(probe or {}).get("dy"),
+                                dw=(probe or {}).get("dw"), dh=(probe or {}).get("dh"),
+                                client=(probe or {}).get("client"),
+                                reasons=(probe or {}).get("reasons"))
                 except Exception:
                     diag.exception("main.revive_win32")
                 if page is not None:
@@ -5088,6 +5308,15 @@ class MainWindow(QMainWindow):
                     self._surface_verdict = verdict
                     diag.event("page.surface_changed", verdict=verdict,
                                previous=previous, when=str(when))
+                    # v20: поверхность сменилась — снимаем её структуру и «код».
+                    # Это ровно тот случай, когда страница отдала НЕ тот чат, и
+                    # по снимку видно, чем она на самом деле оказалась.
+                    shots = int(getattr(self, "_trace_surface_shots", 0) or 0)
+                    if shots < 4:
+                        self._trace_surface_shots = shots + 1
+                        btrace.capture_page(page, reason="surface-%s" % verdict, full=True)
+                        btrace.mark("page.surface_captured", verdict=verdict,
+                                    previous=previous, shot=shots + 1)
                 diag.event("page.surface_after_%s" % re.sub(r"\W+", "", str(when)),
                            **{k: surface.get(k) for k in
                               ("verdict", "ready", "composer", "files", "chips",
@@ -5565,6 +5794,15 @@ class MainWindow(QMainWindow):
             force_topmost(int(self.winId()))
             self._set_status("Готов к работе", THEME["ok"])
 
+            # v20: чат готов — фиксируем это событие и снимаем структуру страницы
+            # («код» один раз). По снимку видно, та ли поверхность открылась и
+            # где именно стоит поле ввода.
+            btrace.mark("chat.ready", verdict=self._surface_verdict,
+                        blocked=self._surface_blocked, args=self._trace_extra())
+            if not getattr(self, "_trace_chat_captured", False):
+                self._trace_chat_captured = True
+                self._trace_page("chat-ready", full=True)
+
             self._load_prompt()
 
         except Exception:
@@ -6007,6 +6245,17 @@ class MainWindow(QMainWindow):
         except Exception:
             diag.exception("main.py:3630")
             pass
+
+        # v20: закрыть приборную панель браузера ПОСЛЕ остановки браузера и
+        # рабочих потоков: здесь дописываются итог (`UNDERSTANDING.md`),
+        # машинная сводка и сбрасываются на диск все файлы сбора. Без этого
+        # последние строки оставались в буфере и пользователь копировал
+        # неполную сессию (проверено: `browser-trace.txt` выходил 0 байт).
+        try:
+            btrace.stop_watchers()
+            btrace.finish()
+        except Exception:
+            diag.exception("main.trace_finish")
 
     @pyqtSlot()  # Explicit zero-argument Qt slot: clicked(bool) must not reach @stage.
     @stage

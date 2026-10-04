@@ -1,0 +1,610 @@
+{
+ "session": "example-session",
+ "dir": "/home/user/LegalyzeNew/browser_logs/inbox/example-session",
+ "started": "2026-10-04T03:03:24.571451+00:00",
+ "versions": {
+  "PyQt6": "6.7.1",
+  "PyQt6-Qt6": "6.7.2"
+ },
+ "browser": {
+  "found": [
+   {
+    "name": "Chrome",
+    "kind": "chrome",
+    "rank": 0,
+    "path": "C:\\Legalyze\\browser\\chrome.exe"
+   }
+  ],
+  "tried": [
+   {
+    "name": "Legalyze Chromium",
+    "kind": "chrome",
+    "attempt": 1,
+    "gpu": false
+   }
+  ],
+  "embedded": {
+   "time": "2026-10-04T03:03:26.071451+00:00",
+   "pid": 4242,
+   "thread": "MainThread",
+   "event": "browser.embedded",
+   "hwnd": 853124,
+   "parent": 723908,
+   "port": 9222,
+   "kind": "chrome",
+   "inset": [
+    -10,
+    -24,
+    10,
+    24
+   ]
+  },
+  "mode": {
+   "time": "2026-10-04T03:03:26.171451+00:00",
+   "pid": 4242,
+   "thread": "MainThread",
+   "event": "browser.mode",
+   "engine": "external_chrome",
+   "exe": "chrome.exe",
+   "port": 9222,
+   "inset": [
+    -10,
+    -24,
+    10,
+    24
+   ],
+   "dx": -10,
+   "dy": -24,
+   "zoom": 0.667,
+   "light_theme": true,
+   "lang": "ru-RU"
+  }
+ },
+ "screens": [
+  {
+   "time": "2026-10-04T03:03:24.721451+00:00",
+   "pid": 4242,
+   "thread": "MainThread",
+   "event": "qt.screen",
+   "geometry": [
+    0,
+    0,
+    2560,
+    1440
+   ],
+   "available": [
+    0,
+    0,
+    2560,
+    1392
+   ],
+   "dpi": 96,
+   "dpr": 1.5
+  }
+ ],
+ "watches": {
+  "hide": {
+   "samples": 2,
+   "changes": 1,
+   "deviations": 0,
+   "first_ms": 0,
+   "last_ms": 405,
+   "max_offset_px": 0,
+   "off_target_until_ms": null,
+   "events": [],
+   "final_verdict": "on_target",
+   "started_at": "2026-10-04T03:03:24.601229+00:00",
+   "settled_at": null,
+   "settle_ms": 40,
+   "ended": true,
+   "off_episodes": 0
+  },
+  "show": {
+   "samples": 6,
+   "changes": 4,
+   "deviations": 4,
+   "first_ms": 0,
+   "last_ms": 3007,
+   "max_offset_px": 48,
+   "off_target_until_ms": 1307,
+   "events": [
+    {
+     "ms": 0,
+     "time": "2026-10-04T03:03:25.007532+00:00",
+     "dx": 0,
+     "dy": -24,
+     "dw": 0,
+     "dh": 0,
+     "client": [
+      439,
+      728
+     ],
+     "rect": [
+      1400,
+      176,
+      439,
+      728
+     ],
+     "target": [
+      1400,
+      200,
+      439,
+      728
+     ],
+     "reasons": [
+      "async_pending"
+     ],
+     "page": {
+      "iw": 658,
+      "ih": 1091,
+      "dpr": 1.5,
+      "sx": 0,
+      "sy": 0,
+      "vw": 658,
+      "vh": 1091,
+      "vs": 1.0,
+      "ox": 0,
+      "oy": 0,
+      "cw": 612,
+      "ch": 44,
+      "cx": 23,
+      "cy": 980,
+      "ready": "complete",
+      "active": "textarea"
+     },
+     "extra": {}
+    },
+    {
+     "ms": 61,
+     "time": "2026-10-04T03:03:25.068553+00:00",
+     "dx": 0,
+     "dy": -48,
+     "dw": 0,
+     "dh": 0,
+     "client": [
+      439,
+      728
+     ],
+     "rect": [
+      1400,
+      152,
+      439,
+      728
+     ],
+     "target": [
+      1400,
+      200,
+      439,
+      728
+     ],
+     "reasons": [
+      "dpi_scale",
+      "off_target"
+     ],
+     "page": {
+      "iw": 658,
+      "ih": 1091,
+      "dpr": 1.5,
+      "sx": 0,
+      "sy": 0,
+      "vw": 658,
+      "vh": 1091,
+      "vs": 1.0,
+      "ox": 0,
+      "oy": 0,
+      "cw": 612,
+      "ch": 44,
+      "cx": 23,
+      "cy": 980,
+      "ready": "complete",
+      "active": "textarea"
+     },
+     "extra": {}
+    },
+    {
+     "ms": 305,
+     "time": "2026-10-04T03:03:25.312924+00:00",
+     "dx": 0,
+     "dy": -24,
+     "dw": 0,
+     "dh": 0,
+     "client": [
+      439,
+      728
+     ],
+     "rect": [
+      1400,
+      176,
+      439,
+      728
+     ],
+     "target": [
+      1400,
+      200,
+      439,
+      728
+     ],
+     "reasons": [
+      "off_target"
+     ],
+     "page": {
+      "iw": 658,
+      "ih": 1091,
+      "dpr": 1.5,
+      "sx": 0,
+      "sy": 0,
+      "vw": 658,
+      "vh": 1091,
+      "vs": 1.0,
+      "ox": 0,
+      "oy": 0,
+      "cw": 612,
+      "ch": 44,
+      "cx": 23,
+      "cy": 980,
+      "ready": "complete",
+      "active": "textarea"
+     },
+     "extra": {}
+    },
+    {
+     "ms": 1307,
+     "time": "2026-10-04T03:03:26.314551+00:00",
+     "dx": 0,
+     "dy": -24,
+     "dw": 0,
+     "dh": 0,
+     "client": [
+      439,
+      728
+     ],
+     "rect": [
+      1400,
+      176,
+      439,
+      728
+     ],
+     "target": [
+      1400,
+      200,
+      439,
+      728
+     ],
+     "reasons": [
+      "off_target"
+     ],
+     "page": {
+      "iw": 658,
+      "ih": 1091,
+      "dpr": 1.5,
+      "sx": 0,
+      "sy": 0,
+      "vw": 658,
+      "vh": 1091,
+      "vs": 1.0,
+      "ox": 0,
+      "oy": 0,
+      "cw": 612,
+      "ch": 44,
+      "cx": 23,
+      "cy": 980,
+      "ready": "complete",
+      "active": "textarea"
+     },
+     "extra": {}
+    }
+   ],
+   "final_verdict": "on_target",
+   "started_at": "2026-10-04T03:03:25.007532+00:00",
+   "settled_at": "2026-10-04T03:03:26.926725+00:00",
+   "settle_ms": 1959,
+   "ended": true,
+   "off_episodes": 1
+  }
+ },
+ "slow_settles": {
+  "show": 1959
+ },
+ "win_calls": {
+  "total": 3,
+  "failed": 0,
+  "off_target": 3,
+  "examples": [
+   {
+    "time": "2026-10-04T03:03:25.006800+00:00",
+    "t": 1208.5265,
+    "pid": 3646,
+    "thread": "MainThread",
+    "kind": "win32.call",
+    "name": "sync_now",
+    "ok": true,
+    "error": null,
+    "ms": 0.004,
+    "call_index": 1,
+    "verdict": "off_target",
+    "reasons": [
+     "async_pending"
+    ],
+    "rect": [
+     1400,
+     176,
+     439,
+     728
+    ],
+    "target": [
+     1400,
+     200,
+     439,
+     728
+    ],
+    "dx": 0,
+    "dy": -24,
+    "dw": 0,
+    "dh": 0,
+    "client": [
+     439,
+     728
+    ],
+    "visible": true,
+    "minimized": false,
+    "child": true,
+    "scale": 1.0,
+    "parent_actual": 723908,
+    "explain": null,
+    "stage": "finalize",
+    "sync": true
+   },
+   {
+    "time": "2026-10-04T03:03:25.006844+00:00",
+    "t": 1208.5266,
+    "pid": 3646,
+    "thread": "MainThread",
+    "kind": "win32.call",
+    "name": "show_window",
+    "ok": true,
+    "error": null,
+    "ms": 0.001,
+    "call_index": 2,
+    "verdict": "off_target",
+    "reasons": [
+     "async_pending"
+    ],
+    "rect": [
+     1400,
+     176,
+     439,
+     728
+    ],
+    "target": [
+     1400,
+     200,
+     439,
+     728
+    ],
+    "dx": 0,
+    "dy": -24,
+    "dw": 0,
+    "dh": 0,
+    "client": [
+     439,
+     728
+    ],
+    "visible": true,
+    "minimized": false,
+    "child": true,
+    "scale": 1.0,
+    "parent_actual": 0,
+    "explain": null,
+    "was_visible": false
+   },
+   {
+    "time": "2026-10-04T03:03:25.006878+00:00",
+    "t": 1208.5266,
+    "pid": 3646,
+    "thread": "MainThread",
+    "kind": "win32.call",
+    "name": "invalidate",
+    "ok": true,
+    "error": null,
+    "ms": 0.001,
+    "call_index": 3,
+    "verdict": "off_target",
+    "reasons": [
+     "async_pending"
+    ],
+    "rect": [
+     1400,
+     176,
+     439,
+     728
+    ],
+    "target": [
+     1400,
+     200,
+     439,
+     728
+    ],
+    "dx": 0,
+    "dy": -24,
+    "dw": 0,
+    "dh": 0,
+    "client": [
+     439,
+     728
+    ],
+    "visible": true,
+    "minimized": false,
+    "child": true,
+    "scale": 1.0,
+    "parent_actual": 0,
+    "explain": null
+   }
+  ]
+ },
+ "reasons": {
+  "async_pending": 4,
+  "dpi_scale": 1,
+  "off_target": 2
+ },
+ "exports": [
+  {
+   "time": "2026-10-04T03:03:28.016916+00:00",
+   "t": 1211.5367,
+   "pid": 3646,
+   "thread": "MainThread",
+   "kind": "export.audit",
+   "stage": "upload_blocked-gemini",
+   "files": [
+    {
+     "name": "Промт.pdf",
+     "exists": true,
+     "bytes": 18008,
+     "mtime": 1791083008.0,
+     "sha256_12": "9644aa3248df"
+    },
+    {
+     "name": "Шаблон.txt",
+     "exists": true,
+     "bytes": 25,
+     "mtime": 1791083008.0,
+     "sha256_12": "035c3c2de731"
+    }
+   ],
+   "page": {
+    "file_inputs": 0,
+    "inputs_with_files": 0,
+    "picked": [],
+    "chips": 0,
+    "chip_names": [],
+    "progress": 0,
+    "alerts": [],
+    "ready": "complete"
+   },
+   "chip_names": [],
+   "verdict": "surface_without_file_input",
+   "surface": "ai_mode"
+  },
+  {
+   "time": "2026-10-04T03:03:28.017476+00:00",
+   "t": 1211.5372,
+   "pid": 3646,
+   "thread": "MainThread",
+   "kind": "export.audit",
+   "stage": "complete",
+   "files": [
+    {
+     "name": "Промт.pdf",
+     "exists": true,
+     "bytes": 18008,
+     "mtime": 1791083008.0,
+     "sha256_12": "9644aa3248df"
+    },
+    {
+     "name": "Шаблон.txt",
+     "exists": true,
+     "bytes": 25,
+     "mtime": 1791083008.0,
+     "sha256_12": "035c3c2de731"
+    }
+   ],
+   "page": {
+    "file_inputs": 1,
+    "inputs_with_files": 1,
+    "picked": [
+     {
+      "count": 1,
+      "accept": "",
+      "names": [
+       "Промт.pdf"
+      ],
+      "sizes": [
+       18008
+      ]
+     }
+    ],
+    "chips": 2,
+    "chip_names": [
+     "Промт.pdf",
+     "Шаблон.txt"
+    ],
+    "progress": 0,
+    "alerts": [],
+    "ready": "complete",
+    "focused": true,
+    "active": "textarea"
+   },
+   "chip_names": [
+    "Промт.pdf",
+    "Шаблон.txt"
+   ],
+   "verdict": "confirmed_attached",
+   "present": 2,
+   "names": [
+    "Промт.pdf",
+    "Шаблон.txt"
+   ]
+  }
+ ],
+ "surface": [
+  {
+   "time": "2026-10-04T03:03:27.171451+00:00",
+   "verdict": "gemini",
+   "ready": "complete",
+   "composer": 1,
+   "files": 1,
+   "chips": 0,
+   "dark": null,
+   "bg": null,
+   "host": "gemini.google.com",
+   "path": "/app",
+   "event": "page.surface"
+  },
+  {
+   "time": "2026-10-04T03:03:27.571451+00:00",
+   "verdict": "gemini",
+   "ready": "complete",
+   "composer": 1,
+   "files": 1,
+   "chips": 0,
+   "dark": null,
+   "bg": null,
+   "host": null,
+   "path": null,
+   "event": "page.surface_after_show"
+  }
+ ],
+ "errors": {
+  "main.upload:RuntimeError": 1
+ },
+ "warnings": {
+  "warn.browser": 1
+ },
+ "marks": {
+  "mark.trace.installed": 2,
+  "mark.hotkey.pressed": 1,
+  "mark.window.hide": 1,
+  "mark.window.show": 1,
+  "mark.revive.schedule": 1,
+  "mark.revive.step": 8,
+  "mark.revive.reveal": 1,
+  "mark.chat.ready": 1,
+  "mark.trace.finish": 1
+ },
+ "artifacts": [
+  "browser-trace-summary.json",
+  "page-code-chat-ready-030328.html",
+  "page-meta-chat-ready-030328.json",
+  "page-outline-chat-ready-030328.json"
+ ],
+ "advice": [],
+ "env": {
+  "platform": "Windows-10-10.0.26100-SP0",
+  "python": "3.11.9 (tags/v3.11.9)",
+  "windows_build": "10.0.26100",
+  "frozen": true,
+  "nuitka_compiled": true,
+  "modes": {
+   "LEGALYZE_DISABLE_GPU": null
+  }
+ }
+}

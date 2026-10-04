@@ -40,6 +40,12 @@ from unittest.mock import Mock, patch
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT.parent / 'TestLegalQtWebEngine'
 ORIGINAL = ROOT.parent / 'TestLegal'
+REFERENCE = ROOT.parent / 'release_reference'
+#: Часть проверок сверяет код с эталонными папками автора (TestLegal,
+#: TestLegalQtWebEngine, release_reference). В чистом клоне этих папок нет —
+#: такие проверки пропускаются с внятной причиной, а не падают «не найден файл».
+def _needs(path, what):
+    return unittest.skipUnless(path.exists(), 'нет эталонной папки %s' % what)
 sys.path.insert(0, str(ROOT))
 
 import native_browser  # noqa: E402
@@ -233,17 +239,20 @@ class SourceTests(unittest.TestCase):
         for p in ROOT.glob('*.py'):
             compile(p.read_text(), str(p), 'exec')
 
+    @_needs(ORIGINAL, 'TestLegal')
     def test_business_modules_unchanged(self):
         for name in ('config.py', 'crypto_utils.py', 'hwid_gen.py', 'secure_store.py',
                      'storage_paths.py', 'updater.py'):
             self.assertEqual((ROOT / name).read_bytes(), (ORIGINAL / name).read_bytes(), name)
 
+    @_needs(ORIGINAL, 'TestLegal')
     def test_business_worker_bodies_unchanged(self):
         names = ('AuthWorker', 'BalanceWorker', 'DecrementWorker', 'PromptLoaderWorker',
                  'LoginWindow', 'TemplateWindow')
         self.assertEqual(class_dump(ORIGINAL / 'main.py', names),
                          class_dump(ROOT / 'main.py', names))
 
+    @_needs(BASE, 'TestLegalQtWebEngine')
     def test_chat_automation_preserved_from_tested_variant(self):
         before = ast.parse((BASE / 'main.py').read_text())
         after = ast.parse((ROOT / 'main.py').read_text())
@@ -322,6 +331,7 @@ class SourceTests(unittest.TestCase):
         self.assertIn('self.index += 1', body)
         self.assertIn('MAX_ATTEMPTS', ast.unparse(tree))
 
+    @_needs(REFERENCE, 'release_reference')
     def test_onefile_build_command_is_documented_and_matches_the_bat(self):
         # Один исполняемый файл: --onefile и НИКАКИХ других вариантов сборки
         # в релизной команде. Синтаксис проверяется и в README, и в .bat.
