@@ -145,6 +145,11 @@ _last_audit = {}
 _win_calls = 0
 _session = {"installed_at": None, "dir": None, "os": sys.platform}
 _counters = {}
+#: Последний паспорт машины (машина может смениться — например, RDP или
+#: подключение второго монитора, поэтому хранится последний, а не первый).
+_machine = None
+#: Самопроверки: имя → последний вердикт. В сводку идёт последний по времени.
+_selfchecks = {}
 
 
 def install(log_dir=None, enabled=None):
@@ -308,6 +313,115 @@ def state(key, value):
     """Именованное состояние: попадает в итог сессии."""
     _bump("state.set")
     _put(_record("state", key=str(key), value=_clean(value)))
+
+
+def env_fingerprint(extra=None, reason="start", screens=None, facts=None):
+    """Паспорт машины в журнал: `machine.fingerprint` (+ запоминается для сводки).
+
+    Зачем отдельно от `env.contract`. Контракт (`native_browser.env_contract`)
+    описывает ЗАПУСК браузера: путь, ключи, зум, профиль. Паспорт описывает
+    МАШИНУ: Windows и сборку, мониторы и их масштабы, сессию (RDP/консоль),
+    права, тему, экран целиком. Именно паспорт объясняет дефекты «у другого
+    пользователя, но не у меня» (ОШИБКИ.md № 2), потому что сравнивать две
+    машины можно только по одинаково собранным числам.
+
+    Никогда не бросает: если паспорт собрать не удалось, в журнале останется
+    строка с `error`, а приложение продолжит работать.
+
+    `facts` — готовый паспорт. Нужен тестам и примеру сессии: на стенде нет
+    Windows, а проверять разбор на пустом паспорте бессмысленно.
+    """
+    global _machine
+    if not _enabled:
+        return None
+    try:
+        if facts is None:
+            import machine_profile as mp
+            facts = mp.profile(extra=extra, screens=screens)
+    except Exception as exc:
+        _put(_record("machine.fingerprint", reason=str(reason), error=str(exc)[:160]))
+        return None
+    _machine = facts
+    record = _record("machine.fingerprint", reason=str(reason))
+    record.update(facts)
+    _put(record)
+    # В человеческий файл — коротко: главное, что видно глазами.
+    try:
+        risks = mp.risk_codes(facts)
+        _put(_record("machine.summary",
+                     windows=((facts.get("windows") or {}).get("version")),
+                     build=((facts.get("windows") or {}).get("build")),
+                     screens=len(facts.get("screens") or []),
+                     scale=facts.get("scale"),
+                     session=((facts.get("session") or {}).get("kind")),
+                     admin=((facts.get("session") or {}).get("admin")),
+                     theme=facts.get("theme"), risks=risks))
+    except Exception:
+        pass
+    return facts
+
+
+def machine():
+    """Последний собранный паспорт машины (или None, если не собирался)."""
+    return _machine
+
+
+def selfcheck(name, ok, detail="", advice=""):
+    """Строка самопроверки: приборная панель САМА выносит вердикт по подсистеме.
+
+    Идея ТЗ: разбирать чужой лог глазами не должен никто. Поэтому приложение
+    на каждой ключевой вехе пишет вердикт «ок / не ок» — и в итоговой сводке
+    видно состояние проверок, не читая журнал построчно:
+
+    * `engine` — каким движком показывается страница (native/QtWebEngine);
+    * `window_position` — встало ли окно в плейсхолдер (по замерам, не «должно»);
+    * `layout` — совпадает ли раскладка страницы с целью (форма окна, dsf=1.0);
+    * `export` — прикрепились ли файлы (по чипам и по факту на диске);
+    * `hotkeys` — зарегистрированы ли клавиши (без прав администратора);
+    * `mic` — доступен ли ввод голосом штатным путём страницы;
+    * `admin_free` — работает ли приложение без прав администратора.
+
+    Возвращает вердикт; никогда не бросает.
+    """
+    ok = bool(ok)
+    if not _enabled:
+        return ok
+    global _selfchecks
+    try:
+        record = _record("selfcheck." + str(name), ok=ok,
+                         detail=_short(detail), advice=_short(advice))
+        _put(record)
+        with _lock:
+            _selfchecks[str(name)] = {"ok": ok, "detail": str(detail or ""),
+                                      "advice": str(advice or ""), "time": _now()}
+            _counters["selfcheck.%s.%s" % (name, "ok" if ok else "fail")] = \
+                _counters.get("selfcheck.%s.%s" % (name, "ok" if ok else "fail"), 0) + 1
+    except Exception:
+        try:
+            import diagnostics as diag
+            diag.exception("btrace.selfcheck")
+        except Exception:
+            pass
+    return ok
+
+
+def selfchecks():
+    """Все вердикты самопроверки: имя → {ok, detail, advice, time}."""
+    with _lock:
+        return {k: dict(v) for k, v in _selfchecks.items()}
+
+
+def _read_selfchecks(directory):
+    """Самопроверки из файла: нужны, если вердикты писались до перезапуска."""
+    out = {}
+    for row in _read_jsonl(Path(directory) / EVENT_FILE):
+        kind = str(row.get("kind") or "")
+        if not kind.startswith("selfcheck."):
+            continue
+        name = kind.split(".", 1)[1]
+        out[name] = {"ok": bool(row.get("ok")), "detail": str(row.get("detail") or ""),
+                     "advice": str(row.get("advice") or ""), "time": row.get("time")}
+    return out
 
 
 def _drain_wait(timeout=2.0):
@@ -1446,6 +1560,8 @@ def build_summary():
         "counters": counters,
         "win_calls_total": _win_calls,
         "watchers": {},
+        "machine": _machine,
+        "selfcheck": selfchecks(),
         "problems": [],
         "hints": [],
     }
@@ -1463,6 +1579,12 @@ def build_summary():
         pass
     if _dir is not None:
         summary["watchers"] = _summarize_timeline(Path(_dir) / TIMELINE_FILE)
+        try:
+            merged = _read_selfchecks(_dir)
+            merged.update(summary.get("selfcheck") or {})
+            summary["selfcheck"] = merged
+        except Exception:
+            pass
         summary["problems"], summary["hints"] = _diagnose(summary, Path(_dir))
     return summary
 
@@ -1564,6 +1686,22 @@ def _diagnose(summary, directory):
         count = counters.get("export.verdict.%s" % verdict)
         if count:
             hints.append("Экспорт «%s» ×%d — %s" % (verdict, count, description))
+    for name, data in sorted((summary.get("selfcheck") or {}).items()):
+        if data.get("ok"):
+            continue
+        problems.append("selfcheck:%s" % name)
+        detail = (": %s" % data.get("detail")) if data.get("detail") else ""
+        advice = data.get("advice") or ""
+        hints.append("Проверка «%s» НЕ пройдена%s%s"
+                     % (name, detail, (". Что делать: %s" % advice) if advice else ""))
+    machine = summary.get("machine") or {}
+    if machine:
+        try:
+            import machine_profile as mp
+            for line in mp.format_risks(machine, limit=5):
+                hints.append("Машина%s" % line[1:])
+        except Exception:
+            pass
     if not problems:
         hints.append("Отклонений окна в шкалах не зафиксировано, "
                      "критических вердиктов экспорта нет.")
@@ -1583,6 +1721,35 @@ def render_understanding(summary):
     lines.append("- Конец: %s" % (summary.get("finished_at") or "?"))
     lines.append("- Всего вызовов Win32 к окну браузера: %s"
                  % summary.get("win_calls_total", 0))
+    lines.append("")
+    lines.append("## 0. Машина и проверки")
+    lines.append("")
+    machine = summary.get("machine") or {}
+    if machine:
+        try:
+            import machine_profile as mp
+            lines.append(mp.format_report(machine))
+            risk_lines = mp.format_risks(machine)
+            if risk_lines:
+                lines.append("")
+                lines.append("Риски этой машины (и что с ними делать):")
+                lines.extend(risk_lines)
+        except Exception:
+            lines.append("- Паспорт машины есть в `machine.fingerprint`, "
+                         "но отчёт по нему собрать не удалось.")
+    else:
+        lines.append("Паспорт машины в этой сессии не собирался "
+                     "(старая сборка либо сбор отключён).")
+    checks = summary.get("selfcheck") or {}
+    lines.append("")
+    if checks:
+        lines.append("| Проверка | Итог | Подробности |")
+        lines.append("|---|---|---|")
+        for name, data in sorted(checks.items()):
+            lines.append("| %s | %s | %s |" % (name, "ок" if data.get("ok") else "**НЕ ОК**",
+                                               data.get("detail") or ""))
+    else:
+        lines.append("Самопроверок в этой сессии нет (старая сборка).")
     lines.append("")
     lines.append("## 1. Позиция окна: когда съезжало и когда встало")
     lines.append("")

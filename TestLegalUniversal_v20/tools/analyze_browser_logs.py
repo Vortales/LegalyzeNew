@@ -60,6 +60,33 @@ ADVICE = {
     "page_lost": "CDP-соединение потеряно: страница перезагружалась или упала.",
 }
 
+#: Подсказки по рискам МАШИНЫ (коды из `machine_profile.RISK_RULES`) — на случай,
+#: когда модуль паспорта недоступен и риски приходят текстом.
+MACHINE_ADVICE = {
+    "dpi_125": "Масштаб 125 %: пересчитать DIP↔px (`_monitor_scale`, BROWSER_DX/DY).",
+    "dpi_150": "Масштаб 150 %: то же, но расхождение вдвое заметнее.",
+    "dpi_other": "Нестандартный масштаб: проверять пересчёт по замеру.",
+    "multi_monitor": "Несколько мониторов: следить за `parent_moved` и сменой экрана.",
+    "mixed_scale": "Разный масштаб мониторов: при переносе окна ждать `dpi_scale`.",
+    "rdp_session": "RDP: нет GPU-ускорения, DPI может меняться на ходу.",
+    "small_screen": "Маленький экран: целевое окно 453×735 может не помещаться.",
+    "dark_theme": "Тёмная тема Windows: проверить `page.probe.dark`/`page.theme_probe`.",
+    "old_windows": "Старая сборка Windows: проверить DPI-API и зависимости Chrome.",
+    "unsupported_windows": "Windows старше 10: нативный Chrome может не запускаться.",
+    "screens_unknown": "Геометрию мониторов прочитать не удалось.",
+    "running_as_admin": "Запуск с правами: путь обычного пользователя не проверен.",
+}
+
+#: Какая проверка (`selfcheck.<имя>`) на какой дефект из `ОШИБКИ.md` указывает.
+SELFCHECK_TO_DEFECT = {
+    "window_position": "1",
+    "layout": "1",
+    "export": "3",
+    "mic": "4",
+    "native_browser": "2",
+    "hotkeys": "7",
+}
+
 
 def parse_args(argv):
     parser = argparse.ArgumentParser(description="Разбор логов браузера Legalyze")
@@ -242,6 +269,11 @@ def analyze(data):
         "marks": Counter(),
         "artifacts": data["artifacts"],
         "advice": [],
+        "machine": None,
+        "machine_risks": [],
+        "selfcheck": {},
+        "repairs": [],
+        "defects": [],
     }
     start = first_of(diag, "session.start")
     if start:
@@ -274,9 +306,30 @@ def analyze(data):
             report["errors"]["%s:%s" % (row.get("where"), row.get("type"))] += 1
         elif event.startswith("warn."):
             report["warnings"][str(row.get("event"))] += 1
+        elif event == "machine.fingerprint" and not report["machine"]:
+            report["machine"] = _strip_record(row)
+        elif event.startswith("selfcheck."):
+            report["selfcheck"].setdefault(
+                event.split(".", 1)[1],
+                {"ok": bool(row.get("ok")), "detail": row.get("detail") or "",
+                 "advice": row.get("advice") or "", "time": row.get("time")})
+        elif event == "browser.layout_repair":
+            report["repairs"].append({k: row.get(k) for k in
+                                      ("time", "reason", "innerWidth", "dpr",
+                                       "restored")})
+        elif event == "browser.layout_watch":
+            report.setdefault("layout_watch", []).append(
+                {k: row.get(k) for k in ("time", "reason", "ok", "fixed", "good",
+                                         "ms", "innerWidth", "dpr")})
 
     for row in trace:
         kind = str(row.get("kind") or "")
+        if kind == "machine.fingerprint":
+            report["machine"] = _strip_record(row)
+        elif kind.startswith("selfcheck."):
+            report["selfcheck"][kind.split(".", 1)[1]] = {
+                "ok": bool(row.get("ok")), "detail": row.get("detail") or "",
+                "advice": row.get("advice") or "", "time": row.get("time")}
         if kind == "win32.call":
             report["win_calls"]["total"] += 1
             if not row.get("ok"):
@@ -307,6 +360,14 @@ def analyze(data):
                 row["count"] = 1
                 row["last_time"] = row.get("time")
                 report["exports"].append(row)
+        elif kind == "mark.browser.layout_repair":
+            report["repairs"].append({k: row.get(k) for k in
+                                      ("time", "reason", "innerWidth", "dpr",
+                                       "restored")})
+        elif kind.startswith("mark.browser.layout_watch"):
+            report.setdefault("layout_watch", []).append(
+                {k: row.get(k) for k in ("time", "reason", "ok", "fixed", "good",
+                                         "ms", "innerWidth", "dpr")})
         elif kind.startswith("mark."):
             report["marks"][kind] += 1
         elif kind == "watch.slow_settle":
@@ -389,7 +450,127 @@ def analyze(data):
             item["settle_ms"] = ms
         if item["first_ms"] is None:
             item["first_ms"] = ms
+    report["machine_risks"] = machine_risks(report)
+    report["defects"] = known_defects(report)
     return report
+
+
+#: Служебные поля записи журнала — в паспорт машины они не относятся.
+RECORD_KEYS = ("kind", "pid", "thread", "t", "time", "level")
+
+
+def _strip_record(row):
+    """Запись журнала → чистый словарь данных (без служебных полей записи)."""
+    return {k: v for k, v in dict(row).items() if k not in RECORD_KEYS}
+
+
+def machine_risks(report):
+    """Риски МАШИНЫ по её паспорту (`machine.fingerprint`).
+
+    Правила живут в `machine_profile.RISK_RULES` — одна точка правды и для
+    приложения, и для разбора. Если модуля рядом нет, риски не выдумываются:
+    лучше пустой список, чем подсказка «на глаз».
+    """
+    facts = report.get("machine") or {}
+    if not facts:
+        return []
+    try:
+        if str(ROOT) not in sys.path:
+            sys.path.insert(0, str(ROOT))
+        import machine_profile as mp
+        risks = mp.risks(facts)
+    except Exception:
+        return []
+    for item in risks:
+        item.setdefault("advice", MACHINE_ADVICE.get(item.get("code"), ""))
+    return risks
+
+
+def machine_block(report):
+    """Строки «Машина»: паспорт + риски. Пусто, если паспорта нет."""
+    facts = report.get("machine") or {}
+    if not facts:
+        return []
+    lines = []
+    try:
+        if str(ROOT) not in sys.path:
+            sys.path.insert(0, str(ROOT))
+        import machine_profile as mp
+        lines.extend(mp.format_report(facts).splitlines())
+    except Exception:
+        lines.append("- Паспорт машины прочитан, но отчёт собрать не удалось.")
+    risks = report.get("machine_risks") or []
+    if risks:
+        lines.append("")
+        lines.append("Риски машины (по паспорту, не по догадке):")
+        for item in sorted(risks, key=lambda x: 0 if x.get("level") == "warn" else 1):
+            detail = (" — %s" % item["detail"]) if item.get("detail") else ""
+            advice = (" **Что делать:** %s" % item["advice"]) if item.get("advice") else ""
+            lines.append("- **%s** (%s)%s.%s" % (item.get("text"), item.get("level"),
+                                                 detail, advice))
+    return lines
+
+
+def selfcheck_block(report):
+    """Таблица самопроверок: что приложение проверило и с каким итогом."""
+    checks = report.get("selfcheck") or {}
+    if not checks:
+        return []
+    lines = ["| Проверка | Итог | Подробности |", "|---|---|---|"]
+    for name, data in sorted(checks.items()):
+        detail = str(data.get("detail") or "").replace("|", "\\|")
+        advice = str(data.get("advice") or "").replace("|", "\\|")
+        if not data.get("ok") and advice:
+            detail = ("%s. Что делать: %s" % (detail, advice)).strip(". ")
+        lines.append("| %s | %s | %s |" % (name, "ок" if data.get("ok") else "**НЕ ОК**",
+                                           detail))
+    return lines
+
+
+def known_defects(report):
+    """Сопоставить факты сессии с уже найденными дефектами (`ОШИБКИ.md`).
+
+    Смысл: разбор не должен каждый раз заново «догадываться». Если картина
+    совпала с известным дефектом — это пишется прямо, вместе с номером записи,
+    и человек сразу видит «это уже было, лечение такое-то».
+    """
+    found = []
+
+    def add(number, title, evidence):
+        if not any(item["id"] == number for item in found):
+            found.append({"id": number, "title": title, "evidence": evidence})
+
+    if _multiply_note(report):
+        add("1", "раскладка «съехала»: множители зума сложились (0.667×0.667)",
+            "таблица раскладки по замерам")
+    for tag, item in (report.get("watches") or {}).items():
+        if int(item.get("deviations") or 0) > 0:
+            add("1", "окно/раскладка уходили от цели",
+                "шкала «%s»: %s строк «не на цели»" % (tag, item.get("deviations")))
+            break
+    repairs = report.get("repairs") or []
+    if repairs:
+        add("1", "исправление v20 сработало: раскладка возвращена ремонтом",
+            "browser.layout_repair ×%d (fixed=%s)" % (len(repairs), repairs[0].get("fixed")))
+    bad_exports = [row for row in (report.get("exports") or [])
+                   if row.get("verdict") not in ("confirmed_attached", "attached_unnamed")]
+    if bad_exports:
+        add("3", "файлы могли не прикрепиться",
+            "вердикты: %s" % ", ".join(sorted({str(r.get("verdict")) for r in bad_exports})))
+    if any(row.get("dark") for row in (report.get("surface") or [])):
+        add("5", "страница пришла тёмной", "page.surface: dark=true")
+    checks = report.get("selfcheck") or {}
+    for name, data in checks.items():
+        if data.get("ok"):
+            continue
+        number = SELFCHECK_TO_DEFECT.get(name) or "2"
+        add(number, "не пройдена проверка «%s»" % name,
+            str(data.get("detail") or "")[:160])
+    risks = report.get("machine_risks") or []
+    if risks:
+        add("2", "машина отличается от эталонной (класс «не у меня») ",
+            "риски: %s" % ", ".join(item.get("code") for item in risks[:5]))
+    return found
 
 
 def _multiply_note(report):
@@ -481,6 +662,30 @@ def render(report):
             add("- Переменные окружения режимов: %s" % json.dumps(modes, ensure_ascii=False))
     if report.get("versions"):
         add("- Версии: %s" % ", ".join("%s=%s" % (k, v) for k, v in report["versions"].items()))
+    add("")
+    add("## 0. Машина и проверки")
+    add("")
+    block = machine_block(report)
+    if block:
+        lines.extend(block)
+    else:
+        add("Паспорт машины в этой сессии не записан (старая сборка либо сбор "
+            "отключён). Риски машины в таком случае НЕ вычисляются: догадки "
+            "вместо чисел в отчёт не попадают.")
+    checks = selfcheck_block(report)
+    add("")
+    if checks:
+        add("Самопроверка приложения (вердикты ставит само приложение):")
+        add("")
+        lines.extend(checks)
+    else:
+        add("Самопроверок в этой сессии нет (старая сборка).")
+    watch = report.get("layout_watch") or []
+    if watch:
+        add("")
+        add("Удержание раскладки (v20): записей `browser.layout_watch` — %d, "
+            "ремонтов `browser.layout_repair` — %d."
+            % (len(watch), len(report.get("repairs") or [])))
     add("")
     add("## 1. Окружение и браузер")
     add("")
@@ -651,6 +856,13 @@ def render(report):
                                                           for k, v in marks.most_common(12)))
     add("")
     add("## 5. Что это значит")
+    defects = report.get("defects") or []
+    if defects:
+        add("")
+        add("Похоже на уже найденные дефекты (`ОШИБКИ.md`):")
+        for item in defects:
+            add("- **№ %s** — %s (%s)" % (item.get("id"), item.get("title"),
+                                          item.get("evidence")))
     for note in _multiply_note(report) + _layout_note(report):
         add("")
         add("- %s" % note)
