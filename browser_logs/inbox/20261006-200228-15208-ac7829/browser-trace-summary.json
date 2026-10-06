@@ -1,0 +1,196 @@
+{
+ "trace_version": "browser-trace-1",
+ "session_dir": "C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261006-200228-15208-ac7829",
+ "installed_at": "2026-10-06T17:02:29.029725+00:00",
+ "finished_at": "2026-10-06T17:03:15.107644+00:00",
+ "pid": 15208,
+ "platform": "win32",
+ "counters": {
+  "selfcheck.hotkeys.ok": 1,
+  "win32.call": 77,
+  "win32.call.interesting": 34,
+  "reason.off_target": 1,
+  "selfcheck.engine.ok": 1,
+  "selfcheck.native_browser.ok": 1,
+  "selfcheck.admin_free.ok": 1,
+  "export.verdict.attached_unnamed": 203,
+  "state.set": 13,
+  "export.audit_repeat": 192,
+  "selfcheck.mic.ok": 1,
+  "reason.hidden": 3,
+  "selfcheck.layout.ok": 1,
+  "reason.dead_window": 8,
+  "selfcheck.window_position.fail": 1,
+  "selfcheck.export.ok": 1
+ },
+ "win_calls_total": 77,
+ "watchers": {
+  "hide": {
+   "samples": 7,
+   "changes": 5,
+   "deviations": 0,
+   "first_ms": 0,
+   "last_ms": 4063,
+   "max_offset_px": 0,
+   "off_target_until_ms": null,
+   "settle_ms": 313,
+   "final_verdict": "on_target",
+   "ended": true,
+   "off_episodes": 0
+  },
+  "show": {
+   "samples": 10,
+   "changes": 7,
+   "deviations": 1,
+   "first_ms": 0,
+   "last_ms": 4032,
+   "max_offset_px": 0,
+   "off_target_until_ms": 3782,
+   "settle_ms": null,
+   "final_verdict": "dead_window",
+   "ended": true,
+   "off_episodes": 1
+  }
+ },
+ "machine": {
+  "schema": 1,
+  "collected_at": "2026-10-06T17:02:36.207726+00:00",
+  "windows": {
+   "release": "10",
+   "version": "10.0.19045",
+   "build": 19045,
+   "edition": null,
+   "display_version": null,
+   "ubr": null,
+   "service_pack": ""
+  },
+  "session": {
+   "kind": "console",
+   "admin": false,
+   "dpi_awareness": 2
+  },
+  "theme": "light",
+  "screens": [
+   {
+    "name": "HDMI",
+    "primary": true,
+    "rect": [
+     0,
+     0,
+     2560,
+     1440
+    ],
+    "work": [
+     0,
+     0,
+     2560,
+     1400
+    ],
+    "dpi": 96,
+    "index": 0,
+    "scale": 1.0,
+    "dpr": 1.0
+   }
+  ],
+  "virtual": [
+   0,
+   0,
+   2560,
+   1440
+  ],
+  "taskbar": {
+   "autohide_proxy": false,
+   "screens_without_reserved_area": 0
+  },
+  "app": {
+   "python": "3.12.6",
+   "python_bits": 64,
+   "frozen": false,
+   "executable": "%USERPROFILE%\\PYCHAR~1\\PYTHON~2\\Legalyze\\test2\\TestLegalUniversal_v23\\build\\Legalyze_1.0.5\\python.exe",
+   "pid": 15208,
+   "engine": "external_chrome",
+   "port": 32142,
+   "target": [
+    1426,
+    200,
+    453,
+    735
+   ],
+   "insets": [
+    20,
+    54,
+    20,
+    30
+   ],
+   "zoom": 0.667
+  },
+  "env": {},
+  "platform": {
+   "system": "Windows",
+   "release": "10",
+   "machine": "AMD64",
+   "locale": "Russian_Russia"
+  },
+  "scale": 1.0
+ },
+ "selfcheck": {
+  "hotkeys": {
+   "ok": true,
+   "detail": "Num- / Num+, подавление: есть",
+   "advice": "",
+   "time": "2026-10-06T17:02:33.227723+00:00"
+  },
+  "engine": {
+   "ok": true,
+   "detail": "внешний Chrome, порт 32142",
+   "advice": "",
+   "time": "2026-10-06T17:02:36.214725+00:00"
+  },
+  "native_browser": {
+   "ok": true,
+   "detail": "страница в настоящем Chrome",
+   "advice": "",
+   "time": "2026-10-06T17:02:36.214725+00:00"
+  },
+  "admin_free": {
+   "ok": true,
+   "detail": "права администратора: нет",
+   "advice": "",
+   "time": "2026-10-06T17:02:36.215728+00:00"
+  },
+  "mic": {
+   "ok": true,
+   "detail": "штатная запись страницы (кнопка микрофона)",
+   "advice": "",
+   "time": "2026-10-06T17:02:55.768782+00:00"
+  },
+  "layout": {
+   "ok": true,
+   "detail": "замер под шторкой: 658x? dsf=0.667, ремонтов 0, 93 мс",
+   "advice": "",
+   "time": "2026-10-06T17:03:13.203249+00:00"
+  },
+  "window_position": {
+   "ok": false,
+   "detail": "шкала «show»: расхождений 1, макс. уход 0 px, устой None мс",
+   "advice": "смотреть `win32.call` и шкалу в `browser-trace.txt`: искать причину (dpi_scale/parent_moved), а не снимать сдвиг",
+   "time": "2026-10-06T17:03:15.056642+00:00"
+  },
+  "export": {
+   "ok": true,
+   "detail": "attached_unnamed×203",
+   "advice": "",
+   "time": "2026-10-06T17:03:15.056642+00:00"
+  }
+ },
+ "problems": [
+  "watch:show",
+  "reason.hidden",
+  "selfcheck:window_position"
+ ],
+ "hints": [
+  "Шкала «show»: уходов 1, строк «не на цели» 1, максимальный уход 0 px, последний кадр не на цели на 3782 мс. Устойчивого положения так и не дождались.",
+  "Экспорт «attached_unnamed» ×203 — Чипы файлов есть, но имена не прочитались: смотреть chip_names.",
+  "Проверка «window_position» НЕ пройдена: шкала «show»: расхождений 1, макс. уход 0 px, устой None мс. Что делать: смотреть `win32.call` и шкалу в `browser-trace.txt`: искать причину (dpi_scale/parent_moved), а не снимать сдвиг"
+ ]
+}

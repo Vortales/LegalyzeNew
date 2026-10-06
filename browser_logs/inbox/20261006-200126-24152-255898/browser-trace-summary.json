@@ -1,0 +1,196 @@
+{
+ "trace_version": "browser-trace-1",
+ "session_dir": "C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261006-200126-24152-255898",
+ "installed_at": "2026-10-06T17:01:27.483545+00:00",
+ "finished_at": "2026-10-06T17:02:19.523724+00:00",
+ "pid": 24152,
+ "platform": "win32",
+ "counters": {
+  "selfcheck.hotkeys.ok": 1,
+  "win32.call": 95,
+  "win32.call.interesting": 36,
+  "reason.off_target": 1,
+  "selfcheck.engine.ok": 1,
+  "selfcheck.native_browser.ok": 1,
+  "selfcheck.admin_free.fail": 1,
+  "export.verdict.attached_unnamed": 253,
+  "state.set": 14,
+  "export.audit_repeat": 241,
+  "reason.hidden": 3,
+  "selfcheck.layout.ok": 1,
+  "selfcheck.mic.ok": 1,
+  "selfcheck.window_position.ok": 1,
+  "selfcheck.export.ok": 1
+ },
+ "win_calls_total": 95,
+ "watchers": {
+  "hide": {
+   "samples": 6,
+   "changes": 4,
+   "deviations": 0,
+   "first_ms": 0,
+   "last_ms": 4047,
+   "max_offset_px": 0,
+   "off_target_until_ms": null,
+   "settle_ms": 313,
+   "final_verdict": "on_target",
+   "ended": true,
+   "off_episodes": 0
+  },
+  "show": {
+   "samples": 15,
+   "changes": 8,
+   "deviations": 0,
+   "first_ms": 0,
+   "last_ms": 10266,
+   "max_offset_px": 0,
+   "off_target_until_ms": null,
+   "settle_ms": 1202,
+   "final_verdict": "on_target",
+   "ended": true,
+   "off_episodes": 0
+  }
+ },
+ "machine": {
+  "schema": 1,
+  "collected_at": "2026-10-06T17:01:33.340061+00:00",
+  "windows": {
+   "release": "10",
+   "version": "10.0.19045",
+   "build": 19045,
+   "edition": null,
+   "display_version": null,
+   "ubr": null,
+   "service_pack": ""
+  },
+  "session": {
+   "kind": "console",
+   "admin": true,
+   "dpi_awareness": 0
+  },
+  "theme": "light",
+  "screens": [
+   {
+    "name": "HDMI",
+    "primary": true,
+    "rect": [
+     0,
+     0,
+     2560,
+     1440
+    ],
+    "work": [
+     0,
+     0,
+     2560,
+     1400
+    ],
+    "dpi": 96,
+    "index": 0,
+    "scale": 1.0,
+    "dpr": 1.0
+   }
+  ],
+  "virtual": [
+   0,
+   0,
+   2560,
+   1440
+  ],
+  "taskbar": {
+   "autohide_proxy": false,
+   "screens_without_reserved_area": 0
+  },
+  "app": {
+   "python": "3.12.6",
+   "python_bits": 64,
+   "frozen": false,
+   "executable": "%USERPROFILE%\\PycharmProjects\\PythonProject1\\.venv\\Scripts\\python.exe",
+   "pid": 24152,
+   "engine": "external_chrome",
+   "port": 32008,
+   "target": [
+    1426,
+    200,
+    453,
+    735
+   ],
+   "insets": [
+    20,
+    54,
+    20,
+    30
+   ],
+   "zoom": 0.667
+  },
+  "env": {
+   "PYTHONIOENCODING": "UTF-8"
+  },
+  "platform": {
+   "system": "Windows",
+   "release": "10",
+   "machine": "AMD64",
+   "locale": "Russian_Russia"
+  },
+  "scale": 1.0
+ },
+ "selfcheck": {
+  "hotkeys": {
+   "ok": true,
+   "detail": "Num- / Num+, подавление: есть",
+   "advice": "",
+   "time": "2026-10-06T17:01:31.109543+00:00"
+  },
+  "engine": {
+   "ok": true,
+   "detail": "внешний Chrome, порт 32008",
+   "advice": "",
+   "time": "2026-10-06T17:01:33.341060+00:00"
+  },
+  "native_browser": {
+   "ok": true,
+   "detail": "страница в настоящем Chrome",
+   "advice": "",
+   "time": "2026-10-06T17:01:33.341060+00:00"
+  },
+  "admin_free": {
+   "ok": false,
+   "detail": "права администратора: есть",
+   "advice": "путь обычного пользователя не проверен: запуск был с правами",
+   "time": "2026-10-06T17:01:33.341060+00:00"
+  },
+  "layout": {
+   "ok": true,
+   "detail": "замер под шторкой: 658x? dsf=0.667, ремонтов 0, 94 мс",
+   "advice": "",
+   "time": "2026-10-06T17:01:40.110108+00:00"
+  },
+  "mic": {
+   "ok": true,
+   "detail": "штатная запись страницы (кнопка микрофона)",
+   "advice": "",
+   "time": "2026-10-06T17:02:06.174184+00:00"
+  },
+  "window_position": {
+   "ok": true,
+   "detail": "во всех шкалах окно стояло на цели",
+   "advice": "",
+   "time": "2026-10-06T17:02:19.472724+00:00"
+  },
+  "export": {
+   "ok": true,
+   "detail": "attached_unnamed×253",
+   "advice": "",
+   "time": "2026-10-06T17:02:19.472724+00:00"
+  }
+ },
+ "problems": [
+  "reason.hidden",
+  "selfcheck:admin_free"
+ ],
+ "hints": [
+  "Экспорт «attached_unnamed» ×253 — Чипы файлов есть, но имена не прочитались: смотреть chip_names.",
+  "Проверка «admin_free» НЕ пройдена: права администратора: есть. Что делать: путь обычного пользователя не проверен: запуск был с правами",
+  "Машина **приложение запущено с правами администратора** (info): это НЕ требование: приложение обязано работать без прав (проверить на обычном пользователе)"
+ ]
+}
