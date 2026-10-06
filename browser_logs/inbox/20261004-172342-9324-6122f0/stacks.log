@@ -1,0 +1,78 @@
+Windows fatal exception: code 0xc000001d
+
+Thread 0x00005678 (most recent call first):
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\main.py", line 1392 in wait_for_chat_surface
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\main.py", line 3136 in run
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\diagnostics.py", line 257 in traced
+
+Thread 0x000032ec (most recent call first):
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\diagnostics.py", line 456 in watch
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x00004dc4 (most recent call first):
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 359 in wait
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\queue.py", line 180 in get
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\browser_trace.py", line 496 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x000004c8 (most recent call first):
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 355 in wait
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\queue.py", line 171 in get
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\diagnostics.py", line 158 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Current thread 0x00001854 (most recent call first):
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\ctypes\__init__.py", line 397 in __getitem__
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\ctypes\__init__.py", line 392 in __getattr__
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\win32_embed.py", line 638 in _ole32
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\win32_embed.py", line 766 in taskbar_delete_tab
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\win32_embed.py", line 829 in hide_from_taskbar
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\main.py", line 2922 in hide_taskbar
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\diagnostics.py", line 257 in traced
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\main.py", line 6776 in main
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\diagnostics.py", line 275 in wrapped
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\main.py", line 6803 in <module>
+Fatal Python error: Illegal instruction
+
+Thread 0x00005678 (most recent call first):
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\main.py", line 1392 in wait_for_chat_surface
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\main.py", line 3136 in run
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\diagnostics.py", line 257 in traced
+
+Thread 0x000032ec (most recent call first):
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\diagnostics.py", line 456 in watch
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x00004dc4 (most recent call first):
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 359 in wait
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\queue.py", line 180 in get
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\browser_trace.py", line 496 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x000004c8 (most recent call first):
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 355 in wait
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\queue.py", line 171 in get
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\diagnostics.py", line 158 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Current thread 0x00001854 (most recent call first):
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\ctypes\__init__.py", line 397 in __getitem__
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\ctypes\__init__.py", line 392 in __getattr__
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\win32_embed.py", line 638 in _ole32
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\win32_embed.py", line 766 in taskbar_delete_tab
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\win32_embed.py", line 829 in hide_from_taskbar
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\main.py", line 2922 in hide_taskbar
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\diagnostics.py", line 257 in traced
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\main.py", line 6776 in main
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\diagnostics.py", line 275 in wrapped
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v21\main.py", line 6803 in <module>
+
+Extension modules: _wmi, PyQt6.QtCore, PyQt6.QtGui, PyQt6.QtWidgets, PyQt6.QtWebChannel, PyQt6.QtNetwork, PyQt6.QtWebEngineCore, PyQt6.QtPrintSupport, PyQt6.QtWebEngineWidgets, charset_normalizer.md, charset_normalizer.cd, requests.packages.charset_normalizer.md, requests.packages.chardet.md, requests.packages.charset_normalizer.cd, requests.packages.chardet.cd, _cffi_backend, fontTools.misc.bezierTools, fontTools.varLib.iup, lxml._elementpath, lxml.etree, PIL._imaging, PIL._imagingcms, numpy._core._multiarray_umath, numpy.linalg._umath_linalg (total: 24)

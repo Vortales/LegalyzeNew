@@ -1,0 +1,141 @@
+2026-10-04T14:09:26.170103+00:00 [MainThread] thread="MainThread" event="session.start" platform="Windows-10-10.0.19045-SP0" python="3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]" bitness=64 executable="C:\\Users\\79528\\PycharmProjects\\PythonProject1\\.venv\\Scripts\\python.exe" cwd="C:\\Users\\79528\\PycharmProjects\\PythonProject1\\Legalyze\\test2\\TestLegalUniversal_v20" frozen=false nuitka_compiled=false release_revision="universal-embedded-v20" packages={"PyQt6": "6.11.0", "PyQt6-Qt6": "6.11.1", "requests": "2.34.2", "websocket-client": "1.9.0", "cryptography": "50.0.0", … windows_build="sys.getwindowsversion(major=10, minor=0, build=19045, platform=2, service_pack='')" modes={"LEGALYZE_DISABLE_GPU": null, "LEGALYZE_EXTERNAL_BROWSER": null, "LEGALYZE_FRESH_PROFILE": null, "LEGALYZE_LOG_OFF": nu…
+2026-10-04T14:09:26.171104+00:00 [SystemInventory] thread="SystemInventory" event="windows.privilege" elevated=true remote_session=false proxy_variables_present=[]
+2026-10-04T14:09:27.235281+00:00 [MainThread] thread="MainThread" event="bt.trace.installed" dir="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261004-170926-6228-98a9bb" version="browser-trace-1" python="3.12.6" platform="win32"
+2026-10-04T14:09:27.255281+00:00 [MainThread] thread="MainThread" event="stage.begin" name="main"
+2026-10-04T14:09:27.264282+00:00 [MainThread] thread="MainThread" event="storage.paths" app_dir="C:\\Users\\79528\\AppData\\Roaming\\Legalyze" data_dir="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\data" profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\qtwebengine-profile" logs="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261004-170926-6228-98a9bb"
+2026-10-04T14:09:27.264282+00:00 [MainThread] thread="MainThread" event="stage.begin" name="load_config"
+2026-10-04T14:09:27.264282+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:09:27.265280+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:09:27.266281+00:00 [MainThread] thread="MainThread" event="stage.end" name="load_config" seconds=0.0
+2026-10-04T14:09:27.266281+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:09:27.268280+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:09:27.279278+00:00 [SystemInventory] thread="SystemInventory" event="windows.inventory" data="{\r\n    \"GPU\":  [\r\n                {\r\n                    \"Name\":  \"Parsec Virtual Display Adapter\",\r\n    …
+2026-10-04T14:09:27.324278+00:00 [MainThread] thread="MainThread" event="qt.start" qt="6.11.0" pyqt="6.11.0" platform="windows" style="windowsvista"
+2026-10-04T14:09:27.324278+00:00 [MainThread] thread="MainThread" event="qt.screen_count" screens=1 primary="HDMI"
+2026-10-04T14:09:27.325279+00:00 [MainThread] thread="MainThread" event="qt.screen" geometry=[0, 0, 2560, 1440] available=[0, 0, 2560, 1400] dpi=96.0 dpr=1.0
+2026-10-04T14:09:27.326278+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoginWindow.__init__"
+2026-10-04T14:09:27.596281+00:00 [MainThread] thread="MainThread" event="stage.begin" name="generate_hwid"
+2026-10-04T14:09:27.596281+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-04T14:09:27.772280+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-04T14:09:27.772280+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-04T14:09:28.236279+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-04T14:09:28.236279+00:00 [MainThread] thread="MainThread" event="stage.end" name="generate_hwid" seconds=0.64
+2026-10-04T14:09:28.446279+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoginWindow.__init__" seconds=1.125
+2026-10-04T14:09:29.275279+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoginWindow._do_login"
+2026-10-04T14:09:29.276281+00:00 [MainThread] thread="MainThread" event="stage.begin" name="AuthWorker.__init__"
+2026-10-04T14:09:29.276281+00:00 [MainThread] thread="MainThread" event="stage.end" name="AuthWorker.__init__" seconds=0.0
+2026-10-04T14:09:29.276281+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoginWindow._do_login" seconds=0.0
+2026-10-04T14:09:29.277278+00:00 [Dummy-7] thread="Dummy-7" event="http.begin" method="post" host="legalyzeai.ru" path="/api/client/auth"
+2026-10-04T14:09:30.070277+00:00 [Dummy-7] thread="Dummy-7" event="http.end" method="post" host="legalyzeai.ru" path="/api/client/auth" status=200 seconds=0.797
+2026-10-04T14:09:30.070277+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoginWindow._on_auth"
+2026-10-04T14:09:30.070277+00:00 [MainThread] thread="MainThread" event="auth.result" success=true
+2026-10-04T14:09:30.070277+00:00 [MainThread] thread="MainThread" event="stage.begin" name="generate_hwid"
+2026-10-04T14:09:30.070277+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-04T14:09:30.164278+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-04T14:09:30.164278+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-04T14:09:30.302277+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-04T14:09:30.302277+00:00 [MainThread] thread="MainThread" event="stage.end" name="generate_hwid" seconds=0.219
+2026-10-04T14:09:30.388311+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:09:30.389311+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:09:30.390277+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-04T14:09:30.391309+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-04T14:09:30.397276+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoginWindow._on_auth" seconds=0.328
+2026-10-04T14:09:30.397276+00:00 [MainThread] thread="MainThread" event="auth.accepted"
+2026-10-04T14:09:30.397276+00:00 [MainThread] thread="MainThread" event="stage.begin" name="_enforce_latest_version"
+2026-10-04T14:09:30.397276+00:00 [MainThread] thread="MainThread" event="stage.begin" name="check_for_update"
+2026-10-04T14:09:30.397276+00:00 [MainThread] thread="MainThread" event="http.begin" method="get" host="legalyzeai.ru" path="/api/client/update"
+2026-10-04T14:09:30.717341+00:00 [MainThread] thread="MainThread" event="http.end" method="get" host="legalyzeai.ru" path="/api/client/update" status=200 seconds=0.313
+2026-10-04T14:09:30.718310+00:00 [MainThread] thread="MainThread" event="stage.end" name="check_for_update" seconds=0.313
+2026-10-04T14:09:30.718310+00:00 [MainThread] thread="MainThread" event="stage.end" name="_enforce_latest_version" seconds=0.313
+2026-10-04T14:09:30.718310+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow.__init__"
+2026-10-04T14:09:30.720306+00:00 [MainThread] thread="MainThread" event="stage.begin" name="HotkeyChip.__init__"
+2026-10-04T14:09:30.721313+00:00 [MainThread] thread="MainThread" event="stage.end" name="HotkeyChip.__init__" seconds=0.0
+2026-10-04T14:09:30.721313+00:00 [MainThread] thread="MainThread" event="stage.begin" name="HotkeyChip.__init__"
+2026-10-04T14:09:30.722305+00:00 [MainThread] thread="MainThread" event="stage.end" name="HotkeyChip.__init__" seconds=0.0
+2026-10-04T14:09:30.723309+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoadingOverlay.__init__"
+2026-10-04T14:09:30.723309+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoadingOverlay.__init__" seconds=0.0
+2026-10-04T14:09:30.727314+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._register_hotkeys"
+2026-10-04T14:09:30.867276+00:00 [MainThread] thread="MainThread" event="hotkeys.configured" toggle="Num-" mic="Num+" suppressed=true
+2026-10-04T14:09:30.867276+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._register_hotkeys" seconds=0.141
+2026-10-04T14:09:30.867276+00:00 [MainThread] thread="MainThread" event="stage.begin" name="BalanceWorker.__init__"
+2026-10-04T14:09:30.867276+00:00 [MainThread] thread="MainThread" event="stage.end" name="BalanceWorker.__init__" seconds=0.0
+2026-10-04T14:09:30.868277+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow.__init__" seconds=0.156
+2026-10-04T14:09:30.868277+00:00 [Dummy-12] thread="Dummy-12" event="http.begin" method="get" host="legalyzeai.ru" path="/api/client/queries"
+2026-10-04T14:09:30.868277+00:00 [MainThread] thread="MainThread" event="main.geometry" geometry=[2091, 332, 453, 735] available=[0, 0, 2560, 1400] dpr=1.0 visible=false hwnd=2230358 screens=1
+2026-10-04T14:09:31.258310+00:00 [MainThread] thread="MainThread" event="bt.window.show" was_hidden=false args="{'win_visible': True, 'win_min': False, 'win_geo': [2091, 332, 453, 735], 'dpr': 1.0, 'cover': False, 'settling': False…
+2026-10-04T14:09:31.258310+00:00 [MainThread] thread="MainThread" event="bt.watch.skip" tag="show" reason="no-native-window"
+2026-10-04T14:09:31.265276+00:00 [MainThread] thread="MainThread" event="main.snapshot" visible=true minimized=false geometry=[2091, 332, 453, 735] dpr=1.0 chrome_hwnd=null worker_running=false chromium_exit=null overlay_visible=true page_verdict=null native_mode=false chat_ready=false cover_visible=false settling=false
+2026-10-04T14:09:31.265276+00:00 [MainThread] thread="MainThread" event="main.shown" visible=true geometry=[2091, 332, 453, 735]
+2026-10-04T14:09:31.266278+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._sync_template_from_server"
+2026-10-04T14:09:31.266278+00:00 [MainThread] thread="MainThread" event="stage.begin" name="TemplateSyncWorker.__init__"
+2026-10-04T14:09:31.266278+00:00 [MainThread] thread="MainThread" event="stage.end" name="TemplateSyncWorker.__init__" seconds=0.0
+2026-10-04T14:09:31.266278+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._sync_template_from_server" seconds=0.0
+2026-10-04T14:09:31.267277+00:00 [Dummy-13] thread="Dummy-13" event="http.begin" method="get" host="legalyzeai.ru" path="/api/client/template"
+2026-10-04T14:09:31.690309+00:00 [Dummy-13] thread="Dummy-13" event="http.end" method="get" host="legalyzeai.ru" path="/api/client/template" status=200 seconds=0.422
+2026-10-04T14:09:31.698277+00:00 [Dummy-12] thread="Dummy-12" event="http.end" method="get" host="legalyzeai.ru" path="/api/client/queries" status=200 seconds=0.828
+2026-10-04T14:09:31.699279+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._on_balance"
+2026-10-04T14:09:31.699279+00:00 [MainThread] thread="MainThread" event="balance.result" success=true allowed=true
+2026-10-04T14:09:31.699279+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._on_balance" seconds=0.0
+2026-10-04T14:09:31.763519+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._start_chrome"
+2026-10-04T14:09:31.766519+00:00 [MainThread] thread="MainThread" event="browser.discovered" count=2 candidates=[{"name": "chrome", "kind": "chrome", "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "rank": 2}, …
+2026-10-04T14:09:31.771518+00:00 [MainThread] thread="MainThread" event="browser.discovered" count=2 candidates=[{"name": "chrome", "kind": "chrome", "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "rank": 2}, …
+2026-10-04T14:09:31.771518+00:00 [MainThread] thread="MainThread" event="browser.try" name="chrome" kind="chrome" attempt=1 gpu=true
+2026-10-04T14:09:31.777519+00:00 [MainThread] thread="MainThread" event="browser.zoom_prefs" level=-2.223901 files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile\\Default\\Preferences", "C:\\Users\\79528\\AppData\\Roam…
+2026-10-04T14:09:31.782519+00:00 [MainThread] thread="MainThread" event="browser.permissions" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile\\Default\\Preferences", "C:\\Users\\79528\\AppData\\Roam…
+2026-10-04T14:09:31.786519+00:00 [MainThread] thread="MainThread" event="browser.locale_prefs" lang="ru-RU" accept="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile\\Default\\Preferences", "C:\\Users\\79528\\AppData\\Roam…
+2026-10-04T14:09:31.787519+00:00 [MainThread] thread="MainThread" event="env.contract" release="universal-embedded-v20" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" exe_bytes=4496024 exe_mtime=1790821002.9 kind="chrome" port=60550 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile" url="https://google.com/ai" attempt=0 gpu=true width=453 height=735 lang="ru-RU" light_theme=true zoom=0.666667 zoom_level=-2.223901086 switches=["--remote-debugging-port=60550", "--remote-debugging-address=127.0.0.1", "--user-data-dir=C:\\Users\\79528\\AppData\\Ro… switches_count=24 disabled_features=["SystemTitlebar", "CaptionButtons", "Translate", "OptimizationHints", "MediaRouter", "GlobalMediaControls", "DialMediaR… force_light_features=["WebContentsForceDark", "DarkMode"]
+2026-10-04T14:09:31.787519+00:00 [MainThread] thread="MainThread" event="browser.binary" path="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" bytes=4496024 mtime=1790821002.9
+2026-10-04T14:09:31.788519+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile\\Default\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:09:31.788519+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:09:31.788519+00:00 [MainThread] thread="MainThread" event="browser.launch" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" kind="chrome" port=60550 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile" gpu=true width=453 height=735 attempt=0
+2026-10-04T14:09:31.794519+00:00 [MainThread] thread="MainThread" event="browser.spawned" port=60550
+2026-10-04T14:09:31.795522+00:00 [MainThread] thread="MainThread" event="stage.end" name="MainWindow._start_chrome" seconds=0.032
+2026-10-04T14:09:32.074519+00:00 [MainThread] thread="MainThread" event="browser.retry" reason="browser-exited" index=0 attempt=1 gpu=true
+2026-10-04T14:09:32.104521+00:00 [MainThread] thread="MainThread" event="win32.tree_killed" pids=[2420, 22672, 23268]
+2026-10-04T14:09:32.104521+00:00 [MainThread] thread="MainThread" event="browser.closed" port=60550
+2026-10-04T14:09:32.104521+00:00 [MainThread] thread="MainThread" event="browser.try" name="chrome" kind="chrome" attempt=2 gpu=true
+2026-10-04T14:09:32.110520+00:00 [MainThread] thread="MainThread" event="browser.zoom_prefs" level=-2.223901 files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:09:32.115519+00:00 [MainThread] thread="MainThread" event="browser.permissions" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:09:32.120519+00:00 [MainThread] thread="MainThread" event="browser.locale_prefs" lang="ru-RU" accept="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:09:32.120519+00:00 [MainThread] thread="MainThread" event="env.contract" release="universal-embedded-v20" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" exe_bytes=4496024 exe_mtime=1790821002.9 kind="chrome" port=60551 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1" url="https://google.com/ai" attempt=1 gpu=true width=453 height=735 lang="ru-RU" light_theme=true zoom=0.666667 zoom_level=-2.223901086 switches=["--remote-debugging-port=60551", "--remote-debugging-address=127.0.0.1", "--user-data-dir=C:\\Users\\79528\\AppData\\Ro… switches_count=24 disabled_features=["SystemTitlebar", "CaptionButtons", "Translate", "OptimizationHints", "MediaRouter", "GlobalMediaControls", "DialMediaR… force_light_features=["WebContentsForceDark", "DarkMode"]
+2026-10-04T14:09:32.120519+00:00 [MainThread] thread="MainThread" event="browser.binary" path="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" bytes=4496024 mtime=1790821002.9
+2026-10-04T14:09:32.121519+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1\\Default\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:09:32.121519+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:09:32.121519+00:00 [MainThread] thread="MainThread" event="browser.launch" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" kind="chrome" port=60551 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry1" gpu=true width=453 height=735 attempt=1
+2026-10-04T14:09:32.126521+00:00 [MainThread] thread="MainThread" event="browser.spawned" port=60551
+2026-10-04T14:09:32.406657+00:00 [MainThread] thread="MainThread" event="browser.retry" reason="browser-exited" index=0 attempt=2 gpu=true
+2026-10-04T14:09:32.434614+00:00 [MainThread] thread="MainThread" event="win32.tree_killed" pids=[7172, 10936, 16556]
+2026-10-04T14:09:32.434614+00:00 [MainThread] thread="MainThread" event="browser.closed" port=60551
+2026-10-04T14:09:32.435615+00:00 [MainThread] thread="MainThread" event="browser.try" name="chrome" kind="chrome" attempt=3 gpu=false
+2026-10-04T14:09:32.442615+00:00 [MainThread] thread="MainThread" event="browser.zoom_prefs" level=-2.223901 files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:09:32.447643+00:00 [MainThread] thread="MainThread" event="browser.permissions" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:09:32.451644+00:00 [MainThread] thread="MainThread" event="browser.locale_prefs" lang="ru-RU" accept="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" files=["C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2\\Default\\Preferences", "C:\\Users\\79528\\AppDat…
+2026-10-04T14:09:32.451644+00:00 [MainThread] thread="MainThread" event="env.contract" release="universal-embedded-v20" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" exe_bytes=4496024 exe_mtime=1790821002.9 kind="chrome" port=60552 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2" url="https://google.com/ai" attempt=2 gpu=false width=453 height=735 lang="ru-RU" light_theme=true zoom=0.666667 zoom_level=-2.223901086 switches=["--remote-debugging-port=60552", "--remote-debugging-address=127.0.0.1", "--user-data-dir=C:\\Users\\79528\\AppData\\Ro… switches_count=27 disabled_features=["SystemTitlebar", "CaptionButtons", "Translate", "OptimizationHints", "MediaRouter", "GlobalMediaControls", "DialMediaR… force_light_features=["WebContentsForceDark", "DarkMode"]
+2026-10-04T14:09:32.452614+00:00 [MainThread] thread="MainThread" event="browser.binary" path="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" bytes=4496024 mtime=1790821002.9
+2026-10-04T14:09:32.452614+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2\\Default\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:09:32.452614+00:00 [MainThread] thread="MainThread" event="browser.prefs_verified" file="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2\\Preferences" drift=[] zoom_level=-2.223901 accept_languages="ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7" mic_hosts=15
+2026-10-04T14:09:32.452614+00:00 [MainThread] thread="MainThread" event="browser.launch" exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" kind="chrome" port=60552 profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\browser-profile-retry2" gpu=false width=453 height=735 attempt=2
+2026-10-04T14:09:32.458649+00:00 [MainThread] thread="MainThread" event="browser.spawned" port=60552
+2026-10-04T14:09:32.864615+00:00 [MainThread] thread="MainThread" event="browser.target_chosen" pages=["https://google.com/ai"] chosen="https://google.com/ai" wall_only=false
+2026-10-04T14:09:32.864615+00:00 [MainThread] thread="MainThread" event="browser.devtools" browser="Chrome/154.0.8037.97" url="https://google.com/ai"
+2026-10-04T14:09:33.030617+00:00 [MainThread] thread="MainThread" event="win32.find_window" wanted=[1272, 2836, 10340, 11360, 12720, 13928, 13996, 22908] found=1114748 windows=[{"hwnd": 2425078, "pid": 2836, "visible": false, "rect": [0, 0, 0, 0], "style": 2348810240, "exstyle": 128, "parent": 0…
+2026-10-04T14:09:33.030617+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost._embed" args=2 kwargs=0
+2026-10-04T14:09:33.033618+00:00 [MainThread] thread="MainThread" event="win32.hide_window" hwnd=1114748 was_visible=true visible=false error=0
+2026-10-04T14:09:33.033618+00:00 [MainThread] thread="MainThread" event="embed.before" child={"hwnd": 1114748, "pid": 2836, "visible": false, "rect": [-8192, -8192, -7739, -7457], "style": 114229248, "exstyle": 25… host={"hwnd": 10094546, "pid": 6228, "visible": true, "rect": [2091, 332, 2544, 1067], "style": 1442840576, "exstyle": 0, "pa…
+2026-10-04T14:09:33.034618+00:00 [MainThread] thread="MainThread" event="win32.style" hwnd=1114748 index=-16 previous=114229248 new=1442840576 error=0
+2026-10-04T14:09:33.039619+00:00 [MainThread] thread="MainThread" event="embed.SetParent" error=0 actual=10094546 expected=10094546
+2026-10-04T14:09:33.040618+00:00 [MainThread] thread="MainThread" event="win32.style" hwnd=1114748 index=-20 previous=0 new=128 error=0
+2026-10-04T14:09:33.041618+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1114748 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1114748, "pid": 2836, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:09:33.042619+00:00 [MainThread] thread="MainThread" event="embed.after" child={"hwnd": 1114748, "pid": 2836, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p… cover=722948
+2026-10-04T14:09:33.043619+00:00 [MainThread] thread="MainThread" event="win32.sync" hwnd=1114748 wanted=[-10, -24, 453, 735] ok=true error=0 actual={"hwnd": 1114748, "pid": 2836, "visible": true, "rect": [2081, 308, 2534, 1043], "style": 1442840576, "exstyle": 128, "p…
+2026-10-04T14:09:33.043619+00:00 [MainThread] thread="MainThread" event="trace.begin" name="NativeHost.hide_taskbar" args=1 kwargs=0
+2026-10-04T14:09:33.103617+00:00 [MainThread] thread="MainThread" event="win32.com_call" slot=3 hr=0
+2026-10-04T14:09:33.103617+00:00 [MainThread] thread="MainThread" event="win32.com_call" slot=5 hr=0
+2026-10-04T14:09:33.103617+00:00 [MainThread] thread="MainThread" event="win32.taskbar_deleted" hwnd=1114748 hr=0
+2026-10-04T14:09:33.103617+00:00 [MainThread] thread="MainThread" event="win32.com_call" slot=2 hr=0
+2026-10-04T14:09:33.103617+00:00 [MainThread] thread="MainThread" event="win32.taskbar_hidden" hwnd=1114748 style=true delete_tab=true
+2026-10-04T14:09:33.105616+00:00 [MainThread] thread="MainThread" event="trace.end" name="NativeHost.hide_taskbar" seconds=0.062
+2026-10-04T14:09:33.105616+00:00 [MainThread] thread="MainThread" event="browser.embedded" hwnd=1114748 parent=10094546 port=60552 exe="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" kind="chrome" inset=[-10, -24, 10, 24]
+2026-10-04T14:09:33.105616+00:00 [MainThread] thread="MainThread" event="stage.begin" name="MainWindow._on_browser_ready"
+2026-10-04T14:09:33.105616+00:00 [MainThread] thread="MainThread" event="trace.begin" name="MainWindow._on_browser_ready" args=2 kwargs=0
+2026-10-04T14:09:33.105616+00:00 [MainThread] thread="MainThread" event="browser.ready" port=60552 hwnd=1114748

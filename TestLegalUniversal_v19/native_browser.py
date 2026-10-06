@@ -715,6 +715,62 @@ def css_size_for(logical_w, logical_h, zoom=ZOOM):
             max(320, int(round(logical_h / zoom))))
 
 
+def refresh_emulation(page, logical_w, logical_h, physical_w=None, physical_h=None,
+                      zoom=ZOOM, tries=3, settle=0.1):
+    """Объявить переопределение в «форме окна» (логические px, dsf=1.0) и ИЗМЕРИТЬ.
+
+    ФОРМА ВЫВЕДЕНА ИЗ ЖИВОГО ЛОГА (сессия 20261004-162559-12408-c5e41c,
+    ключевые точки в `diagnostic.jsonl`):
+
+    * `13:26:13.389 browser.zoom source=native` — ПЕРЕОПРЕДЕЛЕНИЯ НЕТ, раскладка
+      верная: `innerWidth=658 dpr=0.6667` (работает один зум профиля 66.7 %);
+    * `13:26:21.812` и `21.882` — «толчок» (`apply_viewport_raw`) объявил
+      `658+1` и `658` CSS px при `deviceScaleFactor=0.6672`, то есть ВКЛЮЧИЛ
+      переопределение с масштабом — и множители СЛОЖИЛИСЬ с зумом профиля:
+      `658/0.667 = 987`, `0.6672 x 0.667 = 0.445`. Именно это и видел
+      пользователь: `13:26:22.03 browser.viewport ... dsf=0.6672`;
+    * `13:26:22.284` и `22.536` — переборы той же формы (`fit=true`, `dsf=1.0`)
+      раскладку не вернули;
+    * `13:26:23.303 browser.zoom source=emulation-adaptive ok=true` — победила
+      форма **439 CSS px при dsf=1.0**, то есть «эмулируемое устройство = само
+      окно»: `439/0.667 = 658`, `1.0 x 0.667 = 0.667` — ровно верная раскладка.
+
+    Отсюда правило: пока зум профиля в силе, переопределение объявляется в
+    ЛОГИЧЕСКИХ пикселях окна с `dsf=1.0` — тогда складывать нечего. Зум
+    профиля при этом работает сам, а CDP служит только для «толчка»/ремонта.
+
+    Возвращает `{ok, source, innerWidth, dpr}`; никогда не бросает.
+    """
+    result = {"ok": False, "source": "window-dsf1", "innerWidth": 0, "dpr": None}
+    width = max(320, int(round(float(logical_w or 0) or 320)))
+    height = max(320, int(round(float(logical_h or 0) or 320)))
+    for attempt in range(max(1, int(tries))):
+        try:
+            if not apply_viewport_raw(page, width, height, 1.0):
+                return result
+        except Exception:
+            diag.exception("native_browser.refresh_emulation")
+            return result
+        try:
+            ok, metrics = zoom_ok(page, logical_w, logical_h, physical_w,
+                                  physical_h, zoom)
+        except Exception:
+            diag.exception("native_browser.refresh_measure")
+            ok, metrics = False, {}
+        metrics = metrics or {}
+        result["innerWidth"] = int(metrics.get("innerWidth") or 0)
+        try:
+            result["dpr"] = round(float(metrics.get("dpr") or 0.0), 4)
+        except (TypeError, ValueError):
+            result["dpr"] = None
+        result["ok"] = bool(ok)
+        if ok or attempt + 1 >= max(1, int(tries)):
+            break
+        if settle:
+            time.sleep(max(0.0, float(settle)))
+    return result
+
+
 def page_metrics(page):
     """/innerWidth, innerHeight, devicePixelRatio, scrollWidth/ of the page."""
     probe = ("JSON.stringify({w: innerWidth, h: innerHeight, dpr: devicePixelRatio,"
@@ -760,6 +816,79 @@ def zoom_ok(page, logical_w, logical_h, physical_w=None, physical_h=None,
         if abs(rendered - physical_w) > max(6.0, 0.03 * physical_w):
             return False, metrics
     return True, metrics
+
+
+def settle_layout(page, logical_w, logical_h, physical_w=None, physical_h=None,
+                  zoom=ZOOM, budget_ms=1200, step_ms=100, need=2, repair=None,
+                  on_event=None):
+    """Держать раскладку в цели ЗАМЕРОМ, пока возмущение не кончилось (v20).
+
+    Зачем цикл, а не одна проверка. Механизм поломки доказан по записям сессии
+    20261004-162559-12408-c5e41c и оказался НЕ «Chrome передумал», а арифметикой
+    самого приложения: пока переопределения не было вовсе (`browser.zoom
+    source=native`, 13:26:13.389) раскладку держал один зум профиля (66.7 %) —
+    658 x 0.6667. Первое же объявление CDP с `deviceScaleFactor=0.6672`
+    («толчок», 13:26:21.885) СЛОЖИЛОСЬ с ним: 658/0.667 = 987 и
+    0.6672 x 0.667 = 0.445 — замер шкалы в 21.900 уже показывает `dpr=0.445`,
+    хотя за 0.65 с до этого было 0.667. Возврат занимал секунды, потому что
+    единственная проверка стояла до снятия шторки, а следующий тик сторожа —
+    через 5 с (`browser.zoom_restored reason=timer`, 23.303).
+
+    Поэтому цикл: как только замер разошёлся, вызывается `repair()`, и всё это
+    происходит, пока шторка ещё стоит. Лечение — не «ждать таймера», а объявить
+    переопределение в ЛОГИЧЕСКИХ пикселях окна при `dsf=1.0` (форма, которой
+    закончилось живое лечение: `source=emulation-adaptive`).
+
+    Возвращается словарь `{ok, fixed, good, ms}`; исключения наружу не выходят
+    никогда.
+
+    «Чинить» — только по ЗАМЕРУ: сама функция ничего не предполагает о том,
+    какой из двух механизмов зума активен (зум профиля или эмуляция CDP):
+    измеряет и передаёт решение `repair()`.
+    """
+    started = time.monotonic()
+    deadline = started + max(0.0, float(budget_ms) / 1000.0)
+    step = max(0.02, float(step_ms) / 1000.0)
+    good = 0
+    fixed = 0
+    ok = False
+    metrics = {}
+    try:
+        while True:
+            try:
+                ok, metrics = zoom_ok(page, logical_w, logical_h, physical_w,
+                                      physical_h, zoom)
+            except Exception:
+                diag.exception("native_browser.settle_measure")
+                ok, metrics = False, {}
+            if ok:
+                good += 1
+                if good >= max(1, int(need)):
+                    break
+            else:
+                good = 0
+                if repair is not None:
+                    fixed += 1
+                    try:
+                        repair()
+                    except Exception:
+                        diag.exception("native_browser.settle_repair")
+            if time.monotonic() >= deadline:
+                break
+            time.sleep(step)
+    except Exception:
+        diag.exception("native_browser.settle_layout")
+    result = {"ok": bool(ok and good >= max(1, int(need))), "fixed": int(fixed),
+              "good": int(good), "ms": round((time.monotonic() - started) * 1000)}
+    if metrics:
+        result["innerWidth"] = int(metrics.get("innerWidth") or 0)
+        result["dpr"] = round(float(metrics.get("dpr") or 0.0), 3)
+    if on_event is not None:
+        try:
+            on_event(result)
+        except Exception:
+            diag.exception("native_browser.settle_event")
+    return result
 
 
 def target_css(logical_w, logical_h, physical_w=None, physical_h=None,

@@ -1,0 +1,35 @@
+Windows fatal exception: access violation
+
+Thread 0x00000698 (most recent call first):
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\diagnostics.py", line 453 in watch
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\threading.py", line 1012 in run
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\threading.py", line 1032 in _bootstrap
+
+Thread 0x00003fdc (most recent call first):
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\threading.py", line 359 in wait
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\queue.py", line 180 in get
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\browser_trace.py", line 492 in run
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\threading.py", line 1032 in _bootstrap
+
+Thread 0x00001f58 (most recent call first):
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\threading.py", line 355 in wait
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\queue.py", line 171 in get
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\diagnostics.py", line 156 in run
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\threading.py", line 1032 in _bootstrap
+
+Current thread 0x000062dc (most recent call first):
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\machine_profile.py", line 219 in session_info
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\machine_profile.py", line 517 in profile
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\browser_trace.py", line 318 in env_fingerprint
+  File "<string>", line 12 in _on_browser_ready
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\diagnostics.py", line 252 in traced
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\diagnostics.py", line 271 in wrapped
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\main.py", line 2875 in _embed
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\diagnostics.py", line 252 in traced
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\main.py", line 2840 in _tick
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\main.py", line 6689 in main
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\diagnostics.py", line 271 in wrapped
+  File "C:\Users\79528\PYCHAR~1\PYTHON~2\Legalyze\test2\TestLegalUniversal_v23\build\Legalyze_1.0.5\main.py", line 1 in <module>

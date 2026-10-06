@@ -1,0 +1,170 @@
+{
+ "session": {
+  "id": "20261006-200126-24152-255898",
+  "pid": 24152,
+  "started": "2026-10-06T17:01:26.655024+00:00"
+ },
+ "log_dir": "C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261006-200126-24152-255898",
+ "generated": "2026-10-06T17:02:20.128723+00:00",
+ "alive_seconds": 53.5,
+ "states": {
+  "browser.mode": "external_chrome",
+  "page.verdict": "ai_mode",
+  "page.ready": true,
+  "page.blocked": ""
+ },
+ "exceptions": [
+  {
+   "where": "CDP.send:Browser.setPermission",
+   "type": "RuntimeError",
+   "count": 1
+  },
+  {
+   "where": "native_browser.set_permission",
+   "type": "RuntimeError",
+   "count": 1
+  }
+ ],
+ "warnings": [
+  {
+   "time": "2026-10-06T17:01:33.452057+00:00",
+   "key": "dark_theme_measured",
+   "fields": {
+    "repair": 1,
+    "bg": "rgba(0, 0, 0, 0)"
+   }
+  },
+  {
+   "time": "2026-10-06T17:01:33.455059+00:00",
+   "key": "dark_theme_measured",
+   "fields": {
+    "repair": 2,
+    "bg": "rgba(0, 0, 0, 0)"
+   }
+  },
+  {
+   "time": "2026-10-06T17:01:33.458057+00:00",
+   "key": "dark_theme_measured",
+   "fields": {
+    "repair": 3,
+    "bg": "rgba(0, 0, 0, 0)"
+   }
+  },
+  {
+   "time": "2026-10-06T17:01:33.461059+00:00",
+   "key": "dark_theme_measured",
+   "fields": {
+    "repair": 4,
+    "bg": "rgba(0, 0, 0, 0)"
+   }
+  }
+ ],
+ "events": {
+  "cdp.send": 763,
+  "cdp.result": 762,
+  "stage.begin": 39,
+  "stage.end": 38,
+  "trace.begin": 27,
+  "trace.end": 27,
+  "win32.taskbar_hidden": 17,
+  "win32.sync": 11,
+  "main.snapshot": 10,
+  "upload.state": 9,
+  "page.probe": 9,
+  "page.surface": 8,
+  "http.begin": 7,
+  "http.end": 7,
+  "browser.revive": 7,
+  "hwid.command.begin": 6,
+  "hwid.command.end": 6,
+  "browser.prefs_verified": 6,
+  "upload.attempt": 6,
+  "upload.attachments_confirmed": 5,
+  "gui.heartbeat": 5,
+  "state.set": 4,
+  "page.theme_probe": 4,
+  "warn.dark_theme_measured": 4,
+  "bt.hotkey.pressed": 4,
+  "browser.try": 3,
+  "browser.zoom_prefs": 3,
+  "browser.permissions": 3,
+  "browser.locale_prefs": 3,
+  "env.contract": 3,
+  "browser.binary": 3,
+  "browser.launch": 3,
+  "browser.spawned": 3,
+  "win32.tree_killed": 3,
+  "browser.closed": 3,
+  "focus.handoff": 3,
+  "focus.detach": 3,
+  "bt.window.show": 2,
+  "bt.watch.skip": 2,
+  "browser.discovered": 2,
+  "browser.retry": 2,
+  "browser.target_chosen": 2,
+  "win32.style": 2,
+  "page.wait": 2,
+  "exception": 2,
+  "bt.hotkey.toggle.begin": 2,
+  "bt.window.hide": 2,
+  "bt.hotkey.toggle.end": 2,
+  "win32.sync_now": 2,
+  "browser.layout_watch": 2,
+  "focus.already_owned": 2,
+  "session.start": 1,
+  "windows.privilege": 1,
+  "bt.trace.installed": 1,
+  "storage.paths": 1,
+  "qt.start": 1,
+  "qt.screen_count": 1,
+  "qt.screen": 1,
+  "windows.inventory": 1,
+  "auth.result": 1,
+  "auth.accepted": 1,
+  "hotkeys.configured": 1,
+  "main.geometry": 1,
+  "main.shown": 1,
+  "balance.result": 1,
+  "browser.devtools": 1,
+  "win32.find_window": 1,
+  "win32.hide_window": 1,
+  "embed.before": 1,
+  "embed.SetParent": 1,
+  "embed.after": 1,
+  "browser.embedded": 1,
+  "browser.ready": 1,
+  "browser.mode": 1,
+  "cdp.discovered": 1,
+  "browser.consent_installed": 1,
+  "page.ready": 1,
+  "page.language_theme": 1,
+  "browser.zoom": 1,
+  "webengine.zoom_applied": 1,
+  "cdp.protocol_error": 1,
+  "browser.set_permission_unsupported": 1,
+  "browser.mic_granted": 1,
+  "webengine.chat_ready": 1,
+  "browser.speech_surface": 1,
+  "bt.chat.ready": 1,
+  "prompt.prepared": 1,
+  "bt.revive.schedule": 1,
+  "bt.revive.on_target": 1,
+  "win32.show_window": 1,
+  "bt.revive.reveal": 1,
+  "browser.metrics_nudged": 1,
+  "browser.reveal_gate": 1,
+  "browser.revealed": 1,
+  "page.surface_after_restore": 1,
+  "mic.native_started": 1,
+  "mic.native_verify": 1,
+  "selfcheck.summary": 1,
+  "bt.trace.finish": 1,
+  "qt.lastWindowClosed": 1,
+  "qt.aboutToQuit": 1,
+  "session.qt_exit": 1,
+  "stage.exit": 1,
+  "session.atexit": 1
+ },
+ "dropped_records": 0,
+ "end_reason": "exit"
+}

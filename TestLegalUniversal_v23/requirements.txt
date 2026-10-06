@@ -1,0 +1,7 @@
+PyQt6>=6.6,<7
+requests>=2.31,<3
+urllib3>=2,<3
+websocket-client>=1.7,<2
+cryptography>=42
+fpdf2>=2.7,<3
+PyQt6-WebEngine>=6.8,<7

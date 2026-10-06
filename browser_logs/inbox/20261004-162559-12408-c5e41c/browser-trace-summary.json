@@ -1,0 +1,51 @@
+{
+ "trace_version": "browser-trace-1",
+ "session_dir": "C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261004-162559-12408-c5e41c",
+ "installed_at": "2026-10-04T13:26:02.617127+00:00",
+ "finished_at": "2026-10-04T13:26:45.176572+00:00",
+ "pid": 12408,
+ "platform": "win32",
+ "counters": {
+  "win32.call": 78,
+  "win32.call.interesting": 32,
+  "reason.off_target": 1,
+  "export.verdict.surface_without_file_input": 175,
+  "state.set": 173,
+  "reason.hidden": 3
+ },
+ "win_calls_total": 78,
+ "watchers": {
+  "hide": {
+   "samples": 8,
+   "changes": 5,
+   "deviations": 0,
+   "first_ms": 0,
+   "last_ms": 4015,
+   "max_offset_px": 0,
+   "off_target_until_ms": null,
+   "settle_ms": 312,
+   "final_verdict": "on_target",
+   "ended": true,
+   "off_episodes": 0
+  },
+  "show": {
+   "samples": 18,
+   "changes": 14,
+   "deviations": 0,
+   "first_ms": 0,
+   "last_ms": 10203,
+   "max_offset_px": 0,
+   "off_target_until_ms": null,
+   "settle_ms": 1203,
+   "final_verdict": "on_target",
+   "ended": true,
+   "off_episodes": 0
+  }
+ },
+ "problems": [
+  "reason.hidden"
+ ],
+ "hints": [
+  "Экспорт «surface_without_file_input» ×175 — На этой поверхности нет input[type=file] — вложение невозможно."
+ ]
+}

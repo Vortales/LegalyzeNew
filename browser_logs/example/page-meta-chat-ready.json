@@ -1,0 +1,8 @@
+{
+ "host": "gemini.google.com",
+ "path": "/app",
+ "nodes": 12,
+ "scripts_total": 4,
+ "frames_total": 0,
+ "csp": 1
+}

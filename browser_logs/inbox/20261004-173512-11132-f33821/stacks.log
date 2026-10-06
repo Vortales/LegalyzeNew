@@ -1,0 +1,55 @@
+Windows fatal exception: code 0xc000001d
+
+Current thread 0x00001bc8 (most recent call first):
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\ctypes\__init__.py", line 397 in __getitem__
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\ctypes\__init__.py", line 392 in __getattr__
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\win32_embed.py", line 910 in invalidate
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\main.py", line 5300 in task
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x00004440 (most recent call first):
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 359 in wait
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 655 in wait
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\browser_trace.py", line 1065 in _loop
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\browser_trace.py", line 924 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x00004cec (most recent call first):
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 359 in wait
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 655 in wait
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\browser_trace.py", line 1065 in _loop
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\browser_trace.py", line 924 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x00004b30 (most recent call first):
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\browser_trace.py", line 1421 in <lambda>
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\browser_trace.py", line 1421 in audit_export
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\main.py", line 3371 in run
+
+Thread 0x00003650 (most recent call first):
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\diagnostics.py", line 456 in watch
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x000011ac (most recent call first):
+  File "<frozen genericpath>", line 62 in getsize
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\browser_trace.py", line 460 in _rotate
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\browser_trace.py", line 526 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x0000526c (most recent call first):
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\diagnostics.py", line 113 in _rotate_if_needed
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\diagnostics.py", line 165 in run
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\79528\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x0000477c (most recent call first):
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\main.py", line 6777 in main
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\diagnostics.py", line 275 in wrapped
+  File "C:\Users\79528\PycharmProjects\PythonProject1\Legalyze\test2\TestLegalUniversal_v22\main.py", line 6804 in <module>
