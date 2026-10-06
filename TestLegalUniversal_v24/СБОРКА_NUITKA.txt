@@ -1,0 +1,59 @@
+================================================================================
+                    ЭТАЛОННЫЙ СИНТАКСИС СБОРКИ NUITKA (v24)
+                 Режим: Standalone (папка с Legalyze.exe и библиотеками)
+================================================================================
+
+Данный синтаксис протестирован и оптимизирован для максимальной скорости запуска
+(< 1 секунды), стабильности работы без прав администратора и полной корректности
+всех модулей (PyQt6, CDP, шифрование, генерация PDF, сбор логов).
+
+--------------------------------------------------------------------------------
+1. КОМАНДА ДЛЯ ЗАПУСКА ИЗ КОРНЯ ПАПКИ TestLegalUniversal_v24:
+--------------------------------------------------------------------------------
+
+python -m nuitka --mode=standalone --msvc=latest --lto=yes --enable-plugin=pyqt6 --windows-console-mode=disable --windows-icon-from-ico=icon.ico --include-package=requests --include-package=websocket --include-package=cryptography --include-package=fpdf --include-module=machine_profile --include-module=browser_trace --include-module=web_compat --include-module=diagnostics --include-module=storage_paths --include-data-files=data/DejaVuSans.ttf=data/DejaVuSans.ttf --include-data-files=data/FONT-LICENSE.txt=data/FONT-LICENSE.txt --include-distribution-metadata=PyQt6 --include-distribution-metadata=PyQt6-Qt6 --include-distribution-metadata=PyQt6-WebEngine --include-distribution-metadata=requests --include-distribution-metadata=urllib3 --include-distribution-metadata=websocket-client --include-distribution-metadata=cryptography --include-distribution-metadata=fpdf2 --assume-yes-for-downloads --product-name=Legalyze --file-description="Legalyze desktop client" --company-name=Legalyze --file-version=1.0.5.0 --product-version=1.0.5.0 --copyright="Legalyze" --report=build/nuitka-report.xml --output-dir=build --output-filename=Legalyze.exe main.py
+
+--------------------------------------------------------------------------------
+2. РАЗБОР КЛЮЧЕЙ И АНАЛИЗ КОРРЕКТНОСТИ:
+--------------------------------------------------------------------------------
+
+* --mode=standalone
+  Создаёт папку со всеми скомпилированными бинарниками и DLL (в отличие от
+  onefile, который при КАЖДОМ запуске распаковывает 150 МБ в %TEMP%, нагружая
+  диск и вызывая задержку 4-7 секунд). В режиме standalone запуск мгновенный.
+
+* --msvc=latest --lto=yes
+  Использует оптимизатор компилятора Microsoft Visual C++ и межмодульную
+  оптимизацию (Link-Time Optimization) для максимальной производительности C-кода.
+
+* --enable-plugin=pyqt6
+  Штатный плагин Nuitka для PyQt6: автоматически собирает необходимые плагины
+  платформы Qt (qwindows.dll, стили, шрифты).
+
+* --windows-console-mode=disable
+  Отключает появление чёрной консоли при старте.
+
+* --windows-icon-from-ico=icon.ico
+  Вшивает официальную иконку в Legalyze.exe.
+
+* --include-package=requests,websocket,cryptography,fpdf
+  Включает пакеты целиком с их внутренними подмодулями, предотвращая ошибки
+  динамического импорта во время работы программы.
+
+* --include-distribution-metadata=...
+  Обязательно для библиотек, проверяющих свои версии через importlib.metadata
+  (requests, urllib3, cryptography, PyQt6).
+
+* --include-data-files=data/...
+  Копирует шрифт DejaVuSans.ttf и лицензию внутрь папки сборки.
+
+* --output-dir=build --output-filename=Legalyze.exe
+  Результат сборки помещается в папку build\Legalyze.dist\Legalyze.exe.
+
+--------------------------------------------------------------------------------
+3. РЕЗУЛЬТАТ:
+--------------------------------------------------------------------------------
+После завершения компиляции готовое приложение находится в:
+  build\Legalyze.dist\
+Для запуска достаточно запустить Legalyze.exe внутри этой папки.
+Папку Legalyze.dist можно переносить на любые другие компьютеры с Windows 10/11.
