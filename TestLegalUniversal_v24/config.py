@@ -80,7 +80,7 @@ RESOURCE_DIR = _bundle_dir()
 BUNDLE_DATA_DIR = RESOURCE_DIR / "data"
 ENCRYPTION_KEY = b"legalyze-fernet-key-32bytes-long!"
 SERVER_URL = "https://legalyzeai.ru"
-CURRENT_VERSION = "1.0.5"
+CURRENT_VERSION = "1.0.6"
 
 # Порядок полей в Шаблон.txt (фиксированный, менять нельзя).
 TEMPLATE_FIELDS = ("Name", "ID", "Fraction", "Rang", "Department", "JobTitle")
