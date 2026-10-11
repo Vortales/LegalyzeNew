@@ -1,0 +1,78 @@
+2026-10-11T14:35:39.514131+00:00 [MainThread] thread="MainThread" event="session.start" platform="Windows-10-10.0.19045-SP0" python="3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]" bitness=64 executable="C:\\Users\\79528\\PycharmProjects\\PythonProject1\\.venv\\Scripts\\python.exe" cwd="C:\\Users\\79528\\PycharmProjects\\PythonProject1\\Legalyze\\test2\\TestLegalUniversal_v25" frozen=false nuitka_compiled=false release_revision="universal-embedded-v25" packages={"PyQt6": "6.11.0", "PyQt6-Qt6": "6.11.1", "requests": "2.34.2", "websocket-client": "1.9.0", "cryptography": "50.0.0", … windows_build="sys.getwindowsversion(major=10, minor=0, build=19045, platform=2, service_pack='')" modes={"LEGALYZE_DISABLE_GPU": null, "LEGALYZE_EXTERNAL_BROWSER": null, "LEGALYZE_FRESH_PROFILE": null, "LEGALYZE_LOG_OFF": nu…
+2026-10-11T14:35:39.516132+00:00 [SystemInventory] thread="SystemInventory" event="windows.privilege" elevated=true remote_session=false proxy_variables_present=[]
+2026-10-11T14:35:40.661133+00:00 [MainThread] thread="MainThread" event="bt.trace.installed" dir="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261011-173539-19252-617600" version="browser-trace-1" python="3.12.6" platform="win32"
+2026-10-11T14:35:40.683132+00:00 [MainThread] thread="MainThread" event="stage.begin" name="main"
+2026-10-11T14:35:40.688131+00:00 [MainThread] thread="MainThread" event="storage.paths" app_dir="C:\\Users\\79528\\AppData\\Roaming\\Legalyze" data_dir="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\data" profile="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\qtwebengine-profile" logs="C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261011-173539-19252-617600"
+2026-10-11T14:35:40.688131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="load_config"
+2026-10-11T14:35:40.688131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-11T14:35:40.693140+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.016
+2026-10-11T14:35:40.694134+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-11T14:35:40.695136+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-11T14:35:40.697132+00:00 [MainThread] thread="MainThread" event="stage.end" name="load_config" seconds=0.016
+2026-10-11T14:35:40.697132+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-11T14:35:40.698131+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-11T14:35:40.698131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-11T14:35:40.699130+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-11T14:35:40.756135+00:00 [MainThread] thread="MainThread" event="qt.start" qt="6.11.0" pyqt="6.11.0" platform="windows" style="windowsvista"
+2026-10-11T14:35:40.756135+00:00 [SystemInventory] thread="SystemInventory" event="windows.inventory" data="{\r\n    \"GPU\":  [\r\n                {\r\n                    \"Name\":  \"Parsec Virtual Display Adapter\",\r\n    …
+2026-10-11T14:35:40.756135+00:00 [MainThread] thread="MainThread" event="qt.screen_count" screens=1 primary="HDMI"
+2026-10-11T14:35:40.757135+00:00 [MainThread] thread="MainThread" event="qt.screen" geometry=[0, 0, 2560, 1440] available=[0, 0, 2560, 1400] dpi=96.0 dpr=1.0
+2026-10-11T14:35:40.780131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoginWindow.__init__"
+2026-10-11T14:35:41.089132+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoginWindow.__init__" seconds=0.313
+2026-10-11T14:35:46.361131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoginWindow._do_login"
+2026-10-11T14:35:46.362131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="AuthWorker.__init__"
+2026-10-11T14:35:46.362131+00:00 [MainThread] thread="MainThread" event="stage.end" name="AuthWorker.__init__" seconds=0.0
+2026-10-11T14:35:46.363130+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoginWindow._do_login" seconds=0.0
+2026-10-11T14:35:46.363130+00:00 [Dummy-3] thread="Dummy-3" event="http.begin" method="post" host="legalyzeai.ru" path="/api/client/auth"
+2026-10-11T14:35:47.234130+00:00 [Dummy-3] thread="Dummy-3" event="http.end" method="post" host="legalyzeai.ru" path="/api/client/auth" status=200 seconds=0.859
+2026-10-11T14:35:47.235131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoginWindow._on_auth"
+2026-10-11T14:35:47.235131+00:00 [MainThread] thread="MainThread" event="auth.result" success=true
+2026-10-11T14:35:47.235131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="generate_hwid"
+2026-10-11T14:35:47.235131+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-11T14:35:47.365131+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-11T14:35:47.365131+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-11T14:35:47.752130+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-11T14:35:47.752130+00:00 [MainThread] thread="MainThread" event="stage.end" name="generate_hwid" seconds=0.531
+2026-10-11T14:35:47.895138+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-11T14:35:47.896131+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-11T14:35:47.903132+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-11T14:35:47.904131+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-11T14:35:47.907133+00:00 [MainThread] thread="MainThread" event="stage.begin" name="generate_hwid"
+2026-10-11T14:35:47.907133+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-11T14:35:48.054131+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-11T14:35:48.054131+00:00 [MainThread] thread="MainThread" event="hwid.command.begin" executable="wmic"
+2026-10-11T14:35:48.255131+00:00 [MainThread] thread="MainThread" event="hwid.command.end" executable="wmic" returncode=0 has_output=true
+2026-10-11T14:35:48.255131+00:00 [MainThread] thread="MainThread" event="stage.end" name="generate_hwid" seconds=0.359
+2026-10-11T14:35:48.255131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="HWIDWorker.__init__"
+2026-10-11T14:35:48.255131+00:00 [MainThread] thread="MainThread" event="stage.end" name="HWIDWorker.__init__" seconds=0.0
+2026-10-11T14:35:48.255131+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoginWindow._on_auth" seconds=1.031
+2026-10-11T14:35:48.256132+00:00 [Dummy-12] thread="Dummy-12" event="http.begin" method="post" host="legalyzeai.ru" path="/api/client/hwid"
+2026-10-11T14:35:48.709130+00:00 [Dummy-12] thread="Dummy-12" event="http.end" method="post" host="legalyzeai.ru" path="/api/client/hwid" status=200 seconds=0.454
+2026-10-11T14:35:48.710131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="LoginWindow._on_hwid"
+2026-10-11T14:35:48.710131+00:00 [MainThread] thread="MainThread" event="hwid.binding_result" success=true
+2026-10-11T14:35:48.756132+00:00 [MainThread] thread="MainThread" event="stage.end" name="LoginWindow._on_hwid" seconds=0.046
+2026-10-11T14:35:48.756132+00:00 [MainThread] thread="MainThread" event="auth.accepted"
+2026-10-11T14:35:48.756132+00:00 [MainThread] thread="MainThread" event="stage.begin" name="_enforce_latest_version"
+2026-10-11T14:35:48.756132+00:00 [MainThread] thread="MainThread" event="stage.begin" name="check_for_update"
+2026-10-11T14:35:48.756132+00:00 [MainThread] thread="MainThread" event="http.begin" method="get" host="legalyzeai.ru" path="/api/client/update"
+2026-10-11T14:35:49.215130+00:00 [MainThread] thread="MainThread" event="http.end" method="get" host="legalyzeai.ru" path="/api/client/update" status=200 seconds=0.454
+2026-10-11T14:35:49.216132+00:00 [MainThread] thread="MainThread" event="stage.end" name="check_for_update" seconds=0.454
+2026-10-11T14:35:49.216132+00:00 [MainThread] thread="MainThread" event="stage.end" name="_enforce_latest_version" seconds=0.454
+2026-10-11T14:35:49.216132+00:00 [MainThread] thread="MainThread" event="stage.begin" name="TemplateWindow.__init__"
+2026-10-11T14:35:49.222130+00:00 [MainThread] thread="MainThread" event="stage.end" name="TemplateWindow.__init__" seconds=0.015
+2026-10-11T14:35:50.758131+00:00 [DiagnosticWatchdog] thread="DiagnosticWatchdog" event="gui.heartbeat" age_seconds=0.0
+2026-10-11T14:36:00.759131+00:00 [DiagnosticWatchdog] thread="DiagnosticWatchdog" event="gui.heartbeat" age_seconds=0.0
+2026-10-11T14:36:08.086131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-11T14:36:08.087130+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-11T14:36:08.089131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-11T14:36:08.090132+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-11T14:36:08.092131+00:00 [MainThread] thread="MainThread" event="http.begin" method="post" host="legalyzeai.ru" path="/api/client/template"
+2026-10-11T14:36:08.567129+00:00 [MainThread] thread="MainThread" event="http.end" method="post" host="legalyzeai.ru" path="/api/client/template" status=200 seconds=0.484
+2026-10-11T14:36:08.612131+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-11T14:36:08.613131+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-11T14:36:08.615132+00:00 [MainThread] thread="MainThread" event="stage.begin" name="ensure_dirs"
+2026-10-11T14:36:08.616132+00:00 [MainThread] thread="MainThread" event="stage.end" name="ensure_dirs" seconds=0.0
+2026-10-11T14:36:08.618133+00:00 [MainThread] thread="MainThread" event="stage.begin" name="OnboardingHotkeyWindow.__init__"
+2026-10-11T14:36:08.625133+00:00 [MainThread] thread="MainThread" event="exception" where="OnboardingHotkeyWindow.__init__" occurrence=1 type="KeyError" errno=null winerror=null frames=[{"file": "diagnostics.py", "line": 275, "function": "wrapped"}, {"file": "main.py", "line": 2691, "function": "__init__…
+2026-10-11T14:36:08.626131+00:00 [MainThread] thread="MainThread" event="exception" where="main" occurrence=1 type="KeyError" errno=null winerror=null frames=[{"file": "diagnostics.py", "line": 275, "function": "wrapped"}, {"file": "main.py", "line": 7171, "function": "main"}, …
+2026-10-11T14:36:08.630131+00:00 [MainThread] thread="MainThread" event="exception" where="sys.excepthook" occurrence=1 type="KeyError" errno=null winerror=null frames=[{"file": "main.py", "line": 7219, "function": "<module>"}, {"file": "diagnostics.py", "line": 275, "function": "wrapped…

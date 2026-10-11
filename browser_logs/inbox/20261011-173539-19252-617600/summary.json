@@ -1,0 +1,54 @@
+{
+ "session": {
+  "id": "20261011-173539-19252-617600",
+  "pid": 19252,
+  "started": "2026-10-11T14:35:39.401130+00:00"
+ },
+ "log_dir": "C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261011-173539-19252-617600",
+ "generated": "2026-10-11T14:36:22.856130+00:00",
+ "alive_seconds": 43.5,
+ "states": {},
+ "exceptions": [
+  {
+   "where": "OnboardingHotkeyWindow.__init__",
+   "type": "KeyError",
+   "count": 1
+  },
+  {
+   "where": "main",
+   "type": "KeyError",
+   "count": 1
+  },
+  {
+   "where": "sys.excepthook",
+   "type": "KeyError",
+   "count": 1
+  }
+ ],
+ "warnings": [],
+ "events": {
+  "stage.begin": 24,
+  "stage.end": 22,
+  "http.begin": 4,
+  "http.end": 4,
+  "hwid.command.begin": 4,
+  "hwid.command.end": 4,
+  "gui.heartbeat": 4,
+  "exception": 3,
+  "session.start": 1,
+  "windows.privilege": 1,
+  "bt.trace.installed": 1,
+  "storage.paths": 1,
+  "qt.start": 1,
+  "windows.inventory": 1,
+  "qt.screen_count": 1,
+  "qt.screen": 1,
+  "auth.result": 1,
+  "hwid.binding_result": 1,
+  "auth.accepted": 1,
+  "bt.trace.finish": 1,
+  "session.atexit": 1
+ },
+ "dropped_records": 0,
+ "end_reason": "exit"
+}
