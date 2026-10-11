@@ -4009,3 +4009,37 @@ class LayoutSettleTests(unittest.TestCase):
         # Шторка загрузки над браузером НЕ является DraggableDialog
         self.assertNotIn('class LoadingOverlay(DraggableDialog)', source)
         self.assertIn('class LoadingOverlay(QWidget)', source)
+
+    def test_v25_log_rotation_purges_sessions_older_than_3_days(self):
+        import diagnostics
+        import tempfile
+        import shutil
+        from pathlib import Path
+
+        tmp_dir = Path(tempfile.mkdtemp(prefix='legalyze_log_test_'))
+        try:
+            # Создаём сессию возрастом 5 дней (должна удалиться)
+            old_session = tmp_dir / '20261001-120000-1111-aaaaaa'
+            old_session.mkdir()
+            (old_session / 'diagnostic.jsonl').write_text('{}')
+
+            # Создаём свежую сессию (должна остаться)
+            fresh_session = tmp_dir / '20261011-120000-2222-bbbbbb'
+            fresh_session.mkdir()
+            (fresh_session / 'diagnostic.jsonl').write_text('{}')
+
+            # Запускаем ротацию с окном 3 дня (259200 секунд)
+            diagnostics._rotate_sessions(tmp_dir, max_age_seconds=3 * 86400)
+
+            self.assertFalse(old_session.exists(), "Старая сессия должна быть удалена")
+            self.assertTrue(fresh_session.exists(), "Свежая сессия должна остаться")
+        finally:
+            shutil.rmtree(tmp_dir, ignore_errors=True)
+
+    def test_v25_onboarding_addlayout_has_no_keyword_stretch(self):
+        source = (ROOT / 'main.py').read_text()
+        # В PyQt6 вызов addLayout с ключевым аргументом stretch= вызывает TypeError.
+        self.assertNotIn('addLayout(mic_info, stretch=', source)
+        self.assertNotIn('addLayout(toggle_info, stretch=', source)
+        self.assertIn('mic_layout.addLayout(mic_info, 1)', source)
+        self.assertIn('toggle_layout.addLayout(toggle_info, 1)', source)

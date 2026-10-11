@@ -524,6 +524,7 @@ def apply_win32_icon(hwnd):
         return
     try:
         import ctypes
+        from ctypes import wintypes
         user32_dll = ctypes.windll.user32
         IMAGE_ICON = 1
         LR_LOADFROMFILE = 0x00000010
@@ -531,14 +532,25 @@ def apply_win32_icon(hwnd):
         WM_SETICON = 0x0080
         ICON_SMALL = 0
         ICON_BIG = 1
+
+        user32_dll.LoadImageW.restype = wintypes.HANDLE
+        user32_dll.LoadImageW.argtypes = [
+            wintypes.HINSTANCE, wintypes.LPCWSTR, wintypes.UINT,
+            ctypes.c_int, ctypes.c_int, wintypes.UINT
+        ]
+        user32_dll.SendMessageW.restype = wintypes.LPARAM
+        user32_dll.SendMessageW.argtypes = [
+            wintypes.HWND, wintypes.UINT, wintypes.WPARAM, wintypes.LPARAM
+        ]
+
         hicon = user32_dll.LoadImageW(
             None, str(ICON_FILE), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE
         )
         if hicon:
-            user32_dll.SendMessageW(int(hwnd), WM_SETICON, ICON_BIG, hicon)
-            user32_dll.SendMessageW(int(hwnd), WM_SETICON, ICON_SMALL, hicon)
-    except Exception:
-        diag.exception("apply_win32_icon")
+            user32_dll.SendMessageW(wintypes.HWND(int(hwnd)), WM_SETICON, ICON_BIG, hicon)
+            user32_dll.SendMessageW(wintypes.HWND(int(hwnd)), WM_SETICON, ICON_SMALL, hicon)
+    except BaseException:
+        pass
 
 
 def resolve_key_event(event) -> str | None:
@@ -2699,7 +2711,7 @@ class OnboardingHotkeyWindow(DraggableDialog):
         mic_desc.setWordWrap(True)
         mic_info.addWidget(mic_title)
         mic_info.addWidget(mic_desc)
-        mic_layout.addLayout(mic_info, stretch=1)
+        mic_layout.addLayout(mic_info, 1)
         self.btn_mic = KeyCaptureButton(current_key=cfg.get("hotkey_mic", ""), default_text="[ Нажмите клавишу ]")
         self.btn_mic.setFixedWidth(160)
         self.btn_mic.setFixedHeight(44)
@@ -2720,7 +2732,7 @@ class OnboardingHotkeyWindow(DraggableDialog):
         toggle_desc.setWordWrap(True)
         toggle_info.addWidget(toggle_title)
         toggle_info.addWidget(toggle_desc)
-        toggle_layout.addLayout(toggle_info, stretch=1)
+        toggle_layout.addLayout(toggle_info, 1)
         self.btn_toggle = KeyCaptureButton(current_key=cfg.get("hotkey_toggle", ""), default_text="[ Нажмите клавишу ]")
         self.btn_toggle.setFixedWidth(160)
         self.btn_toggle.setFixedHeight(44)
@@ -7163,17 +7175,28 @@ def main():
     _enforce_latest_version(token)
 
     if not get_template_filled(cfg):
-        tpl_win = TemplateWindow(cfg, token=token)
-        if tpl_win.exec() == QDialog.DialogCode.Accepted:
-            save_template(cfg, tpl_win.get_template())
+        try:
+            tpl_win = TemplateWindow(cfg, token=token)
+            if tpl_win.exec() == QDialog.DialogCode.Accepted:
+                save_template(cfg, tpl_win.get_template())
+        except Exception:
+            diag.exception("main.template_window")
 
     if not get_hotkeys_configured(cfg):
-        hk_win = OnboardingHotkeyWindow(cfg)
-        if hk_win.exec() == QDialog.DialogCode.Accepted:
-            cfg["hotkey_toggle"] = hk_win.get_toggle_key()
-            cfg["hotkey_mic"] = hk_win.get_mic_key()
-            save_config(cfg)
-        else:
+        try:
+            hk_win = OnboardingHotkeyWindow(cfg)
+            if hk_win.exec() == QDialog.DialogCode.Accepted:
+                cfg["hotkey_toggle"] = hk_win.get_toggle_key()
+                cfg["hotkey_mic"] = hk_win.get_mic_key()
+                save_config(cfg)
+            else:
+                if not cfg.get("hotkey_toggle"):
+                    cfg["hotkey_toggle"] = "F2"
+                if not cfg.get("hotkey_mic"):
+                    cfg["hotkey_mic"] = "F3"
+                save_config(cfg)
+        except Exception:
+            diag.exception("main.onboarding_hotkeys")
             if not cfg.get("hotkey_toggle"):
                 cfg["hotkey_toggle"] = "F2"
             if not cfg.get("hotkey_mic"):

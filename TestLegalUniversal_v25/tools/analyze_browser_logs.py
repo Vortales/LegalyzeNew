@@ -94,7 +94,38 @@ def parse_args(argv):
     parser.add_argument("--inbox", default=str(DEFAULT_INBOX))
     parser.add_argument("--out", default=str(DEFAULT_OUT))
     parser.add_argument("--list", action="store_true", help="показать, что в inbox")
+    parser.add_argument("--purge-old", action="store_true", help="удалить сессии старше 3 дней из inbox")
     return parser.parse_args(argv)
+
+
+def purge_old_inbox(inbox: Path, max_age_days: int = 3) -> list:
+    """Удаляет из inbox папки сессий старше max_age_days дней."""
+    if not inbox.exists():
+        return []
+    now = time.time()
+    max_age_sec = max_age_days * 86400
+    removed = []
+    for entry in inbox.iterdir():
+        if entry.is_dir() and entry.name != "_unpacked":
+            m = re.match(r"^(\d{4})(\d{2})(\d{2})", entry.name)
+            is_old = False
+            if m:
+                try:
+                    dt = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)), tzinfo=timezone.utc)
+                    if (now - dt.timestamp()) > max_age_sec:
+                        is_old = True
+                except Exception:
+                    pass
+            if not is_old:
+                try:
+                    if (now - entry.stat().st_mtime) > max_age_sec:
+                        is_old = True
+                except Exception:
+                    pass
+            if is_old:
+                shutil.rmtree(entry, ignore_errors=True)
+                removed.append(entry.name)
+    return removed
 
 
 def looks_like_session(path: Path) -> bool:
@@ -943,6 +974,10 @@ def main(argv=None):
     args = parse_args(argv or sys.argv[1:])
     inbox = Path(args.inbox)
     out_root = Path(args.out)
+    if args.purge_old:
+        purged = purge_old_inbox(inbox)
+        print("Удалено старых сессий из %s: %d (%s)" % (inbox, len(purged), ", ".join(purged) if purged else "нет"))
+        return 0
     if args.list:
         sessions = discover(inbox)
         if not sessions:

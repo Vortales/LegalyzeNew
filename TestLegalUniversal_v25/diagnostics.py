@@ -28,6 +28,7 @@ from pathlib import Path
 import platform
 import queue
 import re
+import shutil
 import sys
 import threading
 import time
@@ -335,23 +336,74 @@ def flush(timeout=2.0):
 
 
 # ---------------------------------------------------------------------- setup --
-def _rotate_sessions(base):
-    """Оставить только последние `MAX_SESSIONS` папок: лог не должен расти вечно."""
+MAX_LOG_AGE_DAYS = 3
+MAX_LOG_AGE_SECONDS = MAX_LOG_AGE_DAYS * 24 * 3600  # 3 дня = 259200 с
+
+
+def _is_session_older_than(folder: Path, max_age_seconds: float = MAX_LOG_AGE_SECONDS) -> bool:
+    """Определяет, старше ли папка сессии заданного возраста (3 дней, v25)."""
+    now = time.time()
+    # 1. Проверяем по имени папки: формат YYYYMMDD-HHMMSS...
+    m = re.match(r"^(\d{4})(\d{2})(\d{2})(?:-(\d{2})(\d{2})(\d{2}))?", folder.name)
+    if m:
+        try:
+            year, month, day = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            hour = int(m.group(4)) if m.group(4) else 0
+            minute = int(m.group(5)) if m.group(5) else 0
+            second = int(m.group(6)) if m.group(6) else 0
+            dt = datetime(year, month, day, hour, minute, second, tzinfo=timezone.utc)
+            session_ts = dt.timestamp()
+            if (now - session_ts) > max_age_seconds:
+                return True
+        except Exception:
+            pass
+
+    # 2. Проверяем по системному времени модификации папки
     try:
+        mtime = folder.stat().st_mtime
+        if (now - mtime) > max_age_seconds:
+            return True
+    except Exception:
+        pass
+
+    return False
+
+
+def _rotate_sessions(base, max_age_seconds=MAX_LOG_AGE_SECONDS):
+    """Очищает папки сессий логов: удаляет папки старше 3 дней и оставляет не более MAX_SESSIONS."""
+    try:
+        if not base.exists():
+            return
         sessions = sorted((p for p in base.iterdir() if p.is_dir()),
                           key=lambda p: p.name, reverse=True)
     except OSError:
         return
-    for old in sessions[MAX_SESSIONS:]:
-        for child in sorted(old.iterdir()):
+
+    current_log = Path(LOG_DIR).resolve() if LOG_DIR else None
+
+    # Сначала удаляем все папки старше 3 дней
+    for p in sessions:
+        if current_log and p.resolve() == current_log:
+            continue
+        if _is_session_older_than(p, max_age_seconds):
             try:
-                child.unlink()
-            except OSError:
+                shutil.rmtree(p, ignore_errors=True)
+            except Exception:
                 pass
-        try:
-            old.rmdir()
-        except OSError:
-            pass
+
+    # Затем, если оставшихся сессий всё ещё больше MAX_SESSIONS, чистим хвост
+    try:
+        remaining = sorted((p for p in base.iterdir() if p.is_dir()),
+                           key=lambda p: p.name, reverse=True)
+        for old in remaining[MAX_SESSIONS:]:
+            if current_log and old.resolve() == current_log:
+                continue
+            try:
+                shutil.rmtree(old, ignore_errors=True)
+            except Exception:
+                pass
+    except OSError:
+        pass
 
 
 def setup():
