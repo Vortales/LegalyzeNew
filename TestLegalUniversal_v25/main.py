@@ -2712,7 +2712,8 @@ class OnboardingHotkeyWindow(DraggableDialog):
         mic_info.addWidget(mic_title)
         mic_info.addWidget(mic_desc)
         mic_layout.addLayout(mic_info, 1)
-        self.btn_mic = KeyCaptureButton(current_key=cfg.get("hotkey_mic", ""), default_text="[ Нажмите клавишу ]")
+        initial_mic = cfg.get("hotkey_mic", "") if cfg.get("hotkeys_configured") else ""
+        self.btn_mic = KeyCaptureButton(current_key=initial_mic, default_text="[ Нажмите клавишу ]")
         self.btn_mic.setFixedWidth(160)
         self.btn_mic.setFixedHeight(44)
         self.btn_mic.key_captured.connect(lambda _k: self._validate())
@@ -2733,7 +2734,8 @@ class OnboardingHotkeyWindow(DraggableDialog):
         toggle_info.addWidget(toggle_title)
         toggle_info.addWidget(toggle_desc)
         toggle_layout.addLayout(toggle_info, 1)
-        self.btn_toggle = KeyCaptureButton(current_key=cfg.get("hotkey_toggle", ""), default_text="[ Нажмите клавишу ]")
+        initial_toggle = cfg.get("hotkey_toggle", "") if cfg.get("hotkeys_configured") else ""
+        self.btn_toggle = KeyCaptureButton(current_key=initial_toggle, default_text="[ Нажмите клавишу ]")
         self.btn_toggle.setFixedWidth(160)
         self.btn_toggle.setFixedHeight(44)
         self.btn_toggle.key_captured.connect(lambda _k: self._validate())
@@ -2808,7 +2810,7 @@ class HotkeyChip(QWidget):
         )
         lay.addWidget(self.caption)
 
-        self.button = QPushButton(key)
+        self.button = QPushButton(key if key else "—")
         self.button.setFixedHeight(22)
         self.button.setMinimumWidth(58)
         self.button.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
@@ -2863,7 +2865,7 @@ class HotkeyChip(QWidget):
             """)
 
     def set_key(self, key: str):
-        self.button.setText(key)
+        self.button.setText(key if key else "—")
 
     def set_active(self, active: bool):
         self._apply_style(active)
@@ -4124,12 +4126,14 @@ class MainWindow(QMainWindow):
         top_layout.addStretch()
 
         # ── чипы горячих клавиш с подписями ──
-        self.chip_mic = HotkeyChip("Микрофон", self.cfg.get("hotkey_mic") or "F3")
+        mic_key = self.cfg.get("hotkey_mic", "")
+        self.chip_mic = HotkeyChip("Микрофон", mic_key if mic_key else "—")
         self.chip_mic.button.setEnabled(True)
         self.chip_mic.clicked.connect(lambda _checked=False: self._choose_mic_hotkey())
         top_layout.addWidget(self.chip_mic)
 
-        self.chip_toggle = HotkeyChip("Окно", self.cfg.get("hotkey_toggle") or "F2")
+        toggle_key = self.cfg.get("hotkey_toggle", "")
+        self.chip_toggle = HotkeyChip("Окно", toggle_key if toggle_key else "—")
         self.chip_toggle.clicked.connect(lambda _checked=False: self._choose_hotkey())
         top_layout.addWidget(self.chip_toggle)
 
@@ -4935,11 +4939,11 @@ class MainWindow(QMainWindow):
     @stage
     def _register_hotkeys(self):
         try:
-            toggle_key = self.cfg.get("hotkey_toggle") or "F2"
-            mic_key = self.cfg.get("hotkey_mic") or "F3"
+            toggle_key = self.cfg.get("hotkey_toggle", "")
+            mic_key = self.cfg.get("hotkey_mic", "")
 
-            vk_toggle = VK_MAP.get(toggle_key, 0x71)
-            vk_mic = VK_MAP.get(mic_key, 0x72)
+            vk_toggle = VK_MAP.get(toggle_key, 0)
+            vk_mic = VK_MAP.get(mic_key, 0)
 
             # Опрос работает всегда: ложный статус конфликта невозможен.
             self._hotkeys_registered = bool(self.hotkeys.set_keys(vk_toggle, vk_mic))
@@ -5010,6 +5014,7 @@ class MainWindow(QMainWindow):
                 key = dlg.get_key()
                 if key and key in VK_MAP:
                     self.cfg[cfg_key] = key
+                    self.cfg["hotkeys_configured"] = bool(self.cfg.get("hotkey_toggle") and self.cfg.get("hotkey_mic"))
                     save_config(self.cfg)
                     chip.set_key(key)
         finally:
@@ -5018,13 +5023,13 @@ class MainWindow(QMainWindow):
 
     def _choose_hotkey(self):
         self._change_hotkey(
-            "hotkey_toggle", "F2", "Клавиша: скрыть/показать окно",
+            "hotkey_toggle", "", "Клавиша: скрыть/показать окно",
             self.chip_toggle, "hotkey_mic",
         )
 
     def _choose_mic_hotkey(self):
         self._change_hotkey(
-            "hotkey_mic", "F3", "Клавиша: микрофон",
+            "hotkey_mic", "", "Клавиша: микрофон",
             self.chip_mic, "hotkey_toggle",
         )
 
@@ -7188,20 +7193,12 @@ def main():
             if hk_win.exec() == QDialog.DialogCode.Accepted:
                 cfg["hotkey_toggle"] = hk_win.get_toggle_key()
                 cfg["hotkey_mic"] = hk_win.get_mic_key()
+                cfg["hotkeys_configured"] = bool(cfg.get("hotkey_toggle") and cfg.get("hotkey_mic"))
                 save_config(cfg)
             else:
-                if not cfg.get("hotkey_toggle"):
-                    cfg["hotkey_toggle"] = "F2"
-                if not cfg.get("hotkey_mic"):
-                    cfg["hotkey_mic"] = "F3"
-                save_config(cfg)
+                diag.event("main.onboarding_hotkeys_dismissed")
         except Exception:
             diag.exception("main.onboarding_hotkeys")
-            if not cfg.get("hotkey_toggle"):
-                cfg["hotkey_toggle"] = "F2"
-            if not cfg.get("hotkey_mic"):
-                cfg["hotkey_mic"] = "F3"
-            save_config(cfg)
 
     window = MainWindow(cfg, token, user_data)
     diag.place_window(window, app)

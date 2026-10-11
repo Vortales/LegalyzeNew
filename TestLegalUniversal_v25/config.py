@@ -103,6 +103,7 @@ DEFAULT_CONFIG = {
     "selected_prompt": "",
     "hotkey_toggle": "",
     "hotkey_mic": "",
+    "hotkeys_configured": False,
     "template": DEFAULT_TEMPLATE.copy(),
 }
 
@@ -261,8 +262,8 @@ def get_template_filled(cfg: dict) -> bool:
 
 
 def get_hotkeys_configured(cfg: dict) -> bool:
-    """Проверяет, заданы ли обе горячие клавиши (v25)."""
-    return bool(cfg.get("hotkey_toggle") and cfg.get("hotkey_mic"))
+    """Проверяет, прошёл ли пользователь первичную настройку горячих клавиш (v25)."""
+    return bool(cfg.get("hotkeys_configured") and cfg.get("hotkey_toggle") and cfg.get("hotkey_mic"))
 
 
 # --------------------------------------------------------------------------- #

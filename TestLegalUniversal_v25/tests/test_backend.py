@@ -3980,8 +3980,14 @@ class LayoutSettleTests(unittest.TestCase):
         import config
         self.assertEqual(config.DEFAULT_CONFIG.get("hotkey_toggle"), "")
         self.assertEqual(config.DEFAULT_CONFIG.get("hotkey_mic"), "")
+        self.assertFalse(config.DEFAULT_CONFIG.get("hotkeys_configured", True))
         self.assertFalse(config.get_hotkeys_configured(config.DEFAULT_CONFIG))
-        self.assertTrue(config.get_hotkeys_configured({"hotkey_toggle": "F2", "hotkey_mic": "F3"}))
+        self.assertFalse(config.get_hotkeys_configured({"hotkey_toggle": "F2", "hotkey_mic": "F3"}))
+        self.assertTrue(config.get_hotkeys_configured({
+            "hotkeys_configured": True,
+            "hotkey_toggle": "F2",
+            "hotkey_mic": "F3"
+        }))
 
         source = (ROOT / 'main.py').read_text()
         # В HotkeyDialog выпадающий список QComboBox удалён
@@ -3996,6 +4002,11 @@ class LayoutSettleTests(unittest.TestCase):
         self.assertIn('class OnboardingHotkeyWindow(DraggableDialog):', source)
         self.assertIn('Микрофон (голосовой ввод в ИИ)', source)
         self.assertIn('Окно (скрыть / показать)', source)
+        # Никаких хардкодов F2/F3 в онбординге или fallback'ах
+        self.assertNotIn('cfg["hotkey_toggle"] = "F2"', source)
+        self.assertNotIn('cfg["hotkey_mic"] = "F3"', source)
+        self.assertNotIn('KeyCaptureButton(current_key="F2"', source)
+        self.assertNotIn('KeyCaptureButton(current_key="F3"', source)
 
     def test_v25_all_dialogs_inherit_draggable_dialog(self):
         source = (ROOT / 'main.py').read_text()
