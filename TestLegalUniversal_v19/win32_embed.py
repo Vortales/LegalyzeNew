@@ -181,6 +181,26 @@ def configure(user32):
             pass
 
 
+def _trace_win(name, started, ok, hwnd=0, parent=0, inset=(0, 0, 0, 0), error=None,
+               extra=None):
+    """Записать вызов Win32 в приборную панель браузера (browser_trace).
+
+    Замер фактического положения делает сам модуль `browser_trace`: по логу
+    видно не «вызов отправлен», а «окно оказалось вот здесь». Любая ошибка
+    сбора не имеет права ломать работу — поэтому всё завёрнуто в try/except.
+    """
+    try:
+        import browser_trace as _bt
+    except Exception:
+        return
+    try:
+        _bt.record_win_call(name, ok, hwnd=hwnd, parent=parent, inset=inset,
+                            error=error, seconds=time.monotonic() - started,
+                            extra=extra)
+    except Exception:
+        pass
+
+
 def get_window_long(user32, hwnd, index):
     getter = getattr(user32, "GetWindowLongPtrW", None) or user32.GetWindowLongW
     _set_last_error(0)
@@ -358,6 +378,7 @@ def embed(user32, hwnd, parent, inset=(0, 0, 0, 0), cover=0):
     """
     if not user32 or not hwnd or not parent:
         return False
+    started = time.monotonic()
     diag.event("embed.before", child=snapshot(user32, hwnd),
                host=snapshot(user32, parent))
     style = get_window_long(user32, hwnd, GWL_STYLE)
@@ -372,6 +393,9 @@ def embed(user32, hwnd, parent, inset=(0, 0, 0, 0), cover=0):
         error = _get_last_error()
         actual = int(user32.GetParent(hwnd) or 0)
         diag.event("embed.SetParent", error=error, actual=actual, expected=int(parent))
+        _trace_win("embed.SetParent", started, actual == int(parent), hwnd=int(hwnd),
+                   parent=int(parent), error=error,
+                   extra={"parent_actual": actual, "expected": int(parent)})
         if actual != int(parent):
             raise OSError(error, "SetParent did not attach the browser")
         set_window_long(user32, hwnd, GWL_EXSTYLE,
@@ -391,9 +415,15 @@ def embed(user32, hwnd, parent, inset=(0, 0, 0, 0), cover=0):
             raise_window(user32, cover)
         diag.event("embed.after", child=snapshot(user32, hwnd),
                    cover=int(cover or 0))
+        _trace_win("embed.done", started, True, hwnd=int(hwnd), parent=int(parent),
+                   inset=tuple(inset or ()), error=_get_last_error(),
+                   extra={"cover": int(cover or 0),
+                          "hosting": "child-of-placeholder"})
         return True
     except Exception:
         diag.exception("win32_embed.embed")
+        _trace_win("embed.failed", started, False, hwnd=int(hwnd), parent=int(parent),
+                   inset=tuple(inset or ()), error=_get_last_error())
         try:
             # Detach first: a half-attached child is worse than a normal window.
             user32.SetParent(hwnd, None)
@@ -434,14 +464,19 @@ def sync(user32, hwnd, parent, inset=(0, 0, 0, 0)):
     if box is None:
         return False
     x, y, width, height = box
+    started = time.monotonic()
     _set_last_error(0)
     ok = user32.SetWindowPos(hwnd, None, x, y, width, height,
                              SWP_NOZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW |
                              SWP_FRAMECHANGED | SWP_ASYNCWINDOWPOS)
+    error = _get_last_error()
     if not ok:
-        diag.event("win32.SetWindowPos.failed", error=_get_last_error())
+        diag.event("win32.SetWindowPos.failed", error=error)
     diag.event("win32.sync", hwnd=int(hwnd), wanted=[int(x), int(y), int(width), int(height)],
-               ok=bool(ok), error=_get_last_error(), actual=snapshot(user32, hwnd))
+               ok=bool(ok), error=error, actual=snapshot(user32, hwnd))
+    _trace_win("sync", started, bool(ok), hwnd=int(hwnd), parent=int(parent),
+               inset=tuple(inset or ()), error=error,
+               extra={"wanted": [int(x), int(y), int(width), int(height)]})
     return bool(ok)
 
 
@@ -778,6 +813,7 @@ def hide_from_taskbar(user32, hwnd, delete_tab=True):
     """
     if not user32 or not hwnd:
         return False
+    started = time.monotonic()
     styled = False
     try:
         style = get_window_long(user32, hwnd, GWL_EXSTYLE)
@@ -793,6 +829,8 @@ def hide_from_taskbar(user32, hwnd, delete_tab=True):
     deleted = taskbar_delete_tab(hwnd) if delete_tab else False
     diag.event("win32.taskbar_hidden", hwnd=int(hwnd), style=styled,
                delete_tab=bool(deleted))
+    _trace_win("hide_from_taskbar", started, bool(styled or deleted), hwnd=int(hwnd),
+               extra={"style": styled, "delete_tab": bool(deleted)})
     return bool(styled or deleted)
 
 
@@ -808,13 +846,16 @@ def raise_window(user32, hwnd):
     if not user32 or not hwnd:
         return False
     try:
+        started = time.monotonic()
         _set_last_error(0)
         ok = user32.SetWindowPos(wintypes.HWND(int(hwnd)),
                                  wintypes.HWND(HWND_TOP),
                                  0, 0, 0, 0,
                                  SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE)
+        error = _get_last_error()
         if not ok:
-            diag.event("win32.SetWindowPos.failed", error=_get_last_error())
+            diag.event("win32.SetWindowPos.failed", error=error)
+        _trace_win("raise_window", started, bool(ok), hwnd=int(hwnd), error=error)
         return bool(ok)
     except Exception:
         diag.exception("win32_embed.raise_window")
@@ -834,11 +875,15 @@ def show_window(user32, hwnd):
     if not user32 or not hwnd:
         return False
     try:
+        started = time.monotonic()
         _set_last_error(0)
         was = bool(user32.ShowWindow(wintypes.HWND(int(hwnd)), SW_SHOWNA))
         visible = bool(user32.IsWindowVisible(wintypes.HWND(int(hwnd))))
+        error = _get_last_error()
         diag.event("win32.show_window", hwnd=int(hwnd), was_visible=was,
-                   visible=visible, error=_get_last_error())
+                   visible=visible, error=error)
+        _trace_win("show_window", started, visible, hwnd=int(hwnd), error=error,
+                   extra={"was_visible": was, "visible": visible})
         return visible
     except Exception:
         diag.exception("win32_embed.show_window")
@@ -850,9 +895,11 @@ def invalidate(user32, hwnd):
     if not user32 or not hwnd:
         return False
     try:
+        started = time.monotonic()
         handle = wintypes.HWND(int(hwnd))
         user32.InvalidateRect(handle, None, True)
         user32.UpdateWindow(handle)
+        _trace_win("invalidate", started, True, hwnd=int(hwnd))
         return True
     except Exception:
         diag.exception("win32_embed.invalidate")
@@ -875,15 +922,21 @@ def sync_now(user32, hwnd, parent, inset=(0, 0, 0, 0)):
     if box is None:
         return False
     x, y, width, height = box
+    started = time.monotonic()
     _set_last_error(0)
     ok = user32.SetWindowPos(hwnd, None, x, y, width, height,
                              SWP_NOZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW |
                              SWP_FRAMECHANGED)
+    error = _get_last_error()
     if not ok:
-        diag.event("win32.SetWindowPosSync.failed", error=_get_last_error())
+        diag.event("win32.SetWindowPosSync.failed", error=error)
     diag.event("win32.sync_now", hwnd=int(hwnd),
                wanted=[int(x), int(y), int(width), int(height)], ok=bool(ok),
-               error=_get_last_error(), actual=snapshot(user32, hwnd))
+               error=error, actual=snapshot(user32, hwnd))
+    _trace_win("sync_now", started, bool(ok), hwnd=int(hwnd), parent=int(parent),
+               inset=tuple(inset or ()), error=error,
+               extra={"wanted": [int(x), int(y), int(width), int(height)],
+                      "sync": True})
     return bool(ok)
 
 
@@ -892,11 +945,15 @@ def hide_window(user32, hwnd):
     if not user32 or not hwnd:
         return False
     try:
+        started = time.monotonic()
         _set_last_error(0)
         was = bool(user32.ShowWindow(wintypes.HWND(int(hwnd)), SW_HIDE))
         visible = bool(user32.IsWindowVisible(wintypes.HWND(int(hwnd))))
+        error = _get_last_error()
         diag.event("win32.hide_window", hwnd=int(hwnd), was_visible=was,
-                   visible=visible, error=_get_last_error())
+                   visible=visible, error=error)
+        _trace_win("hide_window", started, not visible, hwnd=int(hwnd), error=error,
+                   extra={"visible": visible})
         return not visible
     except Exception:
         diag.exception("win32_embed.hide_window")

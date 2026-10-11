@@ -1,0 +1,206 @@
+{
+ "trace_version": "browser-trace-1",
+ "session_dir": "/home/user/LegalyzeNew/browser_logs/inbox/example-session",
+ "installed_at": "2026-10-04T13:56:14.129951+00:00",
+ "finished_at": "2026-10-04T13:56:17.846658+00:00",
+ "pid": 3707,
+ "platform": "linux",
+ "counters": {
+  "state.set": 3,
+  "reason.async_pending": 6,
+  "win32.call.interesting": 3,
+  "win32.call": 3,
+  "reason.dpi_scale": 12,
+  "reason.off_target": 91,
+  "export.verdict.surface_without_file_input": 1,
+  "export.verdict.confirmed_attached": 1,
+  "selfcheck.engine.ok": 1,
+  "selfcheck.native_browser.ok": 1,
+  "selfcheck.admin_free.ok": 1,
+  "selfcheck.window_position.ok": 1,
+  "selfcheck.layout.ok": 1,
+  "selfcheck.export.ok": 1,
+  "selfcheck.hotkeys.ok": 1,
+  "selfcheck.mic.ok": 1
+ },
+ "win_calls_total": 3,
+ "watchers": {
+  "hide": {
+   "samples": 2,
+   "changes": 1,
+   "deviations": 0,
+   "first_ms": 0,
+   "last_ms": 406,
+   "max_offset_px": 0,
+   "off_target_until_ms": null,
+   "settle_ms": 40,
+   "final_verdict": "on_target",
+   "ended": true,
+   "off_episodes": 0
+  },
+  "show": {
+   "samples": 9,
+   "changes": 6,
+   "deviations": 4,
+   "first_ms": 0,
+   "last_ms": 3209,
+   "max_offset_px": 48,
+   "off_target_until_ms": 1324,
+   "settle_ms": 1998,
+   "final_verdict": "on_target",
+   "ended": true,
+   "off_episodes": 1
+  }
+ },
+ "machine": {
+  "schema": 1,
+  "collected_at": "2026-10-04T13:56:17.795182+00:00",
+  "windows": {
+   "release": "10",
+   "version": "10.0.19045",
+   "build": 19045,
+   "edition": "Windows 10 Pro",
+   "display_version": "22H2",
+   "ubr": 3448
+  },
+  "session": {
+   "kind": "console",
+   "admin": false,
+   "dpi_awareness": 2
+  },
+  "theme": "dark",
+  "screens": [
+   {
+    "index": 0,
+    "name": "\\\\.\\DISPLAY1",
+    "primary": true,
+    "rect": [
+     0,
+     0,
+     2560,
+     1440
+    ],
+    "work": [
+     0,
+     0,
+     2560,
+     1400
+    ],
+    "dpi": 144,
+    "scale": 1.5,
+    "dpr": 1.5
+   },
+   {
+    "index": 1,
+    "name": "\\\\.\\DISPLAY2",
+    "primary": false,
+    "rect": [
+     2560,
+     -100,
+     1920,
+     1200
+    ],
+    "work": [
+     2560,
+     0,
+     1920,
+     1160
+    ],
+    "dpi": 96,
+    "scale": 1.0,
+    "dpr": 1.0
+   }
+  ],
+  "virtual": [
+   0,
+   -100,
+   4480,
+   1540
+  ],
+  "taskbar": {
+   "autohide_proxy": false,
+   "screens_without_reserved_area": 0
+  },
+  "app": {
+   "python": "3.11.2",
+   "python_bits": 64,
+   "frozen": false,
+   "executable": "/usr/bin/python3",
+   "pid": 3707
+  },
+  "env": {
+   "LC_CTYPE": "C.UTF-8"
+  },
+  "platform": {
+   "system": "Windows",
+   "release": "10",
+   "machine": "AMD64",
+   "locale": "ru_RU"
+  },
+  "scale": 1.5
+ },
+ "selfcheck": {
+  "engine": {
+   "ok": true,
+   "detail": "внешний Chrome, порт 60075",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795472+00:00"
+  },
+  "native_browser": {
+   "ok": true,
+   "detail": "страница в настоящем Chrome",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795526+00:00"
+  },
+  "admin_free": {
+   "ok": true,
+   "detail": "права администратора: нет",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795544+00:00"
+  },
+  "window_position": {
+   "ok": true,
+   "detail": "во всех шкалах окно стояло на цели",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795554+00:00"
+  },
+  "layout": {
+   "ok": true,
+   "detail": "замер под шторкой: 658x0.667 dsf=1.0, ремонтов 1, 210 мс",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795564+00:00"
+  },
+  "export": {
+   "ok": true,
+   "detail": "confirmed_attached×2, файлы на диске: 2",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795596+00:00"
+  },
+  "hotkeys": {
+   "ok": true,
+   "detail": "F2 / F3, подавление: есть",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795608+00:00"
+  },
+  "mic": {
+   "ok": true,
+   "detail": "штатная запись страницы (кнопка микрофона)",
+   "advice": "",
+   "time": "2026-10-04T13:56:17.795641+00:00"
+  }
+ },
+ "problems": [
+  "watch:show",
+  "reason.dpi_scale",
+  "reason.async_pending"
+ ],
+ "hints": [
+  "Шкала «show»: уходов 1, строк «не на цели» 4, максимальный уход 48 px, последний кадр не на цели на 1324 мс. Встало на цель через 1998 мс после возмущения.",
+  "Экспорт «confirmed_attached» ×1 — Файлы действительно прикрепились к чату.",
+  "Экспорт «surface_without_file_input» ×1 — На этой поверхности нет input[type=file] — вложение невозможно.",
+  "Машина **масштаб экрана 150 %** (warn) — 1.5 → 150%: как при 125 %: пересчёт DIP↔px обязателен, иначе окно браузера уезжает на десятки пикселей",
+  "Машина **несколько мониторов** (warn) — 2 экрана(ов): 2560×1440@1.5, 1920×1200@1.0: окно может уехать на другой экран или получить другой масштаб: смотреть `parent_moved` и смену `screen`",
+  "Машина **у мониторов РАЗНЫЙ масштаб** (warn) — масштабы: 1.0, 1.5: при переносе окна меняется DPI: ждать `dpi_scale` и `browser.layout_watch`",
+  "Машина **в Windows включена тёмная тема** (warn): страница может прийти тёмной: смотреть `page.probe.dark` и `page.theme_probe`"
+ ]
+}

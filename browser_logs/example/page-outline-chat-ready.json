@@ -1,0 +1,16 @@
+{
+ "outline": [],
+ "composer": {
+  "tag": "textarea",
+  "box": [
+   23,
+   980,
+   612,
+   44
+  ]
+ },
+ "file_inputs": 1,
+ "chips": 2,
+ "nodes": 0,
+ "has_file_input": true
+}

@@ -1,0 +1,241 @@
+================================================================================
+ Legalyze 1.0.8 — Universal v19 (v18.3 + разбор «Error - 1»: безопасный COM, ворота готовности страницы, полное логирование)
+ КОРРЕКТНЫЙ СИНТАКСИС СБОРКИ NUITKA: ОДИН ЕДИНСТВЕННЫЙ EXE-ФАЙЛ (--onefile)
+================================================================================
+
+Файл создан отдельно по просьбе: здесь только рабочая команда, без вариантов.
+Скопировали строку — получили один исполняемый файл build\Legalyze.exe.
+
+Команда не изменилась: в v16 не touched ни один флаг сборки.
+
+
+--------------------------------------------------------------------------------
+1. ПОДГОТОВКА ОДИН РАЗ (Windows 10/11 x64)
+--------------------------------------------------------------------------------
+
+  а) Python 3.11 или 3.12, разрядность x64:
+         python --version
+         python -c "import struct; print(struct.calcsize('P')*8)"   -> 64
+
+  б) Microsoft Visual Studio Build Tools (обязательно для Nuitka):
+         winget install Microsoft.VisualStudio.2022.BuildTools --silent ^
+                --override "--wait --add Microsoft.VisualStudio.Workload.VCTools"
+      Достаточно рабочей нагрузки "Разработка классических приложений на C++"
+      (MSVC + Windows SDK). Полная Visual Studio не нужна.
+
+  в) Виртуальное окружение и зависимости — из папки TestLegalUniversal_v19:
+
+         cd /d C:\Projects\Legalyze\TestLegalUniversal_v19
+         python -m venv .venv
+         .venv\Scripts\python -m pip install --upgrade pip
+         .venv\Scripts\python -m pip install -r requirements-build.txt
+         .venv\Scripts\python -m pip install -r requirements.txt
+
+      Проверка, что всё на месте:
+
+         .venv\Scripts\python -c "import PyQt6, requests, websocket, cryptography, fpdf; print('ok')"
+         .venv\Scripts\python -m nuitka --version
+
+  г) Закреплённый браузер (рекомендуется, чтобы движок был одинаковым у всех):
+
+         tools\fetch_chrome.bat
+
+      Появится папка browser\chrome.exe рядом с main.py. В один файл она НЕ
+      упаковывается (это ~500 МБ и обновляется отдельно): exe ищет браузер
+      рядом с собой — <папка exe>\browser\chrome.exe, — а если его нет,
+      использует установленный Google Chrome или Edge.
+
+   в) v18: браузер можно не готовить заранее. Если настоящего Chrome у
+      пользователя нет, программа сама предложит скачать официальный
+      **Chrome for Testing** (Stable, win64, ~170 МБ) в папку рядом с exe —
+      тем же способом, что и tools\fetch_chrome.bat, но внутри приложения и
+      с прогрессом. Права администратора не нужны.
+
+      Модуль `browser_fetch.py` — только стандартная библиотека
+      (urllib + zipfile), поэтому команда сборки НЕ изменилась ни одним
+      ключом: Nuitka подхватывает его по строке `import browser_fetch`
+      в main.py автоматически. Никаких --include-module добавлять не нужно
+      (и нельзя: релизная команда обязана совпадать с эталонной
+      release_reference\BUILD_COMMAND.txt — это проверяется автотестом).
+
+
+--------------------------------------------------------------------------------
+2. СБОРКА: ОДИН EXE (копировать целиком, это одна строка)
+--------------------------------------------------------------------------------
+
+.venv\Scripts\python -m nuitka --onefile --windows-console-mode=disable --enable-plugin=pyqt6 --include-package=requests --include-package=websocket --include-package=cryptography --include-package=fpdf --include-data-file=data/DejaVuSans.ttf=data/DejaVuSans.ttf --windows-icon-from-ico=icon.ico --assume-yes-for-downloads --output-dir=build --output-filename=Legalyze.exe main.py
+
+Результат:  build\Legalyze.exe   — ОДИН файл, больше ничего не нужно.
+
+Файлов рядом с exe может быть два, оба НЕ обязательны:
+  Legalyze.exe                 один файл программы
+  browser\chrome.exe           закреплённый браузер (ставится самим
+                               приложением при первом запуске, если
+                               настоящего Chrome нет)
+
+То же самое делает build_onefile.bat: та же команда, но python в кавычках —
+чтобы работали пути с пробелами. Запускайте его из папки TestLegalUniversal_v19.
+
+Есть и build_nuitka.bat — он тоже собирает ОДИН файл (--onefile), но
+дополнительно кладёт внутрь лицензию шрифта и проставляет версию файла
+1.0.5.0. Флаги Nuitka в обеих командах одинаковые.
+
+
+--------------------------------------------------------------------------------
+3. ЧТО ОЗНАЧАЕТ КАЖДЫЙ КЛЮЧ
+--------------------------------------------------------------------------------
+
+  --onefile
+        Весь проект, все DLL и Qt превращаются в один exe. На старте Nuitka
+        распаковывает их во временную папку (обычно %TEMP%\ONEFILE_*), поэтому
+        первый запуск занимает 2-5 с — это нормально, так работает onefile.
+
+  --windows-console-mode=disable
+        GUI-приложение: чёрное окно консоли не появляется.
+
+  --enable-plugin=pyqt6
+        Плагин Qt: подтягивает Qt6, QtWebEngine, платформенные плагины,
+        ресурсы и переводы. Без него exe стартует и сразу падает.
+
+  --include-package=requests
+  --include-package=websocket
+  --include-package=cryptography
+  --include-package=fpdf
+        Пакеты, которые Nuitka не видит по импортам (загрузка и подгрузка
+        модулей в рантайме). Без них exe падает на обращении к серверу.
+
+  --include-data-file=data/DejaVuSans.ttf=data/DejaVuSans.ttf
+        Шрифт для PDF-экспорта. Формат: <откуда>=<куда внутри сборки>.
+
+  --windows-icon-from-ico=icon.ico
+        Иконка exe.
+
+  --assume-yes-for-downloads
+        Не задавать вопросов при докачке mingw/dependency walker.
+
+  --output-dir=build
+        Все артефакты — в папку build.
+
+  --output-filename=Legalyze.exe
+        Имя итогового файла.
+
+
+--------------------------------------------------------------------------------
+4. ПОСЛЕ КОМПИЛЯЦИИ (обязательно)
+--------------------------------------------------------------------------------
+
+  1) Проверить, что файл один:
+
+         dir build\Legalyze.exe
+
+  2) Положить exe туда, откуда он будет запускаться, и — если используете
+     закреплённый браузер — скопировать рядом папку browser:
+
+         <папка приложения>\
+             Legalyze.exe
+             browser\chrome.exe
+
+  3) Запустить с чистой машины (или из чистой папки профиля) и пройти
+     чек-лист раздела 7 README:
+
+         browser.discovered        — какой браузер найден
+         browser.embedded          — окно встроено
+         browser.zoom_prefs        — зум 67 % записан в профиль
+         browser.zoom source=...   — зум подтверждён ИЗМЕРЕНИЕМ
+         browser.target_chosen     — НЕ consent.google.com
+         browser.speech_surface    — sr=true и/или gum=true
+         mic.native_started -> mic.native_verify recording=True
+
+  4) Логи: %APPDATA%\Legalyze\logs\<сессия>\diagnostic.jsonl
+
+  5) Если антивирус ругается — это эвристика на onefile (распаковка в %TEMP%).
+     Лечится только подписью кода: подпишите exe своим сертификатом
+     (signtool sign /fd SHA256 /tr http://timestamp.digicert.com /a Legalyze.exe).
+     Обходных «магических» способов нет и обходиться без подписи честнее.
+
+
+--------------------------------------------------------------------------------
+5. ЕСЛИ НУЖНА ОТЛАДОЧНАЯ СБОРКА (папкой, а не одним файлом)
+--------------------------------------------------------------------------------
+
+.venv\Scripts\python -m nuitka --standalone --windows-console-mode=force --enable-plugin=pyqt6 --include-package=requests --include-package=websocket --include-package=cryptography --include-package=fpdf --include-data-file=data/DejaVuSans.ttf=data/DejaVuSans.ttf --windows-icon-from-ico=icon.ico --assume-yes-for-downloads --output-dir=build --output-filename=Legalyze.exe main.py
+
+Запуск:  build\main.dist\Legalyze.exe   (консоль включена — видны ошибки).
+
+Это НЕ тот файл, что нужен для релиза: релиз — одна строка из раздела 2.
+
+
+--------------------------------------------------------------------------------
+6. ПОЧЕМУ В %APPDATA%\Legalyze НЕ МОЖЕТ БЫТЬ .py-ФАЙЛОВ
+--------------------------------------------------------------------------------
+
+Вопрос был такой: после сборки по команде из раздела 2 в
+%APPDATA%\Legalyze «появились .py файлы».
+
+Ответ, проверенный по всему исходнику:
+
+  * Nuitka --onefile НЕ распаковывается в %APPDATA%. Распаковка идёт в
+    %TEMP%\ONEFILE_* (или %LOCALAPPDATA%\Temp\...), и .py там тоже нет:
+    Nuitka компилирует модули в C и кладёт в exe скомпилированный код
+    (в onefile — .pyd/.dll рядом с бинарником внутри временной папки).
+
+  * НИ одна функция клиента не пишет .py/.pyc/.pyo/.pyw/.spec/__pycache__ в
+    хранилище данных. Все записи в %APPDATA%\Legalyze, полностью:
+
+        config.json                 настройки
+        Шаблон.txt                  шаблон (не шифруется)
+        data\DejaVuSans.ttf         шрифт из --include-data-file
+        data\prompt_cache.json      кэш промтов
+        data\prompts\*              зашифрованные промты
+        browser-pids.json           журнал pid своего браузера
+        logs\                       логи
+        browser-profile\            профиль внешнего браузера
+        qtwebengine-profile\        профиль резервного движка
+        diagnostic-client.lock      блокировка второго экземпляра
+
+  * Откуда .py всё-таки могут взяться (если вы их видели):
+      — миграция из старой папки LegalyzeWin11: переносится config.json,
+        Шаблон.txt и ВСЁ содержимое старой папки data\ (если в ней лежали
+        исходники — они переедут);
+      — ручной запуск из исходников, если данные когда-то писались рядом со
+        скриптом;
+      — файлы, скопированные пользователем самим.
+
+  * Что сделано в v16:
+      1) при старте вызывается purge_stray_sources(APP_DIR, DATA_DIR) —
+         удаляет *.py, *.pyc, *.pyo, *.pyw, *.spec и __pycache__ только в
+         %APPDATA%\Legalyze и %APPDATA%\Legalyze\data. Данные программы
+         (config.json, DejaVuSans.ttf, промты, логи) НЕ трогаются;
+      2) каждый факт удаления виден в логе: событие storage.stray_py;
+      3) функция лежит в main.py — бизнес-модули (config.py, storage_paths.py
+         и др.) остались байт-в-байт равными рабочей версии.
+
+  * Как проверить самому после сборки:
+
+        dir /s /b "%APPDATA%\Legalyze\*.py"
+
+    Должно быть пусто. Если не пусто — в логе последней сессии ищите
+    storage.stray_py: он показывает, сколько файлов убрано.
+
+
+--------------------------------------------------------------------------------
+7. ЧАСТЫЕ ОШИБКИ
+--------------------------------------------------------------------------------
+
+  "The C compiler 'cl.exe' ..."
+        Не установлены Build Tools (п. 1б) или не x64-окружение.
+        Запускайте сборку из "x64 Native Tools Command Prompt for VS".
+
+  "ModuleNotFoundError: PyQt6" при сборке
+        Команда запущена системным python, а не из .venv.
+        Всегда: .venv\Scripts\python -m nuitka ...
+
+  exe стартует и сразу закрывается
+        Соберите отладочный вариант (раздел 5) — в консоли будет текст ошибки.
+
+  Нет модуля websocket / cryptography в exe
+        Пропущен --include-package=... — берите команду из раздела 2 целиком.
+
+  Долгий старт (несколько секунд)
+        Это природа --onefile (распаковка). Ускоряется только переходом на
+        --standalone (папка), но тогда файлов много.

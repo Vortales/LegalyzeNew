@@ -1,0 +1,17 @@
+{
+ "trace_version": "browser-trace-1",
+ "session_dir": "C:\\Users\\79528\\AppData\\Roaming\\Legalyze\\logs\\20261011-173539-19252-617600",
+ "installed_at": "2026-10-11T14:35:40.661133+00:00",
+ "finished_at": "2026-10-11T14:36:22.282133+00:00",
+ "pid": 19252,
+ "platform": "win32",
+ "counters": {},
+ "win_calls_total": 0,
+ "watchers": {},
+ "machine": null,
+ "selfcheck": {},
+ "problems": [],
+ "hints": [
+  "Отклонений окна в шкалах не зафиксировано, критических вердиктов экспорта нет."
+ ]
+}
