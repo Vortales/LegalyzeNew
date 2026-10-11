@@ -1,0 +1,142 @@
+{
+  "abbreviations": {},
+  "telegraph_replacements": {},
+  "auto_check_section_keywords": [
+    {
+      "keyword": "ОБРАЩЕНИЕ О ДАЧЕ РАЗЪЯСНЕНИЙ",
+      "whole": false,
+      "pos": "any"
+    }
+  ],
+  "auto_check_thread_keywords": [
+    {
+      "keyword": "ОБРАЩЕНИЕ О ДАЧЕ РАЗЪЯСНЕНИЙ",
+      "azb": true,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Конституция",
+      "azb": false,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Кодекс",
+      "azb": false,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Регламент",
+      "azb": false,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Правила",
+      "azb": false,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Устав",
+      "azb": false,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Приложение",
+      "azb": false,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Закон",
+      "azb": false,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Формы подачи",
+      "azb": false,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Запрос о даче разъяснений",
+      "azb": true,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Заявление на толковние",
+      "azb": true,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Форма подачи",
+      "azb": false,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "ППО и ПРО",
+      "azb": false,
+      "whole": true,
+      "pos": "any"
+    },
+    {
+      "keyword": "Толковани",
+      "azb": true,
+      "whole": false,
+      "pos": "any"
+    }
+  ],
+  "topic_filters": [
+    {
+      "keyword": "ОБРАЩЕНИЕ О ДАЧЕ РАЗЪЯСНЕНИЙ",
+      "parse_images": true,
+      "parse_text": false
+    }
+  ],
+  "selected_server_urls": [
+    "/#majestic-rp-memphis.1462"
+  ],
+  "ocr_min_chars": 150,
+  "prompt_path": "C:/Users/79528/PycharmProjects/PythonProject1/ultiparser/promt 1.9.txt",
+  "fast_path_enabled": true,
+  "auto_check_thread_exclude": [
+    "Отмененные законопроекты",
+    "Жалоба от",
+    "Жалобы и заявления",
+    "Апелляции"
+  ],
+  "history_view": {
+    "server": "Majestic РП | Memphis"
+  },
+  "history_exclude_words": [
+    "Обращение",
+    "Исковое",
+    "Партия"
+  ],
+  "workers": 4,
+  "stealth_mode": true,
+  "structure_exclude_words": [
+    "Постановлени",
+    "Обращение в",
+    "Аппеляционн",
+    "Уголовное дело",
+    "Заявление в",
+    "Жалоба",
+    "Test",
+    "Заявление от",
+    "Исковое заявление",
+    "Иск",
+    "партия",
+    "Отмененные",
+    "Кабинет",
+    "Офис"
+  ]
+}

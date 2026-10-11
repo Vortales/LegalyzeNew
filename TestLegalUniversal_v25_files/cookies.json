@@ -1,0 +1,96 @@
+[
+  {
+    "domain": ".forum.majestic-rp.ru",
+    "httpOnly": false,
+    "name": "xf_session",
+    "path": "/",
+    "sameSite": "Lax",
+    "secure": true,
+    "value": "iIs52WupBzF4b5x5E6QpKCy7YxGfqu-A"
+  },
+  {
+    "domain": ".forum.majestic-rp.ru",
+    "httpOnly": false,
+    "name": "xf_user",
+    "path": "/",
+    "sameSite": "Lax",
+    "secure": true,
+    "value": "647772%2CbMPtBvj0gl65Smcm_S9QhlQnQyH2voXAUyBncP3U"
+  },
+  {
+    "domain": "forum.majestic-rp.ru",
+    "expiry": 1823164082,
+    "httpOnly": true,
+    "name": "xf_user",
+    "path": "/",
+    "sameSite": "Lax",
+    "secure": true,
+    "value": "647772%2CbMPtBvj0gl65Smcm_S9QhlQnQyH2voXAUyBncP3U"
+  },
+  {
+    "domain": "forum.majestic-rp.ru",
+    "expiry": 1826188070,
+    "httpOnly": false,
+    "name": "R3ACTLB",
+    "path": "/",
+    "sameSite": "Lax",
+    "secure": false,
+    "value": "c7f4a3fd8c215dd115247d637b164d91"
+  },
+  {
+    "domain": ".majestic-rp.ru",
+    "expiry": 1826289645,
+    "httpOnly": false,
+    "name": "_ga",
+    "path": "/",
+    "sameSite": "Lax",
+    "secure": false,
+    "value": "GA1.1.317759142.1791628077"
+  },
+  {
+    "domain": "forum.majestic-rp.ru",
+    "httpOnly": true,
+    "name": "xf_session",
+    "path": "/",
+    "sameSite": "Lax",
+    "secure": true,
+    "value": "wlev19JDk6F-6LRxvGWxl_AiWd2BnF3l"
+  },
+  {
+    "domain": ".forum.majestic-rp.ru",
+    "httpOnly": false,
+    "name": "R3ACTLB",
+    "path": "/",
+    "sameSite": "Lax",
+    "secure": true,
+    "value": "c7f4a3fd8c215dd115247d637b164d91"
+  },
+  {
+    "domain": "forum.majestic-rp.ru",
+    "httpOnly": false,
+    "name": "xf_csrf",
+    "path": "/",
+    "sameSite": "Lax",
+    "secure": true,
+    "value": "8hwgRvTgCuS-HA8F"
+  },
+  {
+    "domain": ".forum.majestic-rp.ru",
+    "httpOnly": false,
+    "name": "xf_csrf",
+    "path": "/",
+    "sameSite": "Lax",
+    "secure": true,
+    "value": "CWsI6rNvhl_a-K13"
+  },
+  {
+    "domain": ".majestic-rp.ru",
+    "expiry": 1826289645,
+    "httpOnly": false,
+    "name": "_ga_319PFF93QY",
+    "path": "/",
+    "sameSite": "Lax",
+    "secure": false,
+    "value": "GS2.1.s1791728908$o7$g1$t1791729645$j60$l0$h0"
+  }
+]
