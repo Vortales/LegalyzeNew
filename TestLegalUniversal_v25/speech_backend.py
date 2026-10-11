@@ -357,13 +357,19 @@ class DictationEngine:
             self.last_notice = None
         script = self._write_script()
         try:
-            creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+            creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)
+            startupinfo = None
+            if hasattr(subprocess, "STARTUPINFO"):
+                startupinfo = subprocess.STARTUPINFO()
+                startupinfo.dwFlags |= getattr(subprocess, "STARTF_USESHOWWINDOW", 0)
+                startupinfo.wShowWindow = 0
             proc = subprocess.Popen(
-                ["powershell.exe", "-NoProfile", "-NonInteractive", "-STA",
+                ["powershell.exe", "-NoProfile", "-NonInteractive", "-WindowStyle", "Hidden", "-STA",
                  "-ExecutionPolicy", "Bypass", "-File", script,
                  "-ParentPid", str(os.getpid()), "-Lang", norm],
                 stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE, creationflags=creationflags,
+                startupinfo=startupinfo,
             )
         except Exception:
             diag.exception("speech.spawn")

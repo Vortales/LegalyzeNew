@@ -4002,6 +4002,15 @@ class LayoutSettleTests(unittest.TestCase):
         self.assertIn('class OnboardingHotkeyWindow(DraggableDialog):', source)
         self.assertIn('Микрофон (голосовой ввод в ИИ)', source)
         self.assertIn('Окно (скрыть / показать)', source)
+        # Геометрия окна онбординга строго идентична окну «Шаблон» (560, 480)
+        self.assertIn('self.setFixedSize(560, 480)', source[source.index('class TemplateWindow'):])
+        self.assertIn('self.setFixedSize(560, 480)', source[source.index('class OnboardingHotkeyWindow'):])
+        # Ключ bg1 в теме присутствует, исключение KeyError невозможно
+        self.assertIn('"bg1":', source)
+        self.assertIn('"bg2":', source)
+        # Подавление всплывающих консолей на Windows
+        self.assertIn('suppress_console', source)
+        self.assertIn('FreeConsole', source)
         # Никаких хардкодов F2/F3 в онбординге или fallback'ах
         self.assertNotIn('cfg["hotkey_toggle"] = "F2"', source)
         self.assertNotIn('cfg["hotkey_mic"] = "F3"', source)

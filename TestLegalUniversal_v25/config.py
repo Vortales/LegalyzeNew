@@ -227,6 +227,12 @@ def load_config() -> dict:
                 if k not in cfg:
                     cfg[k] = v.copy() if isinstance(v, dict) else v
 
+            # Если первичная настройка горячих клавиш не завершена — поля строго пустые
+            if not cfg.get("hotkeys_configured"):
+                cfg["hotkey_toggle"] = ""
+                cfg["hotkey_mic"] = ""
+                cfg["hotkeys_configured"] = False
+
             cfg["template"] = normalize_template(cfg.get("template"))
             return cfg
         except Exception:

@@ -30,8 +30,17 @@ def busy_windows_paths(paths):
                '$ErrorActionPreference="Stop"; '
                '@(Get-CimInstance Win32_Process -Filter "Name = \'chrome.exe\' OR Name = \'chromium.exe\'" | '
                'Select-Object ProcessId,CommandLine) | ConvertTo-Json -Compress')
-    result = subprocess.run(['powershell.exe', '-NoProfile', '-NonInteractive', '-Command', command],
-                            capture_output=True, timeout=25, creationflags=0x08000000)
+    startupinfo = None
+    creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)
+    if hasattr(subprocess, "STARTUPINFO"):
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= getattr(subprocess, "STARTF_USESHOWWINDOW", 0)
+        startupinfo.wShowWindow = 0
+    result = subprocess.run(
+        ['powershell.exe', '-NoProfile', '-NonInteractive', '-WindowStyle', 'Hidden', '-Command', command],
+        capture_output=True, timeout=25, creationflags=creationflags, startupinfo=startupinfo,
+        stdin=subprocess.DEVNULL,
+    )
     if result.returncode:
         raise RuntimeError('Cannot verify that old browser profiles are closed')
     processes = json.loads(result.stdout.decode('utf-8-sig').strip() or '[]')

@@ -592,8 +592,17 @@ def collect_system():
               remote_session=bool(ctypes.windll.user32.GetSystemMetrics(0x1000)),
               proxy_variables_present=[k for k in ('HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY',
                                                    'NO_PROXY') if os.environ.get(k)])
-        result = subprocess.run(['powershell.exe', '-NoProfile', '-NonInteractive', '-Command', command],
-                                capture_output=True, timeout=20, creationflags=0x08000000)
+        startupinfo = None
+        creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)
+        if hasattr(subprocess, "STARTUPINFO"):
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= getattr(subprocess, "STARTF_USESHOWWINDOW", 0)
+            startupinfo.wShowWindow = 0
+        result = subprocess.run(
+            ['powershell.exe', '-NoProfile', '-NonInteractive', '-WindowStyle', 'Hidden', '-Command', command],
+            capture_output=True, timeout=20, creationflags=creationflags, startupinfo=startupinfo,
+            stdin=subprocess.DEVNULL,
+        )
         if result.returncode == 0:
             event('windows.inventory', data=_short(result.stdout.decode('utf-8', errors='replace')))
         else:

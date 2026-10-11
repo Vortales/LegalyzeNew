@@ -1,17 +1,19 @@
 import diagnostics as diag
 from diagnostics import stage
+import functools
 import hashlib
 import platform
 import subprocess
+import sys
 
 
 def _run_hidden_subprocess(cmd: list[str]) -> subprocess.CompletedProcess:
     creationflags = 0
     startupinfo = None
-    if platform.system() == "Windows":
+    if sys.platform == "win32" or platform.system() == "Windows":
         creationflags = 0x08000000  # CREATE_NO_WINDOW
         startupinfo = subprocess.STARTUPINFO()
-        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        startupinfo.dwFlags |= (subprocess.STARTF_USESHOWWINDOW | 0x00000400)
         startupinfo.wShowWindow = 0  # SW_HIDE
     diag.event("hwid.command.begin", executable=cmd[0])
     result = subprocess.run(
@@ -21,6 +23,7 @@ def _run_hidden_subprocess(cmd: list[str]) -> subprocess.CompletedProcess:
         timeout=5,
         creationflags=creationflags,
         startupinfo=startupinfo,
+        stdin=subprocess.DEVNULL,
     )
     diag.event("hwid.command.end", executable=cmd[0], returncode=result.returncode, has_output=bool(result.stdout.strip()))
     return result
@@ -41,7 +44,8 @@ def _get_cpu_id() -> str:
     try:
         if platform.system() == "Windows":
             result = _run_hidden_subprocess(
-                ["powershell", "-Command", "(Get-WmiObject Win32_Processor).ProcessorId"]
+                ["powershell.exe", "-NoProfile", "-NonInteractive", "-WindowStyle", "Hidden",
+                 "-Command", "(Get-WmiObject Win32_Processor).ProcessorId"]
             )
             return result.stdout.strip()
     except Exception:
@@ -67,7 +71,8 @@ def _get_gpu_id() -> str:
     try:
         if platform.system() == "Windows":
             result = _run_hidden_subprocess(
-                ["powershell", "-Command", "(Get-WmiObject Win32_VideoController).PNPDeviceID"]
+                ["powershell.exe", "-NoProfile", "-NonInteractive", "-WindowStyle", "Hidden",
+                 "-Command", "(Get-WmiObject Win32_VideoController).PNPDeviceID"]
             )
             return result.stdout.strip()
     except Exception:
@@ -77,6 +82,7 @@ def _get_gpu_id() -> str:
 
 
 @stage
+@functools.lru_cache(maxsize=1)
 def generate_hwid() -> str:
     cpu = _get_cpu_id()
     gpu = _get_gpu_id()

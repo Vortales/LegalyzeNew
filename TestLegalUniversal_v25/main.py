@@ -2,6 +2,22 @@
 See README.md for isolation, known causes, logging and Windows validation steps.
 The production client directory is deliberately untouched.
 """
+import sys
+import ctypes
+
+def suppress_console():
+    """Скрывает и отсоединяет любое консольное окно на Windows при старте (v25)."""
+    if sys.platform == "win32":
+        try:
+            hwnd = ctypes.windll.kernel32.GetConsoleWindow()
+            if hwnd:
+                ctypes.windll.user32.ShowWindow(hwnd, 0)  # SW_HIDE
+            ctypes.windll.kernel32.FreeConsole()
+        except Exception:
+            pass
+
+suppress_console()
+
 import diagnostics as diag
 diag.setup()
 from diagnostics import stage
@@ -614,6 +630,7 @@ _METRIC_CHANGE_EVENTS = tuple(
 
 THEME = {
     "bg": "#0e1020",
+    "bg1": "#151830",
     "bg2": "#151830",
     "panel": "rgba(14, 16, 32, 0.96)",
     "line": "#262a4a",
@@ -2663,13 +2680,13 @@ class KeyCaptureButton(QPushButton):
 
 
 class OnboardingHotkeyWindow(DraggableDialog):
-    """Окно первичной настройки горячих клавиш с объяснением функций (v25)."""
+    """Окно первичной настройки горячих клавиш с объяснением функций на подобии «Шаблон» (v25)."""
     @stage
     def __init__(self, cfg, parent=None):
         super().__init__(parent)
         self.cfg = cfg
-        self.setWindowTitle("Legalyze — Настройка горячих клавиш")
-        self.setFixedSize(540, 440)
+        self.setWindowTitle("Настройка горячих клавиш")
+        self.setFixedSize(560, 480)
         self.setWindowFlags(
             Qt.WindowType.FramelessWindowHint
             | Qt.WindowType.WindowStaysOnTopHint
@@ -2679,39 +2696,40 @@ class OnboardingHotkeyWindow(DraggableDialog):
         self.setModal(True)
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(28, 24, 28, 24)
-        layout.setSpacing(14)
+        layout.setContentsMargins(30, 26, 30, 24)
+        layout.setSpacing(6)
 
-        title = QLabel("Настройка горячих клавиш")
+        title = QLabel("Горячие клавиши")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         title.setStyleSheet(f"font-size: 19px; font-weight: 700; color: {THEME['accent']};")
         layout.addWidget(title)
 
-        subtitle = QLabel(
-            "Для быстрого доступа назначьте горячие клавиши.\n"
-            "Нажмите на поле нужного действия и нажмите желаемую клавишу на клавиатуре."
-        )
+        subtitle = QLabel("Для быстрого доступа назначьте горячие клавиши поверх других окон")
         subtitle.setObjectName("Caption")
-        subtitle.setWordWrap(True)
         subtitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(subtitle)
 
-        layout.addSpacing(6)
+        layout.addSpacing(14)
 
         # Секция: Микрофон
         mic_box = QFrame()
-        mic_box.setStyleSheet(f"background: {THEME['bg1']}; border-radius: 8px;")
+        mic_box.setStyleSheet(
+            f"background: {THEME['bg2']}; border: 1px solid {THEME['line']}; border-radius: 10px;"
+        )
         mic_layout = QHBoxLayout(mic_box)
-        mic_layout.setContentsMargins(14, 12, 14, 12)
+        mic_layout.setContentsMargins(18, 14, 18, 14)
         mic_info = QVBoxLayout()
+        mic_info.setSpacing(4)
         mic_title = QLabel("Микрофон (голосовой ввод в ИИ)")
-        mic_title.setStyleSheet(f"font-weight: 700; font-size: 13px; color: {THEME['text']};")
+        mic_title.setStyleSheet(f"font-weight: 700; font-size: 14px; color: {THEME['text']}; border: none;")
         mic_desc = QLabel("Запись голоса с микрофона и отправка вопроса напрямую в нейросеть.")
         mic_desc.setObjectName("Caption")
         mic_desc.setWordWrap(True)
+        mic_desc.setStyleSheet(f"border: none; color: {THEME['muted']}; font-size: 11px;")
         mic_info.addWidget(mic_title)
         mic_info.addWidget(mic_desc)
         mic_layout.addLayout(mic_info, 1)
+
         initial_mic = cfg.get("hotkey_mic", "") if cfg.get("hotkeys_configured") else ""
         self.btn_mic = KeyCaptureButton(current_key=initial_mic, default_text="[ Нажмите клавишу ]")
         self.btn_mic.setFixedWidth(160)
@@ -2720,20 +2738,27 @@ class OnboardingHotkeyWindow(DraggableDialog):
         mic_layout.addWidget(self.btn_mic)
         layout.addWidget(mic_box)
 
+        layout.addSpacing(4)
+
         # Секция: Окно
         toggle_box = QFrame()
-        toggle_box.setStyleSheet(f"background: {THEME['bg1']}; border-radius: 8px;")
+        toggle_box.setStyleSheet(
+            f"background: {THEME['bg2']}; border: 1px solid {THEME['line']}; border-radius: 10px;"
+        )
         toggle_layout = QHBoxLayout(toggle_box)
-        toggle_layout.setContentsMargins(14, 12, 14, 12)
+        toggle_layout.setContentsMargins(18, 14, 18, 14)
         toggle_info = QVBoxLayout()
+        toggle_info.setSpacing(4)
         toggle_title = QLabel("Окно (скрыть / показать)")
-        toggle_title.setStyleSheet(f"font-weight: 700; font-size: 13px; color: {THEME['text']};")
+        toggle_title.setStyleSheet(f"font-weight: 700; font-size: 14px; color: {THEME['text']}; border: none;")
         toggle_desc = QLabel("Мгновенно сворачивает или разворачивает Legalyze поверх других окон.")
         toggle_desc.setObjectName("Caption")
         toggle_desc.setWordWrap(True)
+        toggle_desc.setStyleSheet(f"border: none; color: {THEME['muted']}; font-size: 11px;")
         toggle_info.addWidget(toggle_title)
         toggle_info.addWidget(toggle_desc)
         toggle_layout.addLayout(toggle_info, 1)
+
         initial_toggle = cfg.get("hotkey_toggle", "") if cfg.get("hotkeys_configured") else ""
         self.btn_toggle = KeyCaptureButton(current_key=initial_toggle, default_text="[ Нажмите клавишу ]")
         self.btn_toggle.setFixedWidth(160)
@@ -2742,20 +2767,27 @@ class OnboardingHotkeyWindow(DraggableDialog):
         toggle_layout.addWidget(self.btn_toggle)
         layout.addWidget(toggle_box)
 
+        layout.addStretch()
+
         self.error_label = QLabel("")
         self.error_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.error_label.setStyleSheet("color: #ef4444; font-size: 12px; font-weight: 600;")
         layout.addWidget(self.error_label)
 
-        layout.addStretch()
-
         btn_layout = QHBoxLayout()
-        self.save_btn = QPushButton("Сохранить и продолжить")
-        self.save_btn.setObjectName("Primary")
-        self.save_btn.setMinimumHeight(44)
-        self.save_btn.setMinimumWidth(220)
-        self.save_btn.clicked.connect(lambda _checked=False: self._save_and_accept())
         btn_layout.addStretch()
+        cancel_btn = QPushButton("Отмена")
+        cancel_btn.setObjectName("Ghost")
+        cancel_btn.setMinimumHeight(46)
+        cancel_btn.setMinimumWidth(180)
+        cancel_btn.clicked.connect(lambda _checked=False: self.reject())
+        btn_layout.addWidget(cancel_btn)
+
+        self.save_btn = QPushButton("Сохранить")
+        self.save_btn.setObjectName("Primary")
+        self.save_btn.setMinimumHeight(46)
+        self.save_btn.setMinimumWidth(200)
+        self.save_btn.clicked.connect(lambda _checked=False: self._save_and_accept())
         btn_layout.addWidget(self.save_btn)
         btn_layout.addStretch()
         layout.addLayout(btn_layout)
